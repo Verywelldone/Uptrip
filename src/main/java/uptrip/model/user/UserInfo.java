@@ -1,7 +1,6 @@
 package uptrip.model.user;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -24,7 +23,7 @@ public class UserInfo {
     @OneToOne
     @MapsId
     @JoinColumn(name = "user_id")
-    @JsonBackReference
+    @JsonBackReference(value = "userInfo")
     private User user;
 
     @Column

@@ -42,15 +42,14 @@ public class User {
     private String password;
 
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JsonBackReference
+    @JsonBackReference(value = "userInfo")
     private UserInfo userInfo;
 
-
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JsonBackReference
+    @JsonBackReference(value = "userMetadata")
     private UserMetadata userMetadata;
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "user_roles",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
@@ -60,6 +59,7 @@ public class User {
         this.username = username;
         this.email = email;
         this.password = password;
+        this.userMetadata = new UserMetadata();
     }
 
 

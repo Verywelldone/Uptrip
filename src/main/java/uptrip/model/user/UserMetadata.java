@@ -21,7 +21,7 @@ public class UserMetadata {
     @OneToOne
     @MapsId
     @JoinColumn(name = "user_id")
-    @JsonBackReference
+    @JsonBackReference(value = "userMetadata")
     private User user;
 
     @Column
