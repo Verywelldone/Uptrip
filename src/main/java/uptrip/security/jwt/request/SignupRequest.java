@@ -30,4 +30,11 @@ public class SignupRequest {
     @Size(min = 6, max = 40)
     private String password;
 
+    @Override
+    public String toString() {
+        return "SignupRequest{" +
+                "username='" + username + '\'' +
+                ", email='" + email + '\'' +
+                '}';
+    }
 }

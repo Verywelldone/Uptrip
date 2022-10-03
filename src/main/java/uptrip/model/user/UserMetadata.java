@@ -36,10 +36,10 @@ public class UserMetadata {
     private String updatedAt;
 
     @Column
-    private Boolean isConfirmed;
+    private boolean isConfirmed;
 
     @Column
-    private Boolean isBanned;
+    private boolean isBanned;
 
     public UserMetadata() {
         this.lastLogin = getCurrentDate();
@@ -57,7 +57,7 @@ public class UserMetadata {
     @Override
     public String toString() {
         return "UserMetadata{" +
-                "UserId" + user.getId() +'\'' +
+                "UserId" + user.getId() + '\'' +
                 "lastLogin='" + lastLogin + '\'' +
                 ", createdAt='" + createdAt + '\'' +
                 ", updatedAt='" + updatedAt + '\'' +
