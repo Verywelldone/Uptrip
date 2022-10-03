@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {AuthService} from "../../../services/auth/auth.service";
 import {TokenStorageService} from "../../../services/auth/token-storage.service";
 import {MessageService} from "primeng/api";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-login',
@@ -14,16 +15,18 @@ export class LoginComponent implements OnInit {
   isLoggedIn = false;
   isLoginFailed = false;
   roles: string[] = [];
+  errorMessage: any;
 
   constructor(private authService: AuthService,
               private tokenService: TokenStorageService,
+              private router: Router,
               private messageService: MessageService) {
   }
 
   ngOnInit() {
     if (this.tokenService.getToken()) {
-      this.isLoggedIn = true;
       this.roles = this.tokenService.getUser().roles;
+      this.reloadPage();
     }
   }
 
@@ -35,7 +38,7 @@ export class LoginComponent implements OnInit {
         this.isLoginFailed = false;
         this.isLoggedIn = true;
         this.roles = this.tokenService.getUser().roles;
-        // this.reloadPage();
+        this.reloadPage();
       },
       error => {
         console.log(error);

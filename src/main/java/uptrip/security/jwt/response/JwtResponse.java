@@ -16,22 +16,18 @@ import java.util.List;
 @Getter
 public class JwtResponse {
 
-    private UserMetadata userMetadata;
     private String token;
     private String type = "Bearer";
-    private int id;
+    private Long id;
     private String username;
     private String email;
     private List<String> roles;
-    private UserInfo userInfo;
 
-    public JwtResponse(String token, int id, String username, String email, List<String> roles, UserInfo userInfo, UserMetadata userMetadata) {
+    public JwtResponse(String token, Long id, String username, String email, List<String> roles) {
         this.token = token;
         this.id = id;
         this.username = username;
         this.email = email;
         this.roles = roles;
-        this.userInfo = userInfo;
-        this.userMetadata = userMetadata;
     }
 }

@@ -1,7 +1,8 @@
 import {Component, OnInit} from '@angular/core';
-import {FormControl, FormGroup, Validators} from "@angular/forms";
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {AuthService} from "../../../services/auth/auth.service";
 import {Router} from "@angular/router";
+import {MessageService} from "primeng/api";
 
 @Component({
   selector: 'app-register',
@@ -15,52 +16,40 @@ export class RegisterComponent implements OnInit {
   isSignUpFailed = false;
   errorMessage = '';
 
-  userAccountFormGroup: FormGroup = new FormGroup({
-    username: new FormControl("", Validators.required),
-    email: new FormControl("", Validators.compose([Validators.required, Validators.email])),
-    password: new FormControl("", Validators.required)
-  });
+  createSignupForm(): FormGroup {
+    return this.fb.group({
+      username: [null, Validators.required],
+      email: [null, Validators.compose([Validators.required, Validators.email])],
+      password: [null, Validators.compose([
+        Validators.required,
+        Validators.minLength(8)
+      ])]
+    });
+  }
 
-  userDetailsFormGroup: FormGroup = new FormGroup({
-    fname: new FormControl("", Validators.required),
-    lname: new FormControl("", Validators.required),
-    phone: new FormControl("", Validators.required),
-    city: new FormControl("", Validators.required),
-    address: new FormControl("", Validators.required)
-  });
-
-
-  constructor(private authService: AuthService, private router: Router) {
+  constructor(private authService: AuthService,
+              private router: Router,
+              private fb: FormBuilder,
+              private messageService: MessageService) {
+    this.form = this.createSignupForm();
   }
 
   ngOnInit() {
   }
 
   onSubmit() {
-
-    this.form = {
-      username: this.userAccountFormGroup.controls['username'].value,
-      email: this.userAccountFormGroup.controls['email'].value,
-      password: this.userAccountFormGroup.controls['password'].value,
-      userInfo: {
-        address: this.userDetailsFormGroup.controls['address'].value,
-        city: this.userDetailsFormGroup.controls['city'].value,
-        firstName: this.userDetailsFormGroup.controls['fname'].value,
-        email: this.userAccountFormGroup.controls['email'].value,
-        lastName: this.userDetailsFormGroup.controls['lname'].value,
-        phoneNumber: this.userDetailsFormGroup.controls['phone'].value,
-      },
-    }
-    console.log(this.form)
-    this.authService.register(this.form).subscribe(
-      data => {
-        console.log(data);
+    this.authService.register(this.form.value).subscribe(res => {
+        console.log(res);
         this.isSuccessful = true;
         this.isSignUpFailed = false;
-        // this.router.navigate(['login']).then(r => this.router.navigate(['login']));
-      },
-      err => {
-        this.errorMessage = err.error.message;
+        this.router.navigate(['/login']);
+      }, err => {
+        this.messageService.add({
+          key: 'tc',
+          severity: 'error',
+          summary: 'Error!',
+          detail: err.error.message
+        });
         this.isSignUpFailed = true;
       }
     );

@@ -12,10 +12,12 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
-import uptrip.model.user.*;
+import uptrip.model.user.ERole;
+import uptrip.model.user.Role;
+import uptrip.model.user.User;
+import uptrip.model.user.UserInfo;
 import uptrip.repository.RoleRepository;
 import uptrip.repository.UserInfoRepository;
-import uptrip.repository.UserProfileImageRepository;
 import uptrip.repository.UserRepository;
 import uptrip.security.UserDetailsImpl;
 import uptrip.security.jwt.JwtUtils;
@@ -43,7 +45,6 @@ public class AuthController {
     PasswordEncoder encoder;
     JwtUtils jwtUtils;
     UserInfoRepository userInfoRepository;
-    UserProfileImageRepository userProfileImageRepository;
 
     @NotNull
     private static String getFormattedCurrentDate() {
@@ -67,6 +68,8 @@ public class AuthController {
 
         User user = userRepository.findUserById(userDetails.getId());
 
+        log.info("User metadata: {}", user.getUserMetadata().toString());
+
         if (user.getUserMetadata().getIsBanned()) {
             log.info("User is banned");
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body(new MessageResponse("User is banned"));
@@ -82,9 +85,7 @@ public class AuthController {
                         userDetails.getId(),
                         userDetails.getUsername(),
                         userDetails.getEmail(),
-                        roles,
-                        user.getUserInfo(),
-                        user.getUserMetadata()
+                        roles
                 )
         );
 
@@ -140,22 +141,14 @@ public class AuthController {
 
         user.setRoles(roles);
 
-        UserInfo userInfo = signUpRequest.getUserInfo();
-        UserProfileImage userProfileImage = new UserProfileImage();
 
-        userProfileImage.setUserInfo(userInfo);
-        userInfo.setProfileImage(userProfileImage);
-
-
-        userInfo.setUser(user);
+        UserInfo userInfo = new UserInfo();
         user.setUserInfo(userInfo);
+        userInfo.setUser(user);
+
         user.getUserMetadata().setUser(user);
-        user.getUserMetadata().setIsBanned(false);
-        user.getUserMetadata().setCreatedAt(getFormattedCurrentDate());
-        user.getUserMetadata().setIsConfirmed(false);
 
         log.info("Saving user");
-        userProfileImageRepository.save(userProfileImage);
         userInfoRepository.save(userInfo);
         userRepository.save(user);
 

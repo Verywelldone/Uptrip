@@ -1,34 +1,43 @@
 <div class="container-fluid">
-  <div *ngIf="!isLoggedIn" class="mx-auto surface-card p-4 shadow-2 border-round w-full lg:w-6">
+  <div class="mx-auto surface-card p-4 shadow-2 border-round w-full lg:w-6" *ngIf="!isLoggedIn">
     <div class="text-center mb-5">
-      <img alt="Image" class="mb-3" height="50" src="assets/images/logo.png">
+      <img src="assets/img/logor.png" alt="Image" height="50" class="mb-3">
       <div class="text-900 text-3xl font-medium mb-3">Welcome Back</div>
       <span class="text-600 font-medium line-height-3">Don't have an account?</span>
-      <a class="font-medium no-underline ml-2 text-blue-500 cursor-pointer" href="/register">Create today!</a>
+      <a class="font-medium no-underline ml-2 text-blue-500 cursor-pointer" routerLink="../register">Create today!</a>
     </div>
 
     <div>
       <form name="form" novalidate>
-        <label class="block text-900 font-medium mb-2" for="username">Username</label>
-        <input [(ngModel)]="form.username" class="w-full mb-3" id="username" name="username" pInputText type="text">
+        <label for="username" class="block text-900 font-medium mb-2">Username</label>
+        <input id="username" type="text" pInputText name="username" class="w-full mb-3" [(ngModel)]="form.username">
 
-        <label class="block text-900 font-medium mb-2" for="password1">Password</label>
-        <input [(ngModel)]="form.password" class="w-full mb-3" id="password1" name="password" pInputText
-               type="password">
+        <label for="password1" class="block text-900 font-medium mb-2">Password</label>
+        <input id="password1" type="password" name="password" pInputText class="w-full mb-3"
+               [(ngModel)]="form.password">
       </form>
       <div class="flex align-items-center justify-content-between mb-6">
         <a class="font-medium no-underline ml-2 text-blue-500 text-right cursor-pointer">Forgot password?</a>
       </div>
 
-      <button (click)="onSubmit()" class="w-full" icon="pi pi-user" label="Sign In" pButton pRipple
-              type="submit"></button>
+      <button type="submit" pButton pRipple label="Sign In" icon="pi pi-user" class="w-full"
+              (click)="onSubmit()">
+
+      </button>
+    </div>
+
+    <div class="form-group">
+      <div class="alert alert-danger" role="alert" *ngIf="isLoginFailed">
+        Login failed: {{ errorMessage }}
+      </div>
     </div>
   </div>
 
-  <div *ngIf="isLoggedIn" class="alert alert-success">
-    Logged in as {{ roles }}.
-  </div>
+  <!--  <div class="alert alert-success" *ngIf="isLoggedIn">
+      Logged in as {{ roles }}.
+    </div>-->
 </div>
 
 
-<p-toast key="tc" position="bottom-center"></p-toast>
+<p-toast position="bottom-center" key="tc"></p-toast>
+

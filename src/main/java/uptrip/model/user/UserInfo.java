@@ -7,7 +7,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import javax.validation.constraints.Email;
 
 @Entity
 @Table(name = "user_info")
@@ -18,7 +17,7 @@ import javax.validation.constraints.Email;
 public class UserInfo {
 
     @Id
-    private int id;
+    private Long id;
 
     @OneToOne
     @MapsId
@@ -27,25 +26,18 @@ public class UserInfo {
     private User user;
 
     @Column
-    private String firstName;
+    private String firstName = "";
 
     @Column
-    private String lastName;
+    private String lastName = "";
 
     @Column
-    private String phoneNumber;
-
-    @Email
-    @Column
-    private String email;
+    private String phoneNumber = "";
 
     @Column
-    private String city;
+    private String city = "";
 
     @Column
-    private String address;
+    private String address = "";
 
-    @OneToOne(mappedBy = "userInfo", cascade = CascadeType.MERGE)
-    @PrimaryKeyJoinColumn
-    private UserProfileImage profileImage;
 }

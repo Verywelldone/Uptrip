@@ -3,20 +3,22 @@ package uptrip.model.user;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 import javax.persistence.*;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 @Entity
 @Getter
 @Setter
 @AllArgsConstructor
-@NoArgsConstructor
+@ToString
 public class UserMetadata {
 
     @Id
-    private int id;
+    private Long id;
 
     @OneToOne
     @MapsId
@@ -39,4 +41,28 @@ public class UserMetadata {
     @Column
     private Boolean isBanned;
 
+    public UserMetadata() {
+        this.lastLogin = getCurrentDate();
+        this.createdAt = getCurrentDate();
+        this.updatedAt = "";
+        this.isConfirmed = false;
+        this.isBanned = false;
+    }
+
+    private String getCurrentDate() {
+        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy hh:mm");
+        return format.format(new Date());
+    }
+
+    @Override
+    public String toString() {
+        return "UserMetadata{" +
+                "UserId" + user.getId() +'\'' +
+                "lastLogin='" + lastLogin + '\'' +
+                ", createdAt='" + createdAt + '\'' +
+                ", updatedAt='" + updatedAt + '\'' +
+                ", isConfirmed=" + isConfirmed +
+                ", isBanned=" + isBanned +
+                '}';
+    }
 }
