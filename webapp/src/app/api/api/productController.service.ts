@@ -17,16 +17,15 @@ import { CustomHttpUrlEncodingCodec }                        from '../encoder';
 
 import { Observable }                                        from 'rxjs';
 
-import { OrderForm } from '../model/orderForm';
-import { OrderReq } from '../model/orderReq';
-import { OrderRes } from '../model/orderRes';
+import { ProductItem } from '../model/productItem';
+import { ProductItemDto } from '../model/productItemDto';
 
 import { BASE_PATH, COLLECTION_FORMATS }                     from '../variables';
 import { Configuration }                                     from '../configuration';
 
 
 @Injectable()
-export class OrderControllerService {
+export class ProductControllerService {
 
     protected basePath = 'http://localhost:8080';
     public defaultHeaders = new HttpHeaders();
@@ -58,16 +57,16 @@ export class OrderControllerService {
 
 
     /**
-     * create
+     * addProduct
      * 
      * @param body 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public createUsingPOST(body?: OrderForm, observe?: 'body', reportProgress?: boolean): Observable<any>;
-    public createUsingPOST(body?: OrderForm, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
-    public createUsingPOST(body?: OrderForm, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
-    public createUsingPOST(body?: OrderForm, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public addProductUsingPOST(body?: ProductItemDto, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public addProductUsingPOST(body?: ProductItemDto, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public addProductUsingPOST(body?: ProductItemDto, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public addProductUsingPOST(body?: ProductItemDto, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
 
         let headers = this.defaultHeaders;
@@ -95,7 +94,7 @@ export class OrderControllerService {
             headers = headers.set('Content-Type', httpContentTypeSelected);
         }
 
-        return this.httpClient.request<any>('post',`${this.basePath}/api/orders/create`,
+        return this.httpClient.request<any>('post',`${this.basePath}/api/products/add`,
             {
                 body: body,
                 withCredentials: this.configuration.withCredentials,
@@ -107,19 +106,19 @@ export class OrderControllerService {
     }
 
     /**
-     * delete
+     * deleteProduct
      * 
      * @param id id
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public deleteUsingDELETE(id: number, observe?: 'body', reportProgress?: boolean): Observable<string>;
-    public deleteUsingDELETE(id: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<string>>;
-    public deleteUsingDELETE(id: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<string>>;
-    public deleteUsingDELETE(id: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public deleteProductUsingDELETE(id: number, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public deleteProductUsingDELETE(id: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public deleteProductUsingDELETE(id: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public deleteProductUsingDELETE(id: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         if (id === null || id === undefined) {
-            throw new Error('Required parameter id was null or undefined when calling deleteUsingDELETE.');
+            throw new Error('Required parameter id was null or undefined when calling deleteProductUsingDELETE.');
         }
 
         let headers = this.defaultHeaders;
@@ -142,7 +141,7 @@ export class OrderControllerService {
         const consumes: string[] = [
         ];
 
-        return this.httpClient.request<string>('delete',`${this.basePath}/api/orders/delete/${encodeURIComponent(String(id))}`,
+        return this.httpClient.request<any>('delete',`${this.basePath}/api/products/delete/${encodeURIComponent(String(id))}`,
             {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
@@ -153,24 +152,19 @@ export class OrderControllerService {
     }
 
     /**
-     * getAllByCustomerAndStatus
+     * getAllProductsByCategory
      * 
      * @param id id
-     * @param status status
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getAllByCustomerAndStatusUsingGET(id: number, status: string, observe?: 'body', reportProgress?: boolean): Observable<Array<OrderRes>>;
-    public getAllByCustomerAndStatusUsingGET(id: number, status: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<OrderRes>>>;
-    public getAllByCustomerAndStatusUsingGET(id: number, status: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<OrderRes>>>;
-    public getAllByCustomerAndStatusUsingGET(id: number, status: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public getAllProductsByCategoryUsingGET(id: number, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public getAllProductsByCategoryUsingGET(id: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public getAllProductsByCategoryUsingGET(id: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public getAllProductsByCategoryUsingGET(id: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         if (id === null || id === undefined) {
-            throw new Error('Required parameter id was null or undefined when calling getAllByCustomerAndStatusUsingGET.');
-        }
-
-        if (status === null || status === undefined) {
-            throw new Error('Required parameter status was null or undefined when calling getAllByCustomerAndStatusUsingGET.');
+            throw new Error('Required parameter id was null or undefined when calling getAllProductsByCategoryUsingGET.');
         }
 
         let headers = this.defaultHeaders;
@@ -193,7 +187,7 @@ export class OrderControllerService {
         const consumes: string[] = [
         ];
 
-        return this.httpClient.request<Array<OrderRes>>('get',`${this.basePath}/api/orders/get/user/${encodeURIComponent(String(id))}/status/${encodeURIComponent(String(status))}`,
+        return this.httpClient.request<any>('get',`${this.basePath}/api/products/getByProductCategory/${encodeURIComponent(String(id))}`,
             {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
@@ -204,20 +198,15 @@ export class OrderControllerService {
     }
 
     /**
-     * getAllByCustomer
+     * getAllProducts
      * 
-     * @param id id
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getAllByCustomerUsingGET(id: number, observe?: 'body', reportProgress?: boolean): Observable<Array<OrderRes>>;
-    public getAllByCustomerUsingGET(id: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<OrderRes>>>;
-    public getAllByCustomerUsingGET(id: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<OrderRes>>>;
-    public getAllByCustomerUsingGET(id: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
-
-        if (id === null || id === undefined) {
-            throw new Error('Required parameter id was null or undefined when calling getAllByCustomerUsingGET.');
-        }
+    public getAllProductsUsingGET(observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public getAllProductsUsingGET(observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public getAllProductsUsingGET(observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public getAllProductsUsingGET(observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         let headers = this.defaultHeaders;
 
@@ -239,48 +228,7 @@ export class OrderControllerService {
         const consumes: string[] = [
         ];
 
-        return this.httpClient.request<Array<OrderRes>>('get',`${this.basePath}/api/orders/get/user/${encodeURIComponent(String(id))}`,
-            {
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
-                observe: observe,
-                reportProgress: reportProgress
-            }
-        );
-    }
-
-    /**
-     * getAll
-     * 
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public getAllUsingGET(observe?: 'body', reportProgress?: boolean): Observable<Array<OrderRes>>;
-    public getAllUsingGET(observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<OrderRes>>>;
-    public getAllUsingGET(observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<OrderRes>>>;
-    public getAllUsingGET(observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
-
-        let headers = this.defaultHeaders;
-
-        // authentication (Authorization) required
-        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
-            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
-        }
-
-        // to determine the Accept header
-        let httpHeaderAccepts: string[] = [
-            '*/*'
-        ];
-        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        if (httpHeaderAcceptSelected != undefined) {
-            headers = headers.set('Accept', httpHeaderAcceptSelected);
-        }
-
-        // to determine the Content-Type header
-        const consumes: string[] = [
-        ];
-
-        return this.httpClient.request<Array<OrderRes>>('get',`${this.basePath}/api/orders/get`,
+        return this.httpClient.request<any>('get',`${this.basePath}/api/products/all`,
             {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
@@ -297,13 +245,13 @@ export class OrderControllerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getOneUsingGET(id: number, observe?: 'body', reportProgress?: boolean): Observable<OrderRes>;
-    public getOneUsingGET(id: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<OrderRes>>;
-    public getOneUsingGET(id: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<OrderRes>>;
-    public getOneUsingGET(id: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public getOneUsingGET1(id: number, observe?: 'body', reportProgress?: boolean): Observable<ProductItem>;
+    public getOneUsingGET1(id: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<ProductItem>>;
+    public getOneUsingGET1(id: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<ProductItem>>;
+    public getOneUsingGET1(id: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         if (id === null || id === undefined) {
-            throw new Error('Required parameter id was null or undefined when calling getOneUsingGET.');
+            throw new Error('Required parameter id was null or undefined when calling getOneUsingGET1.');
         }
 
         let headers = this.defaultHeaders;
@@ -326,7 +274,7 @@ export class OrderControllerService {
         const consumes: string[] = [
         ];
 
-        return this.httpClient.request<OrderRes>('get',`${this.basePath}/api/orders/get/${encodeURIComponent(String(id))}`,
+        return this.httpClient.request<ProductItem>('get',`${this.basePath}/api/products/${encodeURIComponent(String(id))}`,
             {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
@@ -337,20 +285,20 @@ export class OrderControllerService {
     }
 
     /**
-     * update
+     * updateProduct
      * 
      * @param id id
      * @param body 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public updateUsingPUT(id: number, body?: OrderReq, observe?: 'body', reportProgress?: boolean): Observable<any>;
-    public updateUsingPUT(id: number, body?: OrderReq, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
-    public updateUsingPUT(id: number, body?: OrderReq, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
-    public updateUsingPUT(id: number, body?: OrderReq, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public updateProductUsingPUT(id: number, body?: ProductItemDto, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public updateProductUsingPUT(id: number, body?: ProductItemDto, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public updateProductUsingPUT(id: number, body?: ProductItemDto, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public updateProductUsingPUT(id: number, body?: ProductItemDto, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         if (id === null || id === undefined) {
-            throw new Error('Required parameter id was null or undefined when calling updateUsingPUT.');
+            throw new Error('Required parameter id was null or undefined when calling updateProductUsingPUT.');
         }
 
 
@@ -379,7 +327,7 @@ export class OrderControllerService {
             headers = headers.set('Content-Type', httpContentTypeSelected);
         }
 
-        return this.httpClient.request<any>('put',`${this.basePath}/api/orders/update/${encodeURIComponent(String(id))}`,
+        return this.httpClient.request<any>('put',`${this.basePath}/api/products/update/${encodeURIComponent(String(id))}`,
             {
                 body: body,
                 withCredentials: this.configuration.withCredentials,

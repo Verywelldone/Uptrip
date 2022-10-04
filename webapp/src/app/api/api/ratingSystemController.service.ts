@@ -17,13 +17,15 @@ import { CustomHttpUrlEncodingCodec }                        from '../encoder';
 
 import { Observable }                                        from 'rxjs';
 
+import { ProductRating } from '../model/productRating';
+import { ProductRatingDto } from '../model/productRatingDto';
 
 import { BASE_PATH, COLLECTION_FORMATS }                     from '../variables';
 import { Configuration }                                     from '../configuration';
 
 
 @Injectable()
-export class ResourceControllerService {
+export class RatingSystemControllerService {
 
     protected basePath = 'http://localhost:8080';
     public defaultHeaders = new HttpHeaders();
@@ -55,15 +57,20 @@ export class ResourceControllerService {
 
 
     /**
-     * accessDenied
+     * getAllServiceRatings
      * 
+     * @param productId productId
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public accessDeniedUsingGET(observe?: 'body', reportProgress?: boolean): Observable<any>;
-    public accessDeniedUsingGET(observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
-    public accessDeniedUsingGET(observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
-    public accessDeniedUsingGET(observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public getAllServiceRatingsUsingGET(productId: number, observe?: 'body', reportProgress?: boolean): Observable<Array<ProductRatingDto>>;
+    public getAllServiceRatingsUsingGET(productId: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<ProductRatingDto>>>;
+    public getAllServiceRatingsUsingGET(productId: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<ProductRatingDto>>>;
+    public getAllServiceRatingsUsingGET(productId: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+        if (productId === null || productId === undefined) {
+            throw new Error('Required parameter productId was null or undefined when calling getAllServiceRatingsUsingGET.');
+        }
 
         let headers = this.defaultHeaders;
 
@@ -85,7 +92,7 @@ export class ResourceControllerService {
         const consumes: string[] = [
         ];
 
-        return this.httpClient.request<any>('get',`${this.basePath}/api/admin/access-denied`,
+        return this.httpClient.request<Array<ProductRatingDto>>('get',`${this.basePath}/api/rating/get-ratings/${encodeURIComponent(String(productId))}`,
             {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
@@ -96,15 +103,17 @@ export class ResourceControllerService {
     }
 
     /**
-     * adminAccess
+     * saveRating
      * 
+     * @param body 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public adminAccessUsingGET(observe?: 'body', reportProgress?: boolean): Observable<string>;
-    public adminAccessUsingGET(observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<string>>;
-    public adminAccessUsingGET(observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<string>>;
-    public adminAccessUsingGET(observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public saveRatingUsingPOST(body?: ProductRating, observe?: 'body', reportProgress?: boolean): Observable<string>;
+    public saveRatingUsingPOST(body?: ProductRating, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<string>>;
+    public saveRatingUsingPOST(body?: ProductRating, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<string>>;
+    public saveRatingUsingPOST(body?: ProductRating, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
 
         let headers = this.defaultHeaders;
 
@@ -124,51 +133,16 @@ export class ResourceControllerService {
 
         // to determine the Content-Type header
         const consumes: string[] = [
+            'application/json'
         ];
-
-        return this.httpClient.request<string>('get',`${this.basePath}/api/admin`,
-            {
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
-                observe: observe,
-                reportProgress: reportProgress
-            }
-        );
-    }
-
-    /**
-     * userAccess
-     * 
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public userAccessUsingGET(observe?: 'body', reportProgress?: boolean): Observable<string>;
-    public userAccessUsingGET(observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<string>>;
-    public userAccessUsingGET(observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<string>>;
-    public userAccessUsingGET(observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
-
-        let headers = this.defaultHeaders;
-
-        // authentication (Authorization) required
-        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
-            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
+        const httpContentTypeSelected: string | undefined = this.configuration.selectHeaderContentType(consumes);
+        if (httpContentTypeSelected != undefined) {
+            headers = headers.set('Content-Type', httpContentTypeSelected);
         }
 
-        // to determine the Accept header
-        let httpHeaderAccepts: string[] = [
-            '*/*'
-        ];
-        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        if (httpHeaderAcceptSelected != undefined) {
-            headers = headers.set('Accept', httpHeaderAcceptSelected);
-        }
-
-        // to determine the Content-Type header
-        const consumes: string[] = [
-        ];
-
-        return this.httpClient.request<string>('get',`${this.basePath}/api/user`,
+        return this.httpClient.request<string>('post',`${this.basePath}/api/rating/save-rating`,
             {
+                body: body,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,

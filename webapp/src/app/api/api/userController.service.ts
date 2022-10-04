@@ -17,13 +17,14 @@ import { CustomHttpUrlEncodingCodec }                        from '../encoder';
 
 import { Observable }                                        from 'rxjs';
 
+import { ProductItem } from '../model/productItem';
 
 import { BASE_PATH, COLLECTION_FORMATS }                     from '../variables';
 import { Configuration }                                     from '../configuration';
 
 
 @Injectable()
-export class ResourceControllerService {
+export class UserControllerService {
 
     protected basePath = 'http://localhost:8080';
     public defaultHeaders = new HttpHeaders();
@@ -55,15 +56,17 @@ export class ResourceControllerService {
 
 
     /**
-     * accessDenied
+     * addUserFavoriteProduct
      * 
+     * @param body 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public accessDeniedUsingGET(observe?: 'body', reportProgress?: boolean): Observable<any>;
-    public accessDeniedUsingGET(observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
-    public accessDeniedUsingGET(observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
-    public accessDeniedUsingGET(observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public addUserFavoriteProductUsingPOST(body?: ProductItem, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public addUserFavoriteProductUsingPOST(body?: ProductItem, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public addUserFavoriteProductUsingPOST(body?: ProductItem, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public addUserFavoriteProductUsingPOST(body?: ProductItem, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
 
         let headers = this.defaultHeaders;
 
@@ -74,7 +77,52 @@ export class ResourceControllerService {
 
         // to determine the Accept header
         let httpHeaderAccepts: string[] = [
-            '*/*'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+            'application/json'
+        ];
+        const httpContentTypeSelected: string | undefined = this.configuration.selectHeaderContentType(consumes);
+        if (httpContentTypeSelected != undefined) {
+            headers = headers.set('Content-Type', httpContentTypeSelected);
+        }
+
+        return this.httpClient.request<any>('post',`${this.basePath}/api/user/favorites/add`,
+            {
+                body: body,
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * getAllUserFavoriteProducts
+     * 
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public getAllUserFavoriteProductsUsingGET(observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public getAllUserFavoriteProductsUsingGET(observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public getAllUserFavoriteProductsUsingGET(observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public getAllUserFavoriteProductsUsingGET(observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+        let headers = this.defaultHeaders;
+
+        // authentication (Authorization) required
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
+        }
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
         ];
         const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected != undefined) {
@@ -85,7 +133,7 @@ export class ResourceControllerService {
         const consumes: string[] = [
         ];
 
-        return this.httpClient.request<any>('get',`${this.basePath}/api/admin/access-denied`,
+        return this.httpClient.request<any>('get',`${this.basePath}/api/user/favorites/get-all`,
             {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
@@ -96,15 +144,17 @@ export class ResourceControllerService {
     }
 
     /**
-     * adminAccess
+     * removeUserFavoriteProduct
      * 
+     * @param body 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public adminAccessUsingGET(observe?: 'body', reportProgress?: boolean): Observable<string>;
-    public adminAccessUsingGET(observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<string>>;
-    public adminAccessUsingGET(observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<string>>;
-    public adminAccessUsingGET(observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public removeUserFavoriteProductUsingPOST(body?: ProductItem, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public removeUserFavoriteProductUsingPOST(body?: ProductItem, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public removeUserFavoriteProductUsingPOST(body?: ProductItem, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public removeUserFavoriteProductUsingPOST(body?: ProductItem, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
 
         let headers = this.defaultHeaders;
 
@@ -115,7 +165,6 @@ export class ResourceControllerService {
 
         // to determine the Accept header
         let httpHeaderAccepts: string[] = [
-            '*/*'
         ];
         const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected != undefined) {
@@ -124,51 +173,16 @@ export class ResourceControllerService {
 
         // to determine the Content-Type header
         const consumes: string[] = [
+            'application/json'
         ];
-
-        return this.httpClient.request<string>('get',`${this.basePath}/api/admin`,
-            {
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
-                observe: observe,
-                reportProgress: reportProgress
-            }
-        );
-    }
-
-    /**
-     * userAccess
-     * 
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public userAccessUsingGET(observe?: 'body', reportProgress?: boolean): Observable<string>;
-    public userAccessUsingGET(observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<string>>;
-    public userAccessUsingGET(observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<string>>;
-    public userAccessUsingGET(observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
-
-        let headers = this.defaultHeaders;
-
-        // authentication (Authorization) required
-        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
-            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
+        const httpContentTypeSelected: string | undefined = this.configuration.selectHeaderContentType(consumes);
+        if (httpContentTypeSelected != undefined) {
+            headers = headers.set('Content-Type', httpContentTypeSelected);
         }
 
-        // to determine the Accept header
-        let httpHeaderAccepts: string[] = [
-            '*/*'
-        ];
-        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        if (httpHeaderAcceptSelected != undefined) {
-            headers = headers.set('Accept', httpHeaderAcceptSelected);
-        }
-
-        // to determine the Content-Type header
-        const consumes: string[] = [
-        ];
-
-        return this.httpClient.request<string>('get',`${this.basePath}/api/user`,
+        return this.httpClient.request<any>('post',`${this.basePath}/api/user/favorites/remove`,
             {
+                body: body,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,

@@ -6,7 +6,10 @@ import { HttpClient } from '@angular/common/http';
 import { AuthControllerService } from './api/authController.service';
 import { BasicErrorControllerService } from './api/basicErrorController.service';
 import { OrderControllerService } from './api/orderController.service';
+import { ProductControllerService } from './api/productController.service';
+import { RatingSystemControllerService } from './api/ratingSystemController.service';
 import { ResourceControllerService } from './api/resourceController.service';
+import { UserControllerService } from './api/userController.service';
 
 @NgModule({
   imports:      [],
@@ -16,7 +19,10 @@ import { ResourceControllerService } from './api/resourceController.service';
     AuthControllerService,
     BasicErrorControllerService,
     OrderControllerService,
-    ResourceControllerService ]
+    ProductControllerService,
+    RatingSystemControllerService,
+    ResourceControllerService,
+    UserControllerService ]
 })
 export class ApiModule {
     public static forRoot(configurationFactory: () => Configuration): ModuleWithProviders<ApiModule> {
