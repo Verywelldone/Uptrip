@@ -1,10 +1,19 @@
 @import '~primeicons/primeicons.css';
 @import '~primeng/resources/primeng.min.css';
-@import "../node_modules/primeflex/primeflex.css";
 @import "~bootstrap/dist/css/bootstrap.css";
+@import "~primeflex/primeflex.css";
 
 @import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
 
 * {
   font-family: 'Poppins', 'Roboto', serif;
+  overflow: auto;
 }
+
+body {
+  font-family: var(--font-family);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+}
+

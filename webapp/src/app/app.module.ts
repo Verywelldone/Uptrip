@@ -19,28 +19,41 @@ import {RegisterComponent} from "./components/authentication/register/register.c
 import {AuthenticationComponent} from "./components/authentication/authentication.component";
 import {UserComponent} from "./components/user/user.component";
 import {PrimengModule} from "./helpers/primeng.module";
+import {TabMenuModule} from "primeng/tabmenu";
+import {HomePageComponent} from './components/home-page/home-page.component';
+import {DarkBannerComponent} from './components/home-page/dark-banner/dark-banner.component';
+import {FrontPageHeroComponent} from './components/home-page/front-page-hero/front-page-hero.component';
+import {CallToActionComponent} from './components/home-page/call-to-action/call-to-action.component';
+import {ProductPageComponent} from './components/product-page/product-page.component';
+import {ProductItemComponent} from './components/product-page/product-item/product-item.component';
+import {ProductControllerService} from "./api";
+import { NavigationBarComponent } from './components/shared/navigation-bar/navigation-bar.component';
+import {AvatarModule} from "primeng/avatar";
+import { UserProfileComponent } from './components/user/user-profile/user-profile.component';
 
 
 @NgModule({
   declarations: [
-    AppComponent, AdminComponent, LoginComponent, RegisterComponent, AuthenticationComponent, UserComponent
+    AppComponent, AdminComponent, LoginComponent, RegisterComponent, AuthenticationComponent, UserComponent, HomePageComponent, DarkBannerComponent, FrontPageHeroComponent, CallToActionComponent, ProductPageComponent, ProductItemComponent, NavigationBarComponent, UserProfileComponent
   ],
-  imports: [
-    BrowserAnimationsModule,
-    AuthenticationModule,
-    HttpClientModule,
-    AppRoutingModule,
-    BrowserModule,
-    FormsModule,
-    ReactiveFormsModule,
-    AuthenticationModule,
-    MaterialModule,
-    SharedModule,
-    ToastModule,
-    PrimengModule
-  ],
+    imports: [
+        BrowserAnimationsModule,
+        AuthenticationModule,
+        HttpClientModule,
+        AppRoutingModule,
+        BrowserModule,
+        FormsModule,
+        ReactiveFormsModule,
+        AuthenticationModule,
+        MaterialModule,
+        SharedModule,
+        ToastModule,
+        PrimengModule,
+        TabMenuModule,
+        AvatarModule
+    ],
   exports: [],
-  providers: [authInterceptorProviders, MessageService],
+  providers: [authInterceptorProviders, MessageService, ProductControllerService],
   bootstrap: [AppComponent]
 })
 export class AppModule {

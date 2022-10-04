@@ -4,6 +4,9 @@ import {LoginComponent} from "./components/authentication/login/login.component"
 import {RegisterComponent} from "./components/authentication/register/register.component";
 import {UserComponent} from "./components/user/user.component";
 import {AdminComponent} from "./components/admin/admin.component";
+import {ProductPageComponent} from "./components/product-page/product-page.component";
+import {HomePageComponent} from "./components/home-page/home-page.component";
+import {UserProfileComponent} from "./components/user/user-profile/user-profile.component";
 
 const routes: Routes = [
 
@@ -12,7 +15,12 @@ const routes: Routes = [
 
   // {path: 'user', loadChildren: () => import('./components/user/user.module').then(m => m.UserModule)},
   {path: 'user', component: UserComponent},
+  {path: 'user/profile', component: UserProfileComponent},
+
   {path: 'admin', component: AdminComponent},
+
+  {path: 'home', component: HomePageComponent},
+  {path: 'products', component: ProductPageComponent},
 
   {path: '', redirectTo: 'home', pathMatch: 'full'}
 ];

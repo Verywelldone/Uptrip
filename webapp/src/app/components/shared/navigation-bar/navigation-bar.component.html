@@ -1,0 +1,77 @@
+<div class="bg-primary shadow-2 flex  relative lg:static" style="min-height: 84px;">
+  <div class="flex justify-content-between align-items-center justify-content-start px-5 bg-primary">
+    <a routerLink="/home"><img src="assets/img/logor.png" alt="Image" height="60"></a>
+  </div>
+
+
+  <div class="flex flex-1 px-3 ">
+     <span class="flex align-items-center" *ngIf="userIsLoggedIn">
+       <em class="pi pi-search bg-primary text-white large" style="font-size: 1.5rem"></em>
+     </span>
+    <input type="text" *ngIf="userIsLoggedIn"
+           class="rounded-pill text-white appearance-none border-none flex-auto bg-transparent outline-none
+                  p-component text-3xl hover:bg-blue-600  active:text-color-secondary pl-3">
+  </div>
+
+  <div class="lg:flex lg:static left-0 top-100 z-1 shadow-2 lg:shadow-none lg:pr-5 w-full lg:w-auto bg-primary">
+    <ul
+      class="list-none p-0 m-0 flex justify-content-end select-none lg:flex-row fadeinright  border-top-1 bg-primary lg:border-top-none">
+      <!--      <li>
+              <a pripple=""
+                   class="p-ripple p-element h-full flex px-6 py-3 lg:px-3 lg:py-0 align-items-center bg-primary hover:text-indigo-50 hover:bg-indigo-700 font-medium cursor-pointer transition-colors transition-duration-150"><i
+              class="pi pi-inbox text-base lg:text-2xl mr-2 lg:mr-0"></i><span
+              class="block lg:hidden font-medium">Inbox</span><span class="p-ink"></span></a></li>
+            <li>
+              <a pripple=""
+                 class="p-ripple p-element h-full flex px-6 py-3 lg:px-3 lg:py-0 align-items-center text-indigo-100 hover:text-indigo-50 hover:bg-indigo-700 font-medium cursor-pointer transition-colors transition-duration-150"><i
+                class="p-element pi pi-bell text-base lg:text-2xl mr-2 lg:mr-0 p-overlay-badge">
+              <span id="pr_id_7_badge"
+                    class="p-badge p-component p-badge-danger p-badge-dot"></span></i>
+                <span
+                  class="block lg:hidden font-medium">Notifications</span>
+                <span class="p-ink"></span>
+              </a>
+            </li>
+            -->
+      <li class="border-top-1 bg-primary lg:border-top-none" *ngIf="userIsLoggedIn">
+        <a
+          class="p-ripple p-element h-full flex px-6 py-3 lg:px-3 lg:py-0 align-items-center hover:bg-blue-600
+           font-normal cursor-pointer transition-colors transition-duration-150"
+          routerLink="user/profile"
+        >
+          <p-avatar icon="pi pi-user" styleClass="mr-2" size="large" shape="circle"></p-avatar>
+
+          <div class="block">
+            <div class="font-semibold bg-transparent text-white">{{user?.username}}</div>
+          </div>
+          <span class="p-ink"></span>
+        </a>
+
+      </li>
+
+      <li class="border-top-1 bg-primary lg:border-top-none" *ngIf="userIsLoggedIn">
+        <button (click)="logout()"
+                class=" bg-transparent border-none p-ripple p-element h-full flex px-6 py-3 lg:px-3 lg:py-0 align-items-center hover:bg-blue-600 font-normal cursor-pointer transition-colors transition-duration-150">
+          <p-avatar icon="pi pi-sign-out" styleClass="mr-2" size="large" shape="circle"></p-avatar>
+          <div class="block">
+            <div class="font-semibold bg-transparent text-white">Log Out</div>
+          </div>
+          <span class="p-ink"></span>
+        </button>
+
+      </li>
+
+
+      <li class=" border-top-1 bg-primary lg:border-top-none" *ngIf="!userIsLoggedIn">
+        <a routerLink="/login"
+           class="p-ripple p-element h-full flex px-6 py-3 lg:px-3 lg:py-0 align-items-center hover:bg-blue-600 font-normal cursor-pointer transition-colors transition-duration-150">
+          <p-avatar icon="pi pi-sign-in" styleClass="mr-2" size="large" shape="circle"></p-avatar>
+          <div class="block">
+            <div class="font-semibold bg-transparent text-white">Log In</div>
+          </div>
+          <span class="p-ink"></span>
+        </a>
+      </li>
+    </ul>
+  </div>
+</div>
