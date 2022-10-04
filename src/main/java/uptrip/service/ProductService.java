@@ -9,12 +9,15 @@ import uptrip.model.order.Order;
 import uptrip.model.order.OrderProduct;
 import uptrip.model.product.ProductCategory;
 import uptrip.model.product.ProductItem;
+import uptrip.model.product.dto.ProductItemDto;
 import uptrip.repository.OrderRepository;
 import uptrip.repository.ProductCategoryRepository;
 import uptrip.repository.ProductRepository;
 
 import java.util.List;
 import java.util.Optional;
+
+import static uptrip.exception.OrderCreationException.PRODUCT_NOT_FOUND_MESSAGE;
 
 @Service
 @AllArgsConstructor
@@ -26,8 +29,10 @@ public class ProductService {
     private final OrderRepository orderRepository;
 
 
-    public ResponseEntity<ProductItem> createProduct(final ProductItem productItem) {
+    public ResponseEntity<ProductItem> createProduct(final ProductItemDto dto) {
 
+        ProductItem productItem = ProductItemDto.of(dto);
+        productItem.setProductCategory(productCategoryRepository.findById(dto.getProductCategoryId()).orElseThrow(() -> new RuntimeException("Product category not found")));
         validateProduct(productItem);
         log.info("Creating product: {}", productItem);
 
@@ -42,18 +47,27 @@ public class ProductService {
     }
 
 
-    public ResponseEntity<ProductItem> updateProduct(final ProductItem productItem) {
+    public ResponseEntity<ProductItem> updateProduct(final ProductItemDto dto, final long id) {
+
+        ProductItem productItem = ProductItemDto.of(dto);
+        productItem.setProductCategory(productCategoryRepository.findById(dto.getProductCategoryId()).orElseThrow(() -> new RuntimeException("Product category not found")));
         log.info("Updating product {}", productItem.getId());
-        Optional<ProductItem> productItemOpt = productRepository.findById(productItem.getId());
+        Optional<ProductItem> productItemOpt = productRepository.findById(id);
         if (productItemOpt.isEmpty()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
         }
 
         validateProduct(productItem);
+        ProductItem productItemToUpdate = productItemOpt.get();
+        productItemToUpdate.setName(productItem.getName());
+        productItemToUpdate.setPrice(productItem.getPrice());
+        productItemToUpdate.setProductCategory(productItem.getProductCategory());
+        productItemToUpdate.setStock(productItem.getQuantity());
+        productItemToUpdate.setDescription(productItem.getDescription());
 
-        productItem.setProductCategory(productItemOpt.get().getProductCategory());
-        productRepository.save(productItem);
-        return ResponseEntity.ok(productItem);
+
+        productRepository.save(productItemToUpdate);
+        return ResponseEntity.ok(productItemToUpdate);
     }
 
     public ResponseEntity<String> deleteProduct(final long productId) {
@@ -61,7 +75,7 @@ public class ProductService {
         Optional<ProductItem> productItemOpt = productRepository.findById(productId);
         if (productItemOpt.isEmpty()) {
             log.info("Product {} not found, cannot delete", productId);
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Product not found");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(PRODUCT_NOT_FOUND_MESSAGE);
         }
         List<Order> orders = orderRepository.findAll();
         for (Order order : orders) {
@@ -94,12 +108,12 @@ public class ProductService {
     }
 
     private void validateProduct(ProductItem productItem) {
-        log.info("Validating product: {}", productItem);
+        log.info("Validating product: {}", productItem.toString());
         if (isProductAlreadySaved(productItem)) {
             log.info("Product {} already exists", productItem);
             ResponseEntity.status(HttpStatus.CONFLICT).body("Product already exists");
         }
-        if (isCategoryAvailable(productItem)) {
+        if (!isCategoryAvailable(productItem)) {
             log.info("Product category {} not found", productItem.getProductCategory().getId());
             ResponseEntity.status(HttpStatus.CONFLICT).body("Category not available");
         }
@@ -114,4 +128,13 @@ public class ProductService {
         return productRepository.findProductItemByName(productItem.getName()).isPresent();
     }
 
+    public ResponseEntity<?> getAllProductsByCategory(final long categoryId) {
+        log.info("Getting all products by category: {}", categoryId);
+        Optional<ProductCategory> productCategory = productCategoryRepository.findById(categoryId);
+        if (productCategory.isEmpty()) {
+            log.info("Category {} not found", categoryId);
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Category not found");
+        }
+        return ResponseEntity.ok(productCategory.get().getProductItemList());
+    }
 }

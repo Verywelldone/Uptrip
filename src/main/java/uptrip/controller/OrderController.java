@@ -20,7 +20,7 @@ public class OrderController {
     private final OrderService orderService;
 
     @PostMapping("/create")
-    public ResponseEntity<Order> create(@RequestBody OrderForm form) {
+    public ResponseEntity<?> create(@RequestBody OrderForm form) {
         return orderService.createOrder(form);
     }
 
@@ -45,10 +45,16 @@ public class OrderController {
         return orderService.getAllOrdersByCustomerAndStatus(id, status);
     }
 
-    @PutMapping("/update")
+   /* @PutMapping("/update")
     public ResponseEntity<Order> update(@RequestBody Order form) {
         return orderService.update(form);
     }
+*/
+    @PutMapping("/update/{id}")
+    public ResponseEntity<?> update(@PathVariable Long id, @RequestBody Order order) {
+        return orderService.updateOrder(id, order);
+    }
+
 
     @DeleteMapping("/delete/{id}")
     @PreAuthorize("hasRole('ADMIN')")

@@ -13,6 +13,7 @@ import uptrip.model.order.OrderProduct;
 import uptrip.model.order.dto.OrderForm;
 import uptrip.model.order.dto.OrderProductDto;
 import uptrip.model.product.ProductItem;
+import uptrip.model.product.dto.ProductItemDto;
 import uptrip.model.user.User;
 import uptrip.repository.OrderRepository;
 import uptrip.repository.UserRepository;
@@ -37,7 +38,7 @@ public class OrderService {
     private final OrderProductService orderProductService;
 
 
-    public ResponseEntity<Order> createOrder(final OrderForm orderForm) {
+    public ResponseEntity<?> createOrder(final OrderForm orderForm) {
 
         List<OrderProductDto> formOrderProducts = orderForm.getOrderProducts();
         try {
@@ -66,10 +67,11 @@ public class OrderService {
                 int updatedStock = productItem.getQuantity() - orderQuantity;
                 productItem.setStock(updatedStock);
 
-                productService.updateProduct(productItem);
+                productService.updateProduct(ProductItemDto.of(productItem), productItem.getId());
+
             } catch (OrderCreationException e) {
-                log.error(PRODUCT_NOT_FOUND_MESSAGE);
-                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+                log.error(PRODUCT_STOCK_NOT_AVAILABLE_MESSAGE);
+                return ResponseEntity.badRequest().body(PRODUCT_STOCK_NOT_AVAILABLE_MESSAGE);
             }
         }
 
@@ -83,7 +85,7 @@ public class OrderService {
             userRepository.save(user);
         }
 
-        update(order);
+        updateOrder(order.getId(), order);
 
         log.info("Order created successfully");
 
@@ -139,12 +141,18 @@ public class OrderService {
         return orderRepository.save(order);
     }
 
-    public ResponseEntity<Order> update(Order order) {
-        log.info("Updating order with id: " + order.getId());
-        return new ResponseEntity<>(orderRepository.save(order), HttpStatus.OK);
-    }
-
     public ResponseEntity<List<Order>> getAllOrdersByCustomerAndStatus(Long id, String status) {
         return new ResponseEntity<>(orderRepository.findAllByUserIdAndOrderStatus(id, EOrderStatus.valueOf(status)), HttpStatus.OK);
+    }
+
+    public ResponseEntity<?> updateOrder(Long id, Order order) {
+        log.info("Updating order with id: " + id);
+        Optional<Order> orderOptional = orderRepository.findById(id);
+        if (orderOptional.isPresent()) {
+            order.setUser(orderOptional.get().getUser());
+            orderRepository.save(order);
+            return new ResponseEntity<>(order, HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 }

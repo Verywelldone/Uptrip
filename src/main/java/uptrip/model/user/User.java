@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import uptrip.model.order.Order;
+import uptrip.model.product.ProductItem;
 
 import javax.persistence.*;
 import javax.validation.Valid;
@@ -63,6 +64,12 @@ public class User {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     @Valid
     private List<Order> orderList = new ArrayList<>();
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "user_favorite_products",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "product_id"))
+    private Set<ProductItem> favoriteProducts = new HashSet<>();
 
     public User(String username, String email, String password) {
         this.username = username;

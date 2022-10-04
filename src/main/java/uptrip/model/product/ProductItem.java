@@ -42,4 +42,15 @@ public class ProductItem {
     public int getQuantity() {
         return stock;
     }
+
+    @Override
+    public String
+    toString() {
+        return "ProductItem{" +
+                "name='" + name + '\'' +
+                ", price=" + price +
+                ", description='" + description + '\'' +
+                ", stock=" + stock +
+                '}';
+    }
 }

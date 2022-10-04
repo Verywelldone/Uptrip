@@ -3,7 +3,6 @@ package uptrip.service;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -66,17 +65,16 @@ public class AuthService {
 
         User user = userRepository.findUserById(userDetails.getId());
 
-        log.info("User metadata: {}", user.getUserMetadata().toString());
-
         if (user.getUserMetadata().isBanned()) {
             log.info("User is banned");
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body(new MessageResponse("User is banned"));
         }
 
         user.getUserMetadata().setLastLogin(getFormattedCurrentDate());
+        log.info("User last login updated {}", user.getUserMetadata().getLastLogin());
+
         userRepository.save(user);
 
-        log.info("User last login updated");
         return ResponseEntity.ok(
                 new JwtResponse(
                         jwt,
@@ -130,7 +128,6 @@ public class AuthService {
 
         user.setRoles(roles);
 
-
         UserInfo userInfo = new UserInfo();
         user.setUserInfo(userInfo);
         userInfo.setUser(user);
@@ -145,7 +142,6 @@ public class AuthService {
         return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
     }
 
-    @Nullable
     private void validateSignUpRequest(SignupRequest signUpRequest) throws AuthorizationException {
         if (userRepository.existsByUsername(signUpRequest.getUsername())) {
             log.info("Username is already taken");

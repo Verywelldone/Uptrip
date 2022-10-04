@@ -58,13 +58,22 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authenticationEntryPoint(unauthorizedHandler)
                 .accessDeniedHandler(accessDeniedHandler())
                 .and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                .and().authorizeRequests().mvcMatchers("/api/auth/**").permitAll()
+                .and().authorizeRequests()
+                .antMatchers(AUTH_WHITELIST).permitAll()
+                .mvcMatchers("/api/auth/**").permitAll()
                 .anyRequest().authenticated();
 
 
         http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
     }
 
+    private static final String[] AUTH_WHITELIST = {
+            "/authenticate",
+            "/swagger-resources/**",
+            "/swagger-ui/**",
+            "/v3/api-docs",
+            "/webjars/**"
+    };
     @Bean
     public AccessDeniedHandler accessDeniedHandler() {
         return new CustomAccessDeniedHandler();
