@@ -2,14 +2,25 @@ package uptrip.service;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.jetbrains.annotations.NotNull;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import uptrip.model.product.ProductItem;
 import uptrip.model.user.User;
+import uptrip.model.user.UserInfo;
+import uptrip.model.user.UserMetadata;
+import uptrip.model.user.dto.UpdatePasswordDto;
+import uptrip.model.user.dto.UserProfileInfoDto;
+import uptrip.repository.UserInfoRepository;
 import uptrip.repository.UserRepository;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -19,6 +30,15 @@ import java.util.Optional;
 public class UserService {
 
     private final UserRepository userRepository;
+    private final UserInfoRepository userInfoRepository;
+
+    private final PasswordEncoder passwordEncoder;
+
+    @NotNull
+    private static String getFormattedCurrentDate() {
+        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy hh:mm");
+        return format.format(new Date());
+    }
 
     public void addUserFavoriteProduct(final ProductItem productItem) {
         Optional<User> userOptional = getOptionalUser();
@@ -31,7 +51,6 @@ public class UserService {
             }
         }
     }
-
 
     public List<ProductItem> getAllUserFavoriteProducts() {
         Optional<User> userOptional = getOptionalUser();
@@ -59,7 +78,6 @@ public class UserService {
         }
     }
 
-
     private Optional<User> getOptionalUser() {
         String username;
 
@@ -71,6 +89,69 @@ public class UserService {
         }
 
         return userRepository.findByUsername(username);
+    }
+
+    public ResponseEntity<UserProfileInfoDto> getUserProfileInfo() {
+        Optional<User> userOptional = getOptionalUser();
+        if (userOptional.isPresent() && userOptional.get().getUserInfo() != null) {
+            User user = userOptional.get();
+            log.info("Found user with id {} and username {} and returning user profile info", user.getId(), user.getUsername());
+            return ResponseEntity.ok(new UserProfileInfoDto(user));
+        }
+        return ResponseEntity.ok(new UserProfileInfoDto());
+    }
+
+    public ResponseEntity<UserProfileInfoDto> updateUserProfileInfo(UserProfileInfoDto userProfileInfoDto) {
+        Optional<User> userOptional = getOptionalUser();
+        if (userOptional.isPresent()) {
+            User user = userOptional.get();
+            if (null == user.getUserInfo()) {
+                UserInfo userInfo = new UserInfo();
+                userInfo.setUser(user);
+                user.setUserInfo(userInfo);
+                userInfoRepository.save(userInfo);
+
+            }
+            log.info("Found user with id {} and username {} and updating user profile info", user.getId(), user.getUsername());
+            user.setUsername(userProfileInfoDto.getUsername());
+            user.setEmail(userProfileInfoDto.getEmail());
+            user.getUserInfo().setFirstName(userProfileInfoDto.getFirstName());
+            user.getUserInfo().setLastName(userProfileInfoDto.getLastName());
+            user.getUserInfo().setPhoneNumber(userProfileInfoDto.getPhoneNumber());
+
+            try {
+                user.getUserMetadata().setUpdatedAt(getFormattedCurrentDate());
+
+                userRepository.save(user);
+                userInfoRepository.save(user.getUserInfo());
+            } catch (Exception e) {
+                log.error("Error while updating user profile info", e);
+                return ResponseEntity.badRequest().build();
+            }
+
+            return ResponseEntity.ok(new UserProfileInfoDto(user));
+        }
+        return ResponseEntity.notFound().build();
+    }
+
+    public ResponseEntity<String> updateUserPassword(UpdatePasswordDto updatePasswordDto) {
+        Optional<User> userOptional = getOptionalUser();
+        if (!updatePasswordDto.getNewPassword().equals(updatePasswordDto.getConfirmPassword())) {
+            log.info("New password and confirm password are not the same");
+            return ResponseEntity.badRequest().body("New password and confirm password do not match");
+        }
+
+        if (userOptional.isPresent()) {
+            User user = userOptional.get();
+            if (!passwordEncoder.matches(updatePasswordDto.getOldPassword(), user.getPassword())) {
+                log.info("Old password is not correct");
+                return ResponseEntity.badRequest().body("Old password is not correct");
+            }
+            user.setPassword(passwordEncoder.encode(updatePasswordDto.getNewPassword()));
+            userRepository.save(user);
+            return ResponseEntity.ok().build();
+        }
+        return ResponseEntity.notFound().build();
     }
 
 }

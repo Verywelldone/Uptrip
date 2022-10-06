@@ -33,12 +33,27 @@
               </a>
             </li>
             -->
+      <!--  <li class="border-top-1 bg-primary lg:border-top-none" *ngIf="userIsLoggedIn">
+          <a
+            class="p-ripple p-element h-full flex px-6 py-3 lg:px-3 lg:py-0 align-items-center hover:bg-blue-600
+             font-normal cursor-pointer transition-colors transition-duration-150"
+            routerLink="user/profile"
+          >
+            <p-avatar icon="pi pi-user" styleClass="mr-2" size="large" shape="circle"></p-avatar>
+
+            <div class="block">
+              <div class="font-semibold bg-transparent text-white">{{user?.username}}</div>
+            </div>
+            <span class="p-ink"></span>
+          </a>
+
+        </li>-->
+
       <li class="border-top-1 bg-primary lg:border-top-none" *ngIf="userIsLoggedIn">
-        <a
-          class="p-ripple p-element h-full flex px-6 py-3 lg:px-3 lg:py-0 align-items-center hover:bg-blue-600
-           font-normal cursor-pointer transition-colors transition-duration-150"
-          routerLink="user/profile"
-        >
+
+        <a (click)="menu.toggle($event)"
+           class="p-ripple p-element h-full flex px-6 py-3 lg:px-3 lg:py-0 align-items-center hover:bg-blue-600
+           font-normal cursor-pointer transition-colors transition-duration-150">
           <p-avatar icon="pi pi-user" styleClass="mr-2" size="large" shape="circle"></p-avatar>
 
           <div class="block">
@@ -46,18 +61,18 @@
           </div>
           <span class="p-ink"></span>
         </a>
+        <p-menu #menu [popup]="true" [model]="items"></p-menu>
 
-      </li>
-
-      <li class="border-top-1 bg-primary lg:border-top-none" *ngIf="userIsLoggedIn">
-        <button (click)="logout()"
+        <!--        <p-splitButton label="Save" icon="pi pi-check" [model]="items"></p-splitButton>-->
+        <!--   <button (click)="logout()"
                 class=" bg-transparent border-none p-ripple p-element h-full flex px-6 py-3 lg:px-3 lg:py-0 align-items-center hover:bg-blue-600 font-normal cursor-pointer transition-colors transition-duration-150">
           <p-avatar icon="pi pi-sign-out" styleClass="mr-2" size="large" shape="circle"></p-avatar>
           <div class="block">
             <div class="font-semibold bg-transparent text-white">Log Out</div>
           </div>
           <span class="p-ink"></span>
-        </button>
+        </button>-->
+
 
       </li>
 

@@ -10,8 +10,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 import uptrip.security.jwt.response.MessageResponse;
 
-import javax.servlet.http.HttpServletResponse;
-
 
 @ControllerAdvice
 @Slf4j
@@ -19,9 +17,9 @@ public class DefaultExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler({AuthenticationException.class})
     @ResponseBody
-    public ResponseEntity<?> handleAuthenticationException(HttpServletResponse response, AuthenticationException e) throws Exception {
+    public ResponseEntity<?> handleAuthenticationException(AuthenticationException e) {
         log.error("AuthenticationException: " + e.getMessage());
-        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new MessageResponse("Error: Unauthorized"));
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new MessageResponse(e.getMessage()));
     }
 
 }

@@ -1,0 +1,89 @@
+<div class="container">
+  <span class="block text-6xl font-bold text-primary">EDIT INFORMATION</span>
+  <p-splitter class="m-5"></p-splitter>
+
+  <div class="card">
+    <div class="text-blue-900 font-bold text-3xl mb-3 card-header">Account information</div>
+    <div class="row w-100 card-body">
+      <form [formGroup]="userInfoForm">
+
+        <div class="text-xl text-primary font-bold mb-3">
+          <div class="form-group text-2xl">
+            <label for="name">First name</label>
+            <input type="text" class="form-control" id="name" placeholder="Enter first name"
+                   formControlName="firstname">
+          </div>
+        </div>
+        <div class="text-xl text-primary font-bold mb-3">
+          <div class="form-group">
+            <label for="surname">Last name</label>
+            <input type="text" class="form-control" id="surname" placeholder="Enter last name"
+                   formControlName="lastname">
+          </div>
+        </div>
+        <div class="text-xl text-primary font-bold mb-3">
+          <div class="form-group">
+            <label for="surname">Username</label>
+            <input type="text" class="form-control" id="username" placeholder="Username" formControlName="username">
+          </div>
+        </div>
+        <div class="text-xl text-primary font-bold mb-3">
+          <div class="form-group">
+            <label for="surname">Email address</label>
+            <input type="email" class="form-control" id="email" placeholder="Enter email address"
+                   formControlName="email">
+          </div>
+        </div>
+        <div class="text-xl text-primary font-bold mb-3">
+          <label>Phone number</label>
+          <br>
+          <p-inputMask mask="(999) 999-9999" placeholder="(999) 999-9999" [classList]="'text-2xl'"
+                       formControlName="phonenumber"></p-inputMask>
+        </div>
+      </form>
+    </div>
+
+    <div class="card-footer text-right">
+      <button pButton pRipple label="Save" icon="pi pi-check" [disabled]="!userInfoForm.valid || formHasChanges()"
+              (click)="updateUserInfo()"></button>
+    </div>
+  </div>
+
+
+  <p-splitter class="m-8"></p-splitter>
+
+  <div class="card">
+    <div class="text-blue-900 font-bold text-3xl mb-3 card-header">Change password</div>
+    <div class="row card-body w-100">
+      <form [formGroup]="userPasswordForm">
+
+        <div class="text-xl text-primary font-bold mb-3">
+          <div class="form-group">
+            <label for="surname">Old Password</label>
+            <br>
+            <input type="text" pPassword class="w-50" formControlName="oldPassword" [feedback]="false"/>
+          </div>
+        </div>
+
+        <div class="text-xl text-primary font-bold mb-3">
+          <label for="surname">New password</label>
+          <br>
+          <input type="text" pPassword class="w-50" formControlName="newPassword"/>
+        </div>
+
+        <div class="text-xl text-primary font-bold mb-3">
+          <label for="surname">Confirm password</label>
+          <br>
+          <input type="text" pPassword class="w-50" formControlName="confirmPassword"/>
+        </div>
+      </form>
+
+    </div>
+    <div class="card-footer text-right">
+      <button pButton pRipple label="Save" (click)="updatePassword()" icon="pi pi-check"></button>
+    </div>
+  </div>
+</div>
+
+<p-toast position="bottom-center" key="tc"></p-toast>
+

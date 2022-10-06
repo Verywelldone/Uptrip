@@ -26,34 +26,80 @@ import {FrontPageHeroComponent} from './components/home-page/front-page-hero/fro
 import {CallToActionComponent} from './components/home-page/call-to-action/call-to-action.component';
 import {ProductPageComponent} from './components/product-page/product-page.component';
 import {ProductItemComponent} from './components/product-page/product-item/product-item.component';
-import {ProductControllerService} from "./api";
-import { NavigationBarComponent } from './components/shared/navigation-bar/navigation-bar.component';
+import {ProductControllerService, UserControllerService} from "./api";
+import {NavigationBarComponent} from './components/shared/navigation-bar/navigation-bar.component';
 import {AvatarModule} from "primeng/avatar";
-import { UserProfileComponent } from './components/user/user-profile/user-profile.component';
+import {UserProfileComponent} from './components/user/user-profile/user-profile.component';
+import {SplitButtonModule} from "primeng/splitbutton";
+import {MenuModule} from "primeng/menu";
+import {SidebarModule} from "primeng/sidebar";
+import {SlideMenuModule} from "primeng/slidemenu";
+import {
+  PersonalInformationComponent
+} from './components/user/user-profile/personal-information/personal-information.component';
+import {MyOrdersComponent} from './components/user/user-profile/my-orders/my-orders.component';
+import {MyAddressesComponent} from './components/user/user-profile/my-addresses/my-addresses.component';
+import {MyReviewsComponent} from './components/user/user-profile/my-reviews/my-reviews.component';
+import {WishlistComponent} from './components/user/user-profile/wishlist/wishlist.component';
+import {SplitterModule} from "primeng/splitter";
+import {InputMaskModule} from "primeng/inputmask";
+import {PasswordModule} from "primeng/password";
+import {headerAcceptInterceptor, HeaderAcceptsInterceptor} from "./helpers/HeaderAcceptsInterceptor";
 
 
 @NgModule({
   declarations: [
-    AppComponent, AdminComponent, LoginComponent, RegisterComponent, AuthenticationComponent, UserComponent, HomePageComponent, DarkBannerComponent, FrontPageHeroComponent, CallToActionComponent, ProductPageComponent, ProductItemComponent, NavigationBarComponent, UserProfileComponent
+    AppComponent,
+    AdminComponent,
+    LoginComponent,
+    RegisterComponent,
+    AuthenticationComponent,
+    UserComponent,
+    HomePageComponent,
+    DarkBannerComponent,
+    FrontPageHeroComponent,
+    CallToActionComponent,
+    ProductPageComponent,
+    ProductItemComponent,
+    NavigationBarComponent,
+    UserProfileComponent,
+    PersonalInformationComponent,
+    MyOrdersComponent,
+    MyAddressesComponent,
+    MyReviewsComponent,
+    WishlistComponent
   ],
-    imports: [
-        BrowserAnimationsModule,
-        AuthenticationModule,
-        HttpClientModule,
-        AppRoutingModule,
-        BrowserModule,
-        FormsModule,
-        ReactiveFormsModule,
-        AuthenticationModule,
-        MaterialModule,
-        SharedModule,
-        ToastModule,
-        PrimengModule,
-        TabMenuModule,
-        AvatarModule
-    ],
+
+  imports: [
+    BrowserAnimationsModule,
+    AuthenticationModule,
+    HttpClientModule,
+    AppRoutingModule,
+    BrowserModule,
+    FormsModule,
+    ReactiveFormsModule,
+    AuthenticationModule,
+    MaterialModule,
+    SharedModule,
+    ToastModule,
+    PrimengModule,
+    TabMenuModule,
+    AvatarModule,
+    SplitButtonModule,
+    MenuModule,
+    SidebarModule,
+    SlideMenuModule,
+    SplitterModule,
+    InputMaskModule,
+    PasswordModule
+  ],
   exports: [],
-  providers: [authInterceptorProviders, MessageService, ProductControllerService],
+  providers: [
+    authInterceptorProviders,headerAcceptInterceptor,
+
+    MessageService,
+    ProductControllerService,
+    UserControllerService],
   bootstrap: [AppComponent]
 })
 export class AppModule {
