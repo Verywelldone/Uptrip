@@ -10,6 +10,7 @@ export class MyOrdersComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+    console.log('MyOrdersComponent');
   }
 
 }

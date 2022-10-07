@@ -1,9 +1,9 @@
-<div class="container mt-5">
+<div class="container">
+  <div class="container mt-5">
+  </div>
+  <p-tabMenu [model]="items"></p-tabMenu>
   <div class="row">
-    <div class="col-4">
-      <p-slideMenu [model]="items" [viewportHeight]="350"></p-slideMenu>
-    </div>
-    <div class="col-8">
+    <div class="col-12">
       <app-personal-information *ngIf="this.status === 'Personal Information'"></app-personal-information>
       <app-my-orders *ngIf="this.status === 'My Orders'"></app-my-orders>
       <app-wishlist *ngIf="this.status === 'Wishlist'"></app-wishlist>
@@ -11,5 +11,4 @@
       <app-my-reviews *ngIf="this.status === 'My Reviews'"></app-my-reviews>
     </div>
   </div>
-
 </div>

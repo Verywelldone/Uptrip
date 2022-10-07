@@ -10,6 +10,7 @@ export class MyReviewsComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+    console.log('MyReviewsComponent');
   }
 
 }

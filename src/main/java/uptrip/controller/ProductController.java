@@ -8,6 +8,8 @@ import uptrip.model.product.ProductItem;
 import uptrip.model.product.dto.ProductItemDto;
 import uptrip.service.ProductService;
 
+import java.util.List;
+
 @RestController
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RequestMapping("/api/products")
@@ -30,6 +32,11 @@ public class ProductController {
     @GetMapping("/getByProductCategory/{id}")
     public ResponseEntity<?> getAllProductsByCategory(@PathVariable Long id) {
         return productService.getAllProductsByCategory(id);
+    }
+
+    @GetMapping("/get-top-products")
+    public ResponseEntity<List<ProductItem>> getTopProducts() {
+        return productService.getTopProducts();
     }
 
     @PostMapping(value = "/add")

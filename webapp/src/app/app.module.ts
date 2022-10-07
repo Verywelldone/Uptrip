@@ -44,7 +44,11 @@ import {WishlistComponent} from './components/user/user-profile/wishlist/wishlis
 import {SplitterModule} from "primeng/splitter";
 import {InputMaskModule} from "primeng/inputmask";
 import {PasswordModule} from "primeng/password";
-import {headerAcceptInterceptor, HeaderAcceptsInterceptor} from "./helpers/HeaderAcceptsInterceptor";
+import {headerAcceptInterceptor} from "./helpers/HeaderAcceptsInterceptor";
+import {CarouselModule} from "primeng/carousel";
+import {
+  TopRecommendedProducts
+} from "./components/home-page/top-recommanded-products/top-recommended-products.component";
 
 
 @NgModule({
@@ -67,7 +71,8 @@ import {headerAcceptInterceptor, HeaderAcceptsInterceptor} from "./helpers/Heade
     MyOrdersComponent,
     MyAddressesComponent,
     MyReviewsComponent,
-    WishlistComponent
+    WishlistComponent,
+    TopRecommendedProducts
   ],
 
   imports: [
@@ -91,11 +96,12 @@ import {headerAcceptInterceptor, HeaderAcceptsInterceptor} from "./helpers/Heade
     SlideMenuModule,
     SplitterModule,
     InputMaskModule,
-    PasswordModule
+    PasswordModule,
+    CarouselModule
   ],
   exports: [],
   providers: [
-    authInterceptorProviders,headerAcceptInterceptor,
+    authInterceptorProviders, headerAcceptInterceptor,
 
     MessageService,
     ProductControllerService,

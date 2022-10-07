@@ -14,8 +14,10 @@ import uptrip.repository.OrderRepository;
 import uptrip.repository.ProductCategoryRepository;
 import uptrip.repository.ProductRepository;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.Random;
 
 import static uptrip.exception.OrderCreationException.PRODUCT_NOT_FOUND_MESSAGE;
 
@@ -24,10 +26,10 @@ import static uptrip.exception.OrderCreationException.PRODUCT_NOT_FOUND_MESSAGE;
 @Slf4j
 public class ProductService {
 
+    final Random random = new Random();
     private final ProductRepository productRepository;
     private final ProductCategoryRepository productCategoryRepository;
     private final OrderRepository orderRepository;
-
 
     public ResponseEntity<ProductItem> createProduct(final ProductItemDto dto) {
 
@@ -136,5 +138,19 @@ public class ProductService {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Category not found");
         }
         return ResponseEntity.ok(productCategory.get().getProductItemList());
+    }
+
+    public ResponseEntity<List<ProductItem>> getTopProducts() {
+
+        List<ProductItem> productItems = productRepository.findAll();
+        List<ProductItem> randomProductItemList = new ArrayList<>();
+
+        for (int i = 0; i < 5; i++) {
+            int randomNumber = random.nextInt(productItems.size());
+            randomProductItemList.add(productItems.get(randomNumber));
+            productItems.remove(productItems.get(randomNumber));
+        }
+        log.info("Getting top products");
+        return ResponseEntity.ok(randomProductItemList);
     }
 }
