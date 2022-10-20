@@ -6,7 +6,7 @@
   <div
     class="flex top-100 ml-auto z-1  lg:pr-5 w-full lg:w-auto bg-primary">
     <ul
-      class="list-none p-0 m-0 flex justify-content-end select-none lg:flex-row  bg-primary lg:border-top-none">
+      class="list-none p-0 m-0 flex justify-content-end select-none lg:flex-row-reverse  bg-primary lg:border-top-none">
       <!--      <li>
               <a pripple=""
                    class="p-ripple p-element h-full flex px-6 py-3 lg:px-3 lg:py-0 align-items-center bg-primary hover:text-indigo-50 hover:bg-indigo-700 font-medium cursor-pointer transition-colors transition-duration-150"><i
@@ -54,6 +54,17 @@
         <p-menu #menu [popup]="true" [model]="items"></p-menu>
       </li>
 
+      <li class=" bg-primary lg:border-top-none ml-auto" *ngIf="userIsLoggedIn">
+
+        <a routerLink="/shopping-cart"
+           class="p-ripple p-element h-full flex px-6 py-3 lg:px-3 lg:py-0 align-items-center hover:bg-blue-600 font-normal cursor-pointer transition-colors transition-duration-150">
+          <p-avatar icon="pi pi-shopping-cart" styleClass="mr-2" size="large" shape="circle"></p-avatar>
+          <em class="mr-5 p-text-secondary" pBadge style="font-size: 2rem" [value]="'10+'" severity="danger"></em>
+          <div class="block">
+            <div class="font-semibold bg-transparent text-white">Cart</div>
+          </div>
+        </a>
+      </li>
 
       <li class="  bg-primary lg:border-top-none ml-auto" *ngIf="!userIsLoggedIn">
         <a routerLink="/login"

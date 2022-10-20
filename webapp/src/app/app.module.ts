@@ -49,6 +49,12 @@ import {CarouselModule} from "primeng/carousel";
 import {
   TopRecommendedProducts
 } from "./components/home-page/top-recommanded-products/top-recommended-products.component";
+import { ProductOverviewComponent } from './components/product-page/product-overview/product-overview.component';
+import {TabViewModule} from "primeng/tabview";
+import { FooterComponent } from './components/shared/footer/footer.component';
+import { ShoppingCartComponent } from './components/user/shopping-cart/shopping-cart.component';
+import {DropdownModule} from "primeng/dropdown";
+import {BadgeModule} from "primeng/badge";
 
 
 @NgModule({
@@ -72,7 +78,10 @@ import {
     MyAddressesComponent,
     MyReviewsComponent,
     WishlistComponent,
-    TopRecommendedProducts
+    TopRecommendedProducts,
+    ProductOverviewComponent,
+    FooterComponent,
+    ShoppingCartComponent
   ],
 
   imports: [
@@ -97,7 +106,10 @@ import {
     SplitterModule,
     InputMaskModule,
     PasswordModule,
-    CarouselModule
+    CarouselModule,
+    TabViewModule,
+    DropdownModule,
+    BadgeModule
   ],
   exports: [],
   providers: [

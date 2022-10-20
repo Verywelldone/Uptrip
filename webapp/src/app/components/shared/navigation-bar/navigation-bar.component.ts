@@ -11,6 +11,7 @@ export class NavigationBarComponent implements OnInit {
   userIsLoggedIn: any = false;
   user: any;
   items: MenuItem[] = [];
+  number: any = 2;
 
 
   constructor(private tokenStorageService: TokenStorageService, private messageService: MessageService) {

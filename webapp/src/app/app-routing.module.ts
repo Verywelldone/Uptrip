@@ -7,6 +7,8 @@ import {AdminComponent} from "./components/admin/admin.component";
 import {ProductPageComponent} from "./components/product-page/product-page.component";
 import {HomePageComponent} from "./components/home-page/home-page.component";
 import {UserProfileComponent} from "./components/user/user-profile/user-profile.component";
+import {ProductOverviewComponent} from "./components/product-page/product-overview/product-overview.component";
+import {ShoppingCartComponent} from "./components/user/shopping-cart/shopping-cart.component";
 
 const routes: Routes = [
 
@@ -21,6 +23,9 @@ const routes: Routes = [
 
   {path: 'home', component: HomePageComponent},
   {path: 'products', component: ProductPageComponent},
+
+  {path: 'shopping-cart', component: ShoppingCartComponent},
+  {path: 'products/:productId', component: ProductOverviewComponent},
 
   {path: '', redirectTo: 'home', pathMatch: 'full'}
 ];
