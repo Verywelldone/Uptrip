@@ -65,7 +65,6 @@ public class UserController {
         return userService.updateUserPassword(updatePasswordDto);
     }
 
-
     @GetMapping("/check")
     public String check() {
         return "OK";

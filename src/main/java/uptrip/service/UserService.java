@@ -192,6 +192,4 @@ public class UserService {
             }
         }, () -> log.info("User not found"));
     }
-
-
 }
