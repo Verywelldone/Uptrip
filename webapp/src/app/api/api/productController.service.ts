@@ -12,7 +12,7 @@
 
 import { Inject, Injectable, Optional }                      from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams,
-  HttpResponse, HttpEvent }                           from '@angular/common/http';
+         HttpResponse, HttpEvent }                           from '@angular/common/http';
 import { CustomHttpUrlEncodingCodec }                        from '../encoder';
 
 import { Observable }                                        from 'rxjs';
@@ -27,356 +27,356 @@ import { Configuration }                                     from '../configurat
 @Injectable()
 export class ProductControllerService {
 
-  protected basePath = 'http://localhost:8080';
-  public defaultHeaders = new HttpHeaders();
-  public configuration = new Configuration();
+    protected basePath = 'http://localhost:8080';
+    public defaultHeaders = new HttpHeaders();
+    public configuration = new Configuration();
 
-  constructor(protected httpClient: HttpClient, @Optional()@Inject(BASE_PATH) basePath: string, @Optional() configuration: Configuration) {
-    if (basePath) {
-      this.basePath = basePath;
-    }
-    if (configuration) {
-      this.configuration = configuration;
-      this.basePath = basePath || configuration.basePath || this.basePath;
-    }
-  }
-
-  /**
-   * @param consumes string[] mime-types
-   * @return true: consumes contains 'multipart/form-data', false: otherwise
-   */
-  private canConsumeForm(consumes: string[]): boolean {
-    const form = 'multipart/form-data';
-    for (const consume of consumes) {
-      if (form === consume) {
-        return true;
-      }
-    }
-    return false;
-  }
-
-
-  /**
-   * addProduct
-   *
-   * @param body
-   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-   * @param reportProgress flag to report request and response progress.
-   */
-  public addProductUsingPOST(body?: ProductItemDto, observe?: 'body', reportProgress?: boolean): Observable<any>;
-  public addProductUsingPOST(body?: ProductItemDto, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
-  public addProductUsingPOST(body?: ProductItemDto, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
-  public addProductUsingPOST(body?: ProductItemDto, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
-
-
-    let headers = this.defaultHeaders;
-
-    // authentication (Authorization) required
-    if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
-      headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
+    constructor(protected httpClient: HttpClient, @Optional()@Inject(BASE_PATH) basePath: string, @Optional() configuration: Configuration) {
+        if (basePath) {
+            this.basePath = basePath;
+        }
+        if (configuration) {
+            this.configuration = configuration;
+            this.basePath = basePath || configuration.basePath || this.basePath;
+        }
     }
 
-    // to determine the Accept header
-    let httpHeaderAccepts: string[] = [
-      '*/*'
-    ];
-    const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-    if (httpHeaderAcceptSelected != undefined) {
-      headers = headers.set('Accept', httpHeaderAcceptSelected);
-    }
-
-    // to determine the Content-Type header
-    const consumes: string[] = [
-      'application/json'
-    ];
-    const httpContentTypeSelected: string | undefined = this.configuration.selectHeaderContentType(consumes);
-    if (httpContentTypeSelected != undefined) {
-      headers = headers.set('Content-Type', httpContentTypeSelected);
-    }
-
-    return this.httpClient.request<any>('post',`${this.basePath}/api/products/add`,
-      {
-        body: body,
-        withCredentials: this.configuration.withCredentials,
-        headers: headers,
-        observe: observe,
-        reportProgress: reportProgress
-      }
-    );
-  }
-
-  /**
-   * deleteProduct
-   *
-   * @param id id
-   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-   * @param reportProgress flag to report request and response progress.
-   */
-  public deleteProductUsingDELETE(id: number, observe?: 'body', reportProgress?: boolean): Observable<any>;
-  public deleteProductUsingDELETE(id: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
-  public deleteProductUsingDELETE(id: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
-  public deleteProductUsingDELETE(id: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
-
-    if (id === null || id === undefined) {
-      throw new Error('Required parameter id was null or undefined when calling deleteProductUsingDELETE.');
-    }
-
-    let headers = this.defaultHeaders;
-
-    // authentication (Authorization) required
-    if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
-      headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
-    }
-
-    // to determine the Accept header
-    let httpHeaderAccepts: string[] = [
-      '*/*'
-    ];
-    const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-    if (httpHeaderAcceptSelected != undefined) {
-      headers = headers.set('Accept', httpHeaderAcceptSelected);
-    }
-
-    // to determine the Content-Type header
-    const consumes: string[] = [
-    ];
-
-    return this.httpClient.request<any>('delete',`${this.basePath}/api/products/delete/${encodeURIComponent(String(id))}`,
-      {
-        withCredentials: this.configuration.withCredentials,
-        headers: headers,
-        observe: observe,
-        reportProgress: reportProgress
-      }
-    );
-  }
-
-  /**
-   * getAllProductsByCategory
-   *
-   * @param id id
-   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-   * @param reportProgress flag to report request and response progress.
-   */
-  public getAllProductsByCategoryUsingGET(id: number, observe?: 'body', reportProgress?: boolean): Observable<any>;
-  public getAllProductsByCategoryUsingGET(id: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
-  public getAllProductsByCategoryUsingGET(id: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
-  public getAllProductsByCategoryUsingGET(id: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
-
-    if (id === null || id === undefined) {
-      throw new Error('Required parameter id was null or undefined when calling getAllProductsByCategoryUsingGET.');
-    }
-
-    let headers = this.defaultHeaders;
-
-    // authentication (Authorization) required
-    if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
-      headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
-    }
-
-    // to determine the Accept header
-    let httpHeaderAccepts: string[] = [
-      '*/*'
-    ];
-    const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-    if (httpHeaderAcceptSelected != undefined) {
-      headers = headers.set('Accept', httpHeaderAcceptSelected);
-    }
-
-    // to determine the Content-Type header
-    const consumes: string[] = [
-    ];
-
-    return this.httpClient.request<any>('get',`${this.basePath}/api/products/getByProductCategory/${encodeURIComponent(String(id))}`,
-      {
-        withCredentials: this.configuration.withCredentials,
-        headers: headers,
-        observe: observe,
-        reportProgress: reportProgress
-      }
-    );
-  }
-
-  /**
-   * getAllProducts
-   *
-   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-   * @param reportProgress flag to report request and response progress.
-   */
-  public getAllProductsUsingGET(observe?: 'body', reportProgress?: boolean): Observable<any>;
-  public getAllProductsUsingGET(observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
-  public getAllProductsUsingGET(observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
-  public getAllProductsUsingGET(observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
-
-    let headers = this.defaultHeaders;
-
-    // authentication (Authorization) required
-    if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
-      headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
-    }
-
-    // to determine the Accept header
-    let httpHeaderAccepts: string[] = [
-      '*/*'
-    ];
-    const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-    if (httpHeaderAcceptSelected != undefined) {
-      headers = headers.set('Accept', httpHeaderAcceptSelected);
-    }
-
-    // to determine the Content-Type header
-    const consumes: string[] = [
-    ];
-
-    return this.httpClient.request<any>('get',`${this.basePath}/api/products/all`,
-      {
-        withCredentials: this.configuration.withCredentials,
-        headers: headers,
-        observe: observe,
-        reportProgress: reportProgress
-      }
-    );
-  }
-
-  /**
-   * getOne
-   *
-   * @param id id
-   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-   * @param reportProgress flag to report request and response progress.
-   */
-  public getOneUsingGET1(id: number, observe?: 'body', reportProgress?: boolean): Observable<ProductItem>;
-  public getOneUsingGET1(id: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<ProductItem>>;
-  public getOneUsingGET1(id: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<ProductItem>>;
-  public getOneUsingGET1(id: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
-
-    if (id === null || id === undefined) {
-      throw new Error('Required parameter id was null or undefined when calling getOneUsingGET1.');
-    }
-
-    let headers = this.defaultHeaders;
-
-    // authentication (Authorization) required
-    if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
-      headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
-    }
-
-    // to determine the Accept header
-    let httpHeaderAccepts: string[] = [
-      '*/*'
-    ];
-    const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-    if (httpHeaderAcceptSelected != undefined) {
-      headers = headers.set('Accept', httpHeaderAcceptSelected);
-    }
-
-    // to determine the Content-Type header
-    const consumes: string[] = [
-    ];
-
-    return this.httpClient.request<ProductItem>('get',`${this.basePath}/api/products/${encodeURIComponent(String(id))}`,
-      {
-        withCredentials: this.configuration.withCredentials,
-        headers: headers,
-        observe: observe,
-        reportProgress: reportProgress
-      }
-    );
-  }
-
-  /**
-   * getTopProducts
-   *
-   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-   * @param reportProgress flag to report request and response progress.
-   */
-  public getTopProductsUsingGET(observe?: 'body', reportProgress?: boolean): Observable<Array<ProductItem>>;
-  public getTopProductsUsingGET(observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<ProductItem>>>;
-  public getTopProductsUsingGET(observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<ProductItem>>>;
-  public getTopProductsUsingGET(observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
-
-    let headers = this.defaultHeaders;
-
-    // authentication (Authorization) required
-    if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
-      headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
-    }
-
-    // to determine the Accept header
-    let httpHeaderAccepts: string[] = [
-      '*/*'
-    ];
-    const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-    if (httpHeaderAcceptSelected != undefined) {
-      headers = headers.set('Accept', httpHeaderAcceptSelected);
-    }
-
-    // to determine the Content-Type header
-    const consumes: string[] = [
-    ];
-
-    return this.httpClient.request<Array<ProductItem>>('get',`${this.basePath}/api/products/get-top-products`,
-      {
-        withCredentials: this.configuration.withCredentials,
-        headers: headers,
-        observe: observe,
-        reportProgress: reportProgress
-      }
-    );
-  }
-
-  /**
-   * updateProduct
-   *
-   * @param id id
-   * @param body
-   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-   * @param reportProgress flag to report request and response progress.
-   */
-  public updateProductUsingPUT(id: number, body?: ProductItemDto, observe?: 'body', reportProgress?: boolean): Observable<any>;
-  public updateProductUsingPUT(id: number, body?: ProductItemDto, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
-  public updateProductUsingPUT(id: number, body?: ProductItemDto, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
-  public updateProductUsingPUT(id: number, body?: ProductItemDto, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
-
-    if (id === null || id === undefined) {
-      throw new Error('Required parameter id was null or undefined when calling updateProductUsingPUT.');
+    /**
+     * @param consumes string[] mime-types
+     * @return true: consumes contains 'multipart/form-data', false: otherwise
+     */
+    private canConsumeForm(consumes: string[]): boolean {
+        const form = 'multipart/form-data';
+        for (const consume of consumes) {
+            if (form === consume) {
+                return true;
+            }
+        }
+        return false;
     }
 
 
-    let headers = this.defaultHeaders;
+    /**
+     * addProduct
+     * 
+     * @param body 
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public addProductUsingPOST(body?: ProductItemDto, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public addProductUsingPOST(body?: ProductItemDto, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public addProductUsingPOST(body?: ProductItemDto, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public addProductUsingPOST(body?: ProductItemDto, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
-    // authentication (Authorization) required
-    if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
-      headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
+
+        let headers = this.defaultHeaders;
+
+        // authentication (Authorization) required
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
+        }
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            '*/*'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+            'application/json'
+        ];
+        const httpContentTypeSelected: string | undefined = this.configuration.selectHeaderContentType(consumes);
+        if (httpContentTypeSelected != undefined) {
+            headers = headers.set('Content-Type', httpContentTypeSelected);
+        }
+
+        return this.httpClient.request<any>('post',`${this.basePath}/api/products/add`,
+            {
+                body: body,
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
     }
 
-    // to determine the Accept header
-    let httpHeaderAccepts: string[] = [
-      '*/*'
-    ];
-    const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-    if (httpHeaderAcceptSelected != undefined) {
-      headers = headers.set('Accept', httpHeaderAcceptSelected);
+    /**
+     * deleteProduct
+     * 
+     * @param id id
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public deleteProductUsingDELETE(id: number, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public deleteProductUsingDELETE(id: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public deleteProductUsingDELETE(id: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public deleteProductUsingDELETE(id: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+        if (id === null || id === undefined) {
+            throw new Error('Required parameter id was null or undefined when calling deleteProductUsingDELETE.');
+        }
+
+        let headers = this.defaultHeaders;
+
+        // authentication (Authorization) required
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
+        }
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            '*/*'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+        ];
+
+        return this.httpClient.request<any>('delete',`${this.basePath}/api/products/delete/${encodeURIComponent(String(id))}`,
+            {
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
     }
 
-    // to determine the Content-Type header
-    const consumes: string[] = [
-      'application/json'
-    ];
-    const httpContentTypeSelected: string | undefined = this.configuration.selectHeaderContentType(consumes);
-    if (httpContentTypeSelected != undefined) {
-      headers = headers.set('Content-Type', httpContentTypeSelected);
+    /**
+     * getAllProductsByCategory
+     * 
+     * @param id id
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public getAllProductsByCategoryUsingGET(id: number, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public getAllProductsByCategoryUsingGET(id: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public getAllProductsByCategoryUsingGET(id: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public getAllProductsByCategoryUsingGET(id: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+        if (id === null || id === undefined) {
+            throw new Error('Required parameter id was null or undefined when calling getAllProductsByCategoryUsingGET.');
+        }
+
+        let headers = this.defaultHeaders;
+
+        // authentication (Authorization) required
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
+        }
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            '*/*'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+        ];
+
+        return this.httpClient.request<any>('get',`${this.basePath}/api/products/getByProductCategory/${encodeURIComponent(String(id))}`,
+            {
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
     }
 
-    return this.httpClient.request<any>('put',`${this.basePath}/api/products/update/${encodeURIComponent(String(id))}`,
-      {
-        body: body,
-        withCredentials: this.configuration.withCredentials,
-        headers: headers,
-        observe: observe,
-        reportProgress: reportProgress
-      }
-    );
-  }
+    /**
+     * getAllProducts
+     * 
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public getAllProductsUsingGET(observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public getAllProductsUsingGET(observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public getAllProductsUsingGET(observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public getAllProductsUsingGET(observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+        let headers = this.defaultHeaders;
+
+        // authentication (Authorization) required
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
+        }
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            '*/*'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+        ];
+
+        return this.httpClient.request<any>('get',`${this.basePath}/api/products/all`,
+            {
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * getOne
+     * 
+     * @param id id
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public getOneUsingGET1(id: number, observe?: 'body', reportProgress?: boolean): Observable<ProductItem>;
+    public getOneUsingGET1(id: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<ProductItem>>;
+    public getOneUsingGET1(id: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<ProductItem>>;
+    public getOneUsingGET1(id: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+        if (id === null || id === undefined) {
+            throw new Error('Required parameter id was null or undefined when calling getOneUsingGET1.');
+        }
+
+        let headers = this.defaultHeaders;
+
+        // authentication (Authorization) required
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
+        }
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            '*/*'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+        ];
+
+        return this.httpClient.request<ProductItem>('get',`${this.basePath}/api/products/${encodeURIComponent(String(id))}`,
+            {
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * getTopProducts
+     * 
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public getTopProductsUsingGET(observe?: 'body', reportProgress?: boolean): Observable<Array<ProductItem>>;
+    public getTopProductsUsingGET(observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<ProductItem>>>;
+    public getTopProductsUsingGET(observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<ProductItem>>>;
+    public getTopProductsUsingGET(observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+        let headers = this.defaultHeaders;
+
+        // authentication (Authorization) required
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
+        }
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            '*/*'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+        ];
+
+        return this.httpClient.request<Array<ProductItem>>('get',`${this.basePath}/api/products/get-top-products`,
+            {
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * updateProduct
+     * 
+     * @param id id
+     * @param body 
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public updateProductUsingPUT(id: number, body?: ProductItemDto, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public updateProductUsingPUT(id: number, body?: ProductItemDto, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public updateProductUsingPUT(id: number, body?: ProductItemDto, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public updateProductUsingPUT(id: number, body?: ProductItemDto, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+        if (id === null || id === undefined) {
+            throw new Error('Required parameter id was null or undefined when calling updateProductUsingPUT.');
+        }
+
+
+        let headers = this.defaultHeaders;
+
+        // authentication (Authorization) required
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
+        }
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            '*/*'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+            'application/json'
+        ];
+        const httpContentTypeSelected: string | undefined = this.configuration.selectHeaderContentType(consumes);
+        if (httpContentTypeSelected != undefined) {
+            headers = headers.set('Content-Type', httpContentTypeSelected);
+        }
+
+        return this.httpClient.request<any>('put',`${this.basePath}/api/products/update/${encodeURIComponent(String(id))}`,
+            {
+                body: body,
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
 
 }

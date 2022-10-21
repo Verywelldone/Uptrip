@@ -1,6 +1,6 @@
 import {Component} from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
-import {ProductControllerService, ProductItem} from "../../../api";
+import {ProductControllerService, ProductItem, UserControllerService} from "../../../api";
 
 @Component({
   selector: 'app-product-overview',
@@ -14,7 +14,9 @@ export class ProductOverviewComponent {
   private sub: any;
   private productId: number = -1;
 
-  constructor(private route: ActivatedRoute, private productService: ProductControllerService) {
+  constructor(private route: ActivatedRoute,
+              private productService: ProductControllerService,
+              private userService: UserControllerService) {
     this.sub = this.route.paramMap.subscribe((params: any) => {
       this.productId = params.get('productId');
       this.productService.getOneUsingGET1(this.productId).subscribe(res => {
@@ -24,4 +26,10 @@ export class ProductOverviewComponent {
     });
   }
 
+  addProductToUserCart(productItem: ProductItem) {
+    console.log(productItem);
+    this.userService.addProductToUserCartUsingPOST(productItem).subscribe(res => {
+      console.log(res);
+    });
+  }
 }

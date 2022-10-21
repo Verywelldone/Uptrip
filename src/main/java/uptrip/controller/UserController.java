@@ -9,6 +9,8 @@ import uptrip.model.user.dto.UpdatePasswordDto;
 import uptrip.model.user.dto.UserProfileInfoDto;
 import uptrip.service.UserService;
 
+import java.util.List;
+
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @RequestMapping("/api/user")
@@ -24,13 +26,28 @@ public class UserController {
     }
 
     @GetMapping("/favorites/get-all")
-    public void getAllUserFavoriteProducts() {
-        userService.getAllUserFavoriteProducts();
+    public List<ProductItem> getAllUserFavoriteProducts() {
+        return userService.getAllUserFavoriteProducts();
     }
 
     @PostMapping("/favorites/remove")
     public void removeUserFavoriteProduct(@RequestBody ProductItem productItem) {
         userService.removeUserFavoriteProduct(productItem);
+    }
+
+    @PostMapping("/cart/add")
+    public void addProductToUserCart(@RequestBody ProductItem productItem) {
+        userService.addProductToUserCart(productItem);
+    }
+
+    @GetMapping("/cart/get-all")
+    public List<ProductItem> getAllUserProductItemsFromCart() {
+        return userService.getAllUserProductItemsFromCart();
+    }
+
+    @PostMapping("/cart/remove")
+    public void removeUserProductFromCart(@RequestBody ProductItem productItem) {
+        userService.removeUserProductFromCart(productItem);
     }
 
     @GetMapping("/profile")

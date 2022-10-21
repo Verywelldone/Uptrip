@@ -3,7 +3,7 @@
     <div class="grid">
       <div class="col-12 lg:col-6">
         <div class="flex">
-          <div><img src="{{productItem?.image}}" class="w-75"></div>
+          <div><img src="{{productItem.image}}" class="w-75"></div>
         </div>
       </div>
       <div class="col-12 lg:col-6 py-5 lg:py-3 lg:pl-5">
@@ -17,8 +17,8 @@
            <li>Category</li>
          </ol>-->
         <div class="flex align-items-center justify-content-between mb-4">
-          <span class="text-xl font-medium text-900">{{productItem?.name}}</span>
-          <span class="text-xl font-medium text-900">{{productItem?.price | currency:'RON' }}</span>
+          <span class="text-xl font-medium text-900">{{productItem.name}}</span>
+          <span class="text-xl font-medium text-900">{{productItem.price | currency:'RON' }}</span>
         </div>
 
         <div class="flex align-items-center justify-content-between lg:justify-content-start mb-5">
@@ -31,7 +31,7 @@
           </span>
           <span class="text-500">5.00 | <b>20</b> reviews</span>
         </div>
-        <p class="p-0 mt-0 mb-5 line-height-3 text-700">{{productItem?.description}} </p>
+        <p class="p-0 mt-0 mb-5 line-height-3 text-700">{{productItem.description}} </p>
         <div class="font-bold text-900 mb-3">Color</div>
         <div class="flex align-items-center mb-5">
           <button type="radio"
@@ -81,11 +81,15 @@
           <i class="pi pi-exclamation"></i>
           <span>{{productItem!.stock}} items in stock!</span>
         </div>
-        <button pbutton="" pripple="" icon="pi pi-shopping-cart" label="Add to Cart"
-                class="p-element p-ripple w-full mb-5 p-button p-component"><span
-          class="p-button-icon p-button-icon-left pi pi-shopping-cart" aria-hidden="true"></span><span
-          class="p-button-label">Add to Cart</span><span class="p-ink"></span></button>
-        <ul class="list-none p-0 m-0 text-sm text-600">
+
+        <button icon="pi pi-shopping-cart" label="Add to Cart" (click)="addProductToUserCart(this.productItem)"
+                class="p-element p-ripple w-full mb-5 p-button p-component">
+          <span class="p-button-icon p-button-icon-left pi pi-shopping-cart" aria-hidden="true"> </span>
+          <span class="p-button-label">Add to Cart</span>
+          <span class="p-ink"></span>
+        </button>
+        <ul class="list-none
+         p-0 m-0 text-sm text-600">
           <li class="flex align-items-center mb-3"><i class="pi pi-credit-card mr-2"></i><span>Pay in 21 days</span>
           </li>
           <li class="flex align-items-center mb-3"><i class="pi pi-send mr-2"></i><span>Free Shipping</span></li>

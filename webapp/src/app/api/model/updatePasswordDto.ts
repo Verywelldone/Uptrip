@@ -10,8 +10,8 @@
  * Do not edit the class manually.
  */
 
-export interface UpdatePasswordDto {
-    confirmPassword?: string | null;
-    newPassword?: string | null;
-    oldPassword?: string | null;
+export interface UpdatePasswordDto { 
+    confirmPassword?: string;
+    newPassword?: string;
+    oldPassword?: string;
 }

@@ -4,6 +4,7 @@ package uptrip.model.product;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.Objects;
 
 @Entity
 @Getter
@@ -52,5 +53,17 @@ public class ProductItem {
                 ", description='" + description + '\'' +
                 ", stock=" + stock +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof ProductItem that)) return false;
+        return getId().equals(that.getId()) && Objects.equals(getName(), that.getName()) && Objects.equals(getProductCategory(), that.getProductCategory());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId(), getName(), getProductCategory());
     }
 }

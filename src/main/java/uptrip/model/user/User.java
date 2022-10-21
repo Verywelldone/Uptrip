@@ -71,6 +71,12 @@ public class User {
             inverseJoinColumns = @JoinColumn(name = "product_id"))
     private Set<ProductItem> favoriteProducts = new HashSet<>();
 
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "user_cart_products",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "cart_id"))
+    private Set<ProductItem> cartProducts = new HashSet<>();
+
     public User(String username, String email, String password) {
         this.username = username;
         this.email = email;

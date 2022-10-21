@@ -16,6 +16,7 @@ import { UserInfo } from './userInfo';
 import { UserMetadata } from './userMetadata';
 
 export interface User { 
+    cartProducts?: Array<ProductItem>;
     email: string;
     favoriteProducts?: Array<ProductItem>;
     id?: number;

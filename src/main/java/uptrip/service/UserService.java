@@ -3,7 +3,6 @@ package uptrip.service;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.jetbrains.annotations.NotNull;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -12,17 +11,13 @@ import org.springframework.stereotype.Service;
 import uptrip.model.product.ProductItem;
 import uptrip.model.user.User;
 import uptrip.model.user.UserInfo;
-import uptrip.model.user.UserMetadata;
 import uptrip.model.user.dto.UpdatePasswordDto;
 import uptrip.model.user.dto.UserProfileInfoDto;
 import uptrip.repository.UserInfoRepository;
 import uptrip.repository.UserRepository;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 @Slf4j
@@ -66,11 +61,7 @@ public class UserService {
         Optional<User> userOptional = getOptionalUser();
         if (userOptional.isPresent()) {
 
-            log.info("Found user with id {} and username {} and removing productItem with id {} and name {}",
-                    userOptional.get().getId(),
-                    userOptional.get().getUsername(),
-                    productItem.getId(),
-                    productItem.getName());
+            log.info("Found user with id {} and username {} and removing productItem with id {} and name {}", userOptional.get().getId(), userOptional.get().getUsername(), productItem.getId(), productItem.getName());
 
             User user = userOptional.get();
             user.getFavoriteProducts().remove(productItem);
@@ -153,5 +144,54 @@ public class UserService {
         }
         return ResponseEntity.notFound().build();
     }
+
+    public void addProductToUserCart(final ProductItem productItem) {
+        Optional<User> userOptional = getOptionalUser();
+
+        if (userOptional.isEmpty()) {
+            log.info("User not found");
+            return;
+        }
+
+        User user = userOptional.get();
+
+        if (!user.getCartProducts().contains(productItem)) {
+            log.info("Found user with id {} and username {} and adding productItem with id {} and name {} to cart", user.getId(), user.getUsername(), productItem.getId(), productItem.getName());
+            user.getCartProducts().add(productItem);
+            userRepository.save(user);
+        }
+    }
+
+    public List<ProductItem> getAllUserProductItemsFromCart() {
+        Optional<User> userOptional = getOptionalUser();
+        if (userOptional.isEmpty()) {
+            log.info("User not found");
+            return Collections.emptyList();
+        }
+        User user = userOptional.get();
+        log.info("Found user with id {} and username {} and returning all products from cart", user.getId(), user.getUsername());
+
+        for (ProductItem productItem : user.getCartProducts()) {
+            log.info("ProductItem with id {} and name {}", productItem.getId(), productItem.getName());
+        }
+
+        return new ArrayList<>(user.getCartProducts());
+
+    }
+
+    public void removeUserProductFromCart(final ProductItem productItem) {
+        Optional<User> userOptional = getOptionalUser();
+        (userOptional).ifPresentOrElse(user -> {
+            for (Iterator<ProductItem> iterator = user.getCartProducts().iterator(); iterator.hasNext(); ) {
+                ProductItem productItem1 = iterator.next();
+                if (productItem1.getId().equals(productItem.getId())) {
+                    log.info("Found user with id {} and username {} and removing productItem with id {} and name {} from cart", user.getId(), user.getUsername(), productItem.getId(), productItem.getName());
+                    iterator.remove();
+                    userRepository.save(user);
+                }
+            }
+        }, () -> log.info("User not found"));
+    }
+
 
 }

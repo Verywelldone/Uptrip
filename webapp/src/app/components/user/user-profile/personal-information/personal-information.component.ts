@@ -74,9 +74,9 @@ export class PersonalInformationComponent implements OnInit {
   updatePassword() {
     // @ts-ignore
     let updatePasswordDto: UpdatePasswordDto = {
-      oldPassword: this.userPasswordForm.value.oldPassword,
-      newPassword: this.userPasswordForm.value.newPassword,
-      confirmPassword: this.userPasswordForm.value.confirmPassword
+      oldPassword: this.userPasswordForm.value.oldPassword!,
+      newPassword: this.userPasswordForm.value.newPassword!,
+      confirmPassword: this.userPasswordForm.value.confirmPassword!
     }
 
     this.userService.updateUserPasswordUsingPOST(updatePasswordDto).subscribe(
