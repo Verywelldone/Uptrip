@@ -65,6 +65,8 @@ import {MenubarModule} from "primeng/menubar";
 import {DividerModule} from "primeng/divider";
 import { OrderStatusMessageComponent } from './components/user/user-profile/my-orders/order-status-message/order-status-message.component';
 import {RatingModule} from "primeng/rating";
+import {DataViewModule} from "primeng/dataview";
+import { SpinnerLoadingAnimationComponent } from './components/shared/spinner-loading-animation/spinner-loading-animation.component';
 
 
 @NgModule({
@@ -92,40 +94,42 @@ import {RatingModule} from "primeng/rating";
     ProductOverviewComponent,
     FooterComponent,
     ShoppingCartComponent,
-    OrderStatusMessageComponent
+    OrderStatusMessageComponent,
+    SpinnerLoadingAnimationComponent
   ],
 
-    imports: [
-        BrowserAnimationsModule,
-        AuthenticationModule,
-        HttpClientModule,
-        AppRoutingModule,
-        BrowserModule,
-        FormsModule,
-        ReactiveFormsModule,
-        AuthenticationModule,
-        MaterialModule,
-        SharedModule,
-        ToastModule,
-        PrimengModule,
-        TabMenuModule,
-        AvatarModule,
-        SplitButtonModule,
-        MenuModule,
-        SidebarModule,
-        SlideMenuModule,
-        SplitterModule,
-        InputMaskModule,
-        PasswordModule,
-        CarouselModule,
-        TabViewModule,
-        DropdownModule,
-        BadgeModule,
-        InputNumberModule,
-        MenubarModule,
-        DividerModule,
-        RatingModule
-    ],
+  imports: [
+    BrowserAnimationsModule,
+    AuthenticationModule,
+    HttpClientModule,
+    AppRoutingModule,
+    BrowserModule,
+    FormsModule,
+    ReactiveFormsModule,
+    AuthenticationModule,
+    MaterialModule,
+    SharedModule,
+    ToastModule,
+    PrimengModule,
+    TabMenuModule,
+    AvatarModule,
+    SplitButtonModule,
+    MenuModule,
+    SidebarModule,
+    SlideMenuModule,
+    SplitterModule,
+    InputMaskModule,
+    PasswordModule,
+    CarouselModule,
+    TabViewModule,
+    DropdownModule,
+    BadgeModule,
+    InputNumberModule,
+    MenubarModule,
+    DividerModule,
+    RatingModule,
+    DataViewModule
+  ],
   exports: [],
   providers: [
     authInterceptorProviders, headerAcceptInterceptor,

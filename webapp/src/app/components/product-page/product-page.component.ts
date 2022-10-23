@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {ProductControllerService, ProductItem} from "../../api";
-import {Observable} from "rxjs";
+import {SelectItem} from "primeng/api";
 
 @Component({
   selector: 'app-product-page',
@@ -9,14 +9,49 @@ import {Observable} from "rxjs";
 })
 export class ProductPageComponent implements OnInit {
 
-  productItems: Observable<Array<ProductItem>> | undefined;
+  productItems: ProductItem[] = [];
+
+  sortOptions: SelectItem[] = [];
+
+  sortOrder: number = 1;
+
+  sortField: string = '';
+  sortCategoryOptions: SelectItem[]=[];
 
   constructor(private productService: ProductControllerService) {
   }
 
   ngOnInit(): void {
-    this.productItems = this.productService.getAllProductsUsingGET();
-    this.productItems.subscribe();
+    this.productService.getAllProductsUsingGET().subscribe(res => {
+      this.productItems = res;
+    });
+
+
+    this.sortOptions = [
+      {label: 'Price High to Low', value: '!price'},
+      {label: 'Price Low to High', value: 'price'}
+    ];
+
+    this.sortCategoryOptions=[
+      {label: 'Jackets', value: 'JACKETS'},
+      {label: 'Pants', value: 'PANTS'},
+      {label: 'Shirts', value: 'SHIRTS'},
+
+
+    ]
+
+  }
+
+  onSortChange(event: any) {
+    let value = event.value;
+
+    if (value.indexOf('!') === 0) {
+      this.sortOrder = -1;
+      this.sortField = value.substring(1, value.length);
+    } else {
+      this.sortOrder = 1;
+      this.sortField = value;
+    }
   }
 
 }

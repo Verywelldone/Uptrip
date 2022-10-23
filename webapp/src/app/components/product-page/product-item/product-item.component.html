@@ -14,18 +14,18 @@
     </span>
   </div>
   <p class="mt-0 mb-3 text-600 line-height-3"> {{productItem?.description}} </p>
-  <span class="text-primary text-xl font-medium">${{productItem?.price}}</span>
+  <span class="text-primary text-xl font-medium">{{productItem?.price | currency:'RON'}}</span>
   <div class="flex justify-content-between align-items-center mt-3">
     <div class="flex align-items-center">
-      <button class="btn btn-primary btn-icon btn-round" pTooltip="Save for later!" (click)="addProductToUserFavorite()">
-        <i class="pi pi-heart"></i>
+      <button class="btn btn-primary btn-icon btn-round ml-2" pTooltip="Save for later!" (click)="addProductToUserFavorite()">
+        <i class="pi pi-heart-fill pt-1" ></i>
       </button>
       <button class="btn btn-primary btn-icon btn-round ml-2" pTooltip="Add product to cart!" (click)="addProductToUserCart()">
-        <i class="pi pi-shopping-cart"></i>
+        <i class="pi pi-shopping-cart pt-1" ></i>
       </button>
     </div>
     <a routerLink="/{{productItem.id}}" class="btn btn-primary btn-icon btn-round" pTooltip="Find more about this product!">
-      <i class="pi pi-info-circle"></i>
+      <i class="pi pi-info-circle pt-1"></i>
     </a>
   </div>
 </div>
