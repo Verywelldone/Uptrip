@@ -17,7 +17,8 @@ import { CustomHttpUrlEncodingCodec }                        from '../encoder';
 
 import { Observable }                                        from 'rxjs';
 
-import { ProductItem } from '../model/productItem';
+import { ProductItemReq } from '../model/productItemReq';
+import { ProductItemRes } from '../model/productItemRes';
 import { UpdatePasswordDto } from '../model/updatePasswordDto';
 import { UserProfileInfoDto } from '../model/userProfileInfoDto';
 
@@ -64,10 +65,10 @@ export class UserControllerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public addProductToUserCartUsingPOST(body?: ProductItem, observe?: 'body', reportProgress?: boolean): Observable<any>;
-    public addProductToUserCartUsingPOST(body?: ProductItem, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
-    public addProductToUserCartUsingPOST(body?: ProductItem, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
-    public addProductToUserCartUsingPOST(body?: ProductItem, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public addProductToUserCartUsingPOST(body?: ProductItemReq, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public addProductToUserCartUsingPOST(body?: ProductItemReq, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public addProductToUserCartUsingPOST(body?: ProductItemReq, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public addProductToUserCartUsingPOST(body?: ProductItemReq, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
 
         let headers = this.defaultHeaders;
@@ -112,10 +113,10 @@ export class UserControllerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public addUserFavoriteProductUsingPOST(body?: ProductItem, observe?: 'body', reportProgress?: boolean): Observable<any>;
-    public addUserFavoriteProductUsingPOST(body?: ProductItem, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
-    public addUserFavoriteProductUsingPOST(body?: ProductItem, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
-    public addUserFavoriteProductUsingPOST(body?: ProductItem, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public addUserFavoriteProductUsingPOST(body?: ProductItemReq, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public addUserFavoriteProductUsingPOST(body?: ProductItemReq, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public addUserFavoriteProductUsingPOST(body?: ProductItemReq, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public addUserFavoriteProductUsingPOST(body?: ProductItemReq, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
 
         let headers = this.defaultHeaders;
@@ -200,9 +201,9 @@ export class UserControllerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getAllUserFavoriteProductsUsingGET(observe?: 'body', reportProgress?: boolean): Observable<any>;
-    public getAllUserFavoriteProductsUsingGET(observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
-    public getAllUserFavoriteProductsUsingGET(observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public getAllUserFavoriteProductsUsingGET(observe?: 'body', reportProgress?: boolean): Observable<Array<ProductItemRes>>;
+    public getAllUserFavoriteProductsUsingGET(observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<ProductItemRes>>>;
+    public getAllUserFavoriteProductsUsingGET(observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<ProductItemRes>>>;
     public getAllUserFavoriteProductsUsingGET(observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         let headers = this.defaultHeaders;
@@ -214,6 +215,7 @@ export class UserControllerService {
 
         // to determine the Accept header
         let httpHeaderAccepts: string[] = [
+            '*/*'
         ];
         const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected != undefined) {
@@ -224,7 +226,7 @@ export class UserControllerService {
         const consumes: string[] = [
         ];
 
-        return this.httpClient.request<any>('get',`${this.basePath}/api/user/favorites/get-all`,
+        return this.httpClient.request<Array<ProductItemRes>>('get',`${this.basePath}/api/user/favorites/get-all`,
             {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
@@ -240,9 +242,9 @@ export class UserControllerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getAllUserProductItemsFromCartUsingGET(observe?: 'body', reportProgress?: boolean): Observable<any>;
-    public getAllUserProductItemsFromCartUsingGET(observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
-    public getAllUserProductItemsFromCartUsingGET(observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public getAllUserProductItemsFromCartUsingGET(observe?: 'body', reportProgress?: boolean): Observable<Array<ProductItemRes>>;
+    public getAllUserProductItemsFromCartUsingGET(observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<ProductItemRes>>>;
+    public getAllUserProductItemsFromCartUsingGET(observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<ProductItemRes>>>;
     public getAllUserProductItemsFromCartUsingGET(observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         let headers = this.defaultHeaders;
@@ -254,6 +256,7 @@ export class UserControllerService {
 
         // to determine the Accept header
         let httpHeaderAccepts: string[] = [
+            '*/*'
         ];
         const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected != undefined) {
@@ -264,7 +267,7 @@ export class UserControllerService {
         const consumes: string[] = [
         ];
 
-        return this.httpClient.request<any>('get',`${this.basePath}/api/user/cart/get-all`,
+        return this.httpClient.request<Array<ProductItemRes>>('get',`${this.basePath}/api/user/cart/get-all`,
             {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
@@ -322,10 +325,10 @@ export class UserControllerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public removeUserFavoriteProductUsingPOST(body?: ProductItem, observe?: 'body', reportProgress?: boolean): Observable<any>;
-    public removeUserFavoriteProductUsingPOST(body?: ProductItem, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
-    public removeUserFavoriteProductUsingPOST(body?: ProductItem, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
-    public removeUserFavoriteProductUsingPOST(body?: ProductItem, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public removeUserFavoriteProductUsingPOST(body?: ProductItemReq, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public removeUserFavoriteProductUsingPOST(body?: ProductItemReq, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public removeUserFavoriteProductUsingPOST(body?: ProductItemReq, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public removeUserFavoriteProductUsingPOST(body?: ProductItemReq, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
 
         let headers = this.defaultHeaders;
@@ -370,10 +373,10 @@ export class UserControllerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public removeUserProductFromCartUsingPOST(body?: ProductItem, observe?: 'body', reportProgress?: boolean): Observable<any>;
-    public removeUserProductFromCartUsingPOST(body?: ProductItem, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
-    public removeUserProductFromCartUsingPOST(body?: ProductItem, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
-    public removeUserProductFromCartUsingPOST(body?: ProductItem, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public removeUserProductFromCartUsingPOST(body?: ProductItemReq, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public removeUserProductFromCartUsingPOST(body?: ProductItemReq, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public removeUserProductFromCartUsingPOST(body?: ProductItemReq, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public removeUserProductFromCartUsingPOST(body?: ProductItemReq, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
 
         let headers = this.defaultHeaders;

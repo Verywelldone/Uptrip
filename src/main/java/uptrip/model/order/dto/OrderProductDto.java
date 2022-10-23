@@ -8,5 +8,7 @@ import uptrip.model.product.ProductItem;
 @Setter
 public class OrderProductDto {
     private ProductItem productItem;
+
     private Integer quantity;
+
 }

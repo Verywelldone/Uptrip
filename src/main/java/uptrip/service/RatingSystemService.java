@@ -32,17 +32,26 @@ public class RatingSystemService {
 
         productRatings.forEach(productRating -> {
             User user = getUser(productRating);
+
             Optional<ProductItem> productItemOpt = productRepository.findById(productId);
-            productItemOpt.ifPresent(productItem -> productRatingDtos.add(ProductRatingDto.of(productRating, productItem, user.getUserInfo())));
+            productItemOpt.ifPresent(productItem ->
+                    productRatingDtos.add(
+                            ProductRatingDto.of(
+                                    user.getUserInfo().getFirstName(),
+                                    user.getUserInfo().getLastName(),
+                                    productRating.getStars(),
+                                    productRating.getTitle(),
+                                    productRating.getMessage(),
+                                    productRating.getDate()
+                            )
+                    )
+            );
         });
 
         return ResponseEntity.ok(productRatingDtos);
     }
 
-    private User getUser(ProductRating productRating) {
-        Optional<User> userOpt = userRepository.findById(productRating.getUserId());
-        return userOpt.orElse(null);
-    }
+
 
     public ResponseEntity<String> saveRating(ProductRating productRating) {
         if (productRatingRepository.existsByUserIdAndProductId(productRating.getUserId(), productRating.getProductId()))
@@ -60,5 +69,9 @@ public class RatingSystemService {
     private void checkIfProductExists(Long productId) throws OrderCreationException {
         if (!productRepository.existsById(productId))
             throw new OrderCreationException(PRODUCT_NOT_FOUND_MESSAGE);
+    }
+    private User getUser(ProductRating productRating) {
+        Optional<User> userOpt = userRepository.findById(productRating.getUserId());
+        return userOpt.orElse(null);
     }
 }

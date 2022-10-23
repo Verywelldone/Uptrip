@@ -16,5 +16,6 @@ export interface ProductRating {
     message?: string;
     productId?: number;
     stars?: number;
+    title?: string;
     userId?: number;
 }

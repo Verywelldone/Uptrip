@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {ProductItem} from "../../../api";
+import {ProductItem, UserControllerService} from "../../../api";
 
 @Component({
   selector: 'app-product-item',
@@ -8,12 +8,25 @@ import {ProductItem} from "../../../api";
 })
 export class ProductItemComponent implements OnInit {
 
-  @Input() productItem: ProductItem | undefined;
+  @Input() productItem: any;
 
-  constructor() {
+  constructor(private userService: UserControllerService) {
+
   }
 
   ngOnInit(): void {
+  }
+
+  addProductToUserCart() {
+    this.userService.addProductToUserCartUsingPOST(this.productItem).subscribe(res => {
+      console.log(res);
+    });
+  }
+
+  addProductToUserFavorite() {
+    this.userService.addUserFavoriteProductUsingPOST(this.productItem).subscribe(res => {
+      console.log(res);
+    });
   }
 
 }

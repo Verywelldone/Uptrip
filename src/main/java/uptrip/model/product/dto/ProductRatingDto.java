@@ -3,32 +3,32 @@ package uptrip.model.product.dto;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
-import uptrip.model.product.ProductItem;
-import uptrip.model.product.ProductRating;
-import uptrip.model.user.UserInfo;
 
 import java.io.Serializable;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
 @Builder
 public class ProductRatingDto implements Serializable {
-    private transient UserInfo user;
-    private transient ProductItem product;
 
+    private String firstName;
+    private String lastName;
     private int stars;
+    private String title;
     private String message;
-    private LocalDate date;
+    private String date;
 
-
-    public static ProductRatingDto of(ProductRating productRating, ProductItem productItem, UserInfo userInfo) {
+    public static ProductRatingDto of(String firstName, String lastName, int stars, String title, String message, String date) {
         return ProductRatingDto.builder()
-                .user(userInfo)
-                .product(productItem)
-                .stars(productRating.getStars())
-                .message(productRating.getMessage())
-                .date(productRating.getDate())
+                .firstName(firstName)
+                .lastName(lastName)
+                .stars(stars)
+                .title(title)
+                .message(message)
+                .date(date)
                 .build();
     }
+
+
 }

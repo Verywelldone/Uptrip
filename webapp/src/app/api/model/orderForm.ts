@@ -13,5 +13,5 @@ import { OrderProductDto } from './orderProductDto';
 
 export interface OrderForm { 
     orderProducts?: Array<OrderProductDto>;
-    userId?: number;
+    totalPrice?: string;
 }

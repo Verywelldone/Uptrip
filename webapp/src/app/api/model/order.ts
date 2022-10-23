@@ -16,6 +16,7 @@ export interface Order {
     id?: number;
     orderProducts?: Array<OrderProduct>;
     orderStatus?: Order.OrderStatusEnum;
+    totalPrice?: string;
 }
 export namespace Order {
     export type OrderStatusEnum = 'APPROVED' | 'CANCELED' | 'DELIVERED' | 'PENDING' | 'REFUNDED';

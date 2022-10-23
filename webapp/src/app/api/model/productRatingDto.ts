@@ -9,13 +9,12 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
-import { ProductItem } from './productItem';
-import { UserInfo } from './userInfo';
 
-export interface ProductRatingDto { 
-    date?: string;
-    message?: string;
-    product?: ProductItem;
-    stars?: number;
-    user?: UserInfo;
+export interface ProductRatingDto {
+    date: string;
+    firstName: string;
+    lastName: string;
+    message: string;
+    stars: number;
+    title: string;
 }

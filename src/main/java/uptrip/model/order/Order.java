@@ -9,9 +9,9 @@ import uptrip.model.user.User;
 
 import javax.persistence.*;
 import javax.validation.Valid;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @Entity
 @Getter
@@ -26,18 +26,29 @@ public class Order {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private LocalDate dateCreated;
+    @Column
+    @Transient
+    private UUID uuid = UUID.randomUUID();
+
+    @Column
+    private String dateCreated;
 
     @Enumerated(EnumType.STRING)
     private EOrderStatus orderStatus;
 
     @Valid
-
     @OneToMany(mappedBy = "pk.order")
     private List<OrderProduct> orderProducts = new ArrayList<>();
+
+    @Column
+    private String totalPrice;
+
+    @Column
+    private String lastStatusUpdate;
 
     @ManyToOne
     @JsonIgnore
     private User user;
+
 
 }

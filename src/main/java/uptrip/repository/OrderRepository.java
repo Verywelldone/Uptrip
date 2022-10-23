@@ -12,7 +12,9 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
 
     Order findOrderById(long id);
 
-    List<Order> findAllByUserId(long userId);
+    List<Order> findAllByUserIdOrderByDateCreatedDesc(long userId);
 
     List<Order> findAllByUserIdAndOrderStatus(Long id, EOrderStatus valueOf);
+
+
 }

@@ -34,6 +34,7 @@ public class ProductItemDto {
                 .name(productItem.getName())
                 .price(productItem.getPrice())
                 .description(productItem.getDescription())
+                .productCategoryId(productItem.getProductCategory().getId())
                 .stock(productItem.getStock())
                 .image(productItem.getImage())
                 .build();

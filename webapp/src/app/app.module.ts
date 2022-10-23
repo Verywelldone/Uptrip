@@ -26,7 +26,12 @@ import {FrontPageHeroComponent} from './components/home-page/front-page-hero/fro
 import {CallToActionComponent} from './components/home-page/call-to-action/call-to-action.component';
 import {ProductPageComponent} from './components/product-page/product-page.component';
 import {ProductItemComponent} from './components/product-page/product-item/product-item.component';
-import {ProductControllerService, UserControllerService} from "./api";
+import {
+  OrderControllerService,
+  ProductControllerService,
+  RatingSystemControllerService,
+  UserControllerService
+} from "./api";
 import {NavigationBarComponent} from './components/shared/navigation-bar/navigation-bar.component';
 import {AvatarModule} from "primeng/avatar";
 import {UserProfileComponent} from './components/user/user-profile/user-profile.component';
@@ -49,12 +54,17 @@ import {CarouselModule} from "primeng/carousel";
 import {
   TopRecommendedProducts
 } from "./components/home-page/top-recommanded-products/top-recommended-products.component";
-import { ProductOverviewComponent } from './components/product-page/product-overview/product-overview.component';
+import {ProductOverviewComponent} from './components/product-page/product-overview/product-overview.component';
 import {TabViewModule} from "primeng/tabview";
-import { FooterComponent } from './components/shared/footer/footer.component';
-import { ShoppingCartComponent } from './components/user/shopping-cart/shopping-cart.component';
+import {FooterComponent} from './components/shared/footer/footer.component';
+import {ShoppingCartComponent} from './components/user/shopping-cart/shopping-cart.component';
 import {DropdownModule} from "primeng/dropdown";
 import {BadgeModule} from "primeng/badge";
+import {InputNumberModule} from "primeng/inputnumber";
+import {MenubarModule} from "primeng/menubar";
+import {DividerModule} from "primeng/divider";
+import { OrderStatusMessageComponent } from './components/user/user-profile/my-orders/order-status-message/order-status-message.component';
+import {RatingModule} from "primeng/rating";
 
 
 @NgModule({
@@ -81,40 +91,46 @@ import {BadgeModule} from "primeng/badge";
     TopRecommendedProducts,
     ProductOverviewComponent,
     FooterComponent,
-    ShoppingCartComponent
+    ShoppingCartComponent,
+    OrderStatusMessageComponent
   ],
 
-  imports: [
-    BrowserAnimationsModule,
-    AuthenticationModule,
-    HttpClientModule,
-    AppRoutingModule,
-    BrowserModule,
-    FormsModule,
-    ReactiveFormsModule,
-    AuthenticationModule,
-    MaterialModule,
-    SharedModule,
-    ToastModule,
-    PrimengModule,
-    TabMenuModule,
-    AvatarModule,
-    SplitButtonModule,
-    MenuModule,
-    SidebarModule,
-    SlideMenuModule,
-    SplitterModule,
-    InputMaskModule,
-    PasswordModule,
-    CarouselModule,
-    TabViewModule,
-    DropdownModule,
-    BadgeModule
-  ],
+    imports: [
+        BrowserAnimationsModule,
+        AuthenticationModule,
+        HttpClientModule,
+        AppRoutingModule,
+        BrowserModule,
+        FormsModule,
+        ReactiveFormsModule,
+        AuthenticationModule,
+        MaterialModule,
+        SharedModule,
+        ToastModule,
+        PrimengModule,
+        TabMenuModule,
+        AvatarModule,
+        SplitButtonModule,
+        MenuModule,
+        SidebarModule,
+        SlideMenuModule,
+        SplitterModule,
+        InputMaskModule,
+        PasswordModule,
+        CarouselModule,
+        TabViewModule,
+        DropdownModule,
+        BadgeModule,
+        InputNumberModule,
+        MenubarModule,
+        DividerModule,
+        RatingModule
+    ],
   exports: [],
   providers: [
     authInterceptorProviders, headerAcceptInterceptor,
-
+    OrderControllerService, ProductControllerService, UserControllerService,
+    RatingSystemControllerService,
     MessageService,
     ProductControllerService,
     UserControllerService],

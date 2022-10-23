@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {OrderControllerService, OrderRes} from "../../../../api";
 
 @Component({
   selector: 'app-my-orders',
@@ -7,10 +8,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MyOrdersComponent implements OnInit {
 
-  constructor() { }
+  orderResponse: Array<OrderRes> = new Array<OrderRes>();
+
+  constructor(private orderService: OrderControllerService) {
+  }
 
   ngOnInit(): void {
-    console.log('MyOrdersComponent');
+    this.orderService.getAllByCustomerUsingGET(7).subscribe(res => {
+      console.log(res);
+      this.orderResponse = res
+
+    });
   }
 
 }

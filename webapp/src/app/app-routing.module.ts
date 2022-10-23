@@ -9,6 +9,7 @@ import {HomePageComponent} from "./components/home-page/home-page.component";
 import {UserProfileComponent} from "./components/user/user-profile/user-profile.component";
 import {ProductOverviewComponent} from "./components/product-page/product-overview/product-overview.component";
 import {ShoppingCartComponent} from "./components/user/shopping-cart/shopping-cart.component";
+import {MyOrdersComponent} from "./components/user/user-profile/my-orders/my-orders.component";
 
 const routes: Routes = [
 
@@ -18,6 +19,7 @@ const routes: Routes = [
   // {path: 'user', loadChildren: () => import('./components/user/user.module').then(m => m.UserModule)},
   {path: 'user', component: UserComponent},
   {path: 'user/profile', component: UserProfileComponent},
+  {path: 'user/orders', component: MyOrdersComponent},
 
   {path: 'admin', component: AdminComponent},
 

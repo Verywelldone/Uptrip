@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {ProductControllerService, ProductItem} from "../../../api";
+import {ProductControllerService, ProductItem, UserControllerService} from "../../../api";
+import {MessageService} from "primeng/api";
 
 @Component({
   selector: 'app-top-recommanded-products',
@@ -27,11 +28,20 @@ export class TopRecommendedProducts implements OnInit {
 
   products: Array<ProductItem> = [];
 
-  constructor(private productService: ProductControllerService) {
+  constructor(private productService: ProductControllerService,
+              private messageService: MessageService,
+              private userService: UserControllerService) {
+
   }
 
   ngOnInit(): void {
     this.productService.getTopProductsUsingGET().subscribe(res => this.products = res);
   }
 
+
+  addProductToCart(product: any) {
+    this.userService.addProductToUserCartUsingPOST(product).subscribe(() => {
+      this.messageService.add({key: 'tc', severity: 'success', summary: 'Success!', detail: "Product added to cart!"});
+    });
+  }
 }

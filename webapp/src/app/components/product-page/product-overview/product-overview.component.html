@@ -23,13 +23,9 @@
 
         <div class="flex align-items-center justify-content-between lg:justify-content-start mb-5">
           <span class="mr-3">
-            <i class="pi pi-star-fill text-yellow-500 mr-1"></i>
-            <i class="pi pi-star-fill text-yellow-500 mr-1"></i>
-            <i class="pi pi-star-fill text-yellow-500 mr-1"></i>
-            <i class="pi pi-star-fill text-yellow-500 mr-1"></i>
-            <i class="pi pi-star-fill text-yellow-500 mr-1"></i>
+            <p-rating class="bg-yellow-900" [ngModel]="ratingAverage" [readonly]="true" [cancel]="false"></p-rating>
           </span>
-          <span class="text-500">5.00 | <b>20</b> reviews</span>
+          <span class="text-500">{{ratingAverage}} | <b>{{productRatingsDto.length}}</b> Reviews</span>
         </div>
         <p class="p-0 mt-0 mb-5 line-height-3 text-700">{{productItem.description}} </p>
         <div class="font-bold text-900 mb-3">Color</div>
@@ -104,7 +100,6 @@
     <p-tabView class="border-none">
       <p-tabPanel header="Details">
 
-
         <div role="tabpanel" class="p-tabview-panel ng-star-inserted" id="p-tabpanel-0" aria-hidden="false"
              aria-labelledby="p-tabpanel-0-label">
           <div class="text-900 font-medium text-3xl mb-4 mt-2">Product Details</div>
@@ -152,23 +147,19 @@
         <div role="tabpanel" class="p-tabview-panel ng-star-inserted" id="p-tabpanel-1" aria-hidden="false"
              aria-labelledby="p-tabpanel-1-label">
           <div class="text-900 font-medium text-3xl mb-4 mt-2">Customer Reviews</div>
-          <ul class="list-none p-0 m-0">
-            <li class="pb-5 border-bottom-1 surface-border"><span><i class="pi pi-star-fill text-yellow-500 mr-1"></i><i
-              class="pi pi-star-fill text-yellow-500 mr-1"></i><i class="pi pi-star-fill text-yellow-500 mr-1"></i><i
-              class="pi pi-star-fill text-yellow-500 mr-1"></i><i class="pi pi-star-fill text-gray-500"></i></span>
-              <div class="text-900 font-medium text-xl my-3">Absolute Perfection!</div>
-              <p class="mx-0 mt-0 mb-3 text-700 line-height-3">Blandit libero volutpat sed cras ornare arcu dui vivamus.
-                Arcu dictum varius duis at consectetur lorem donec massa. Imperdiet proin fermentum leo vel orci porta
-                non. Porttitor rhoncus dolor purus non.</p><span class="text-600 font-medium">Darlene Robertson, 2 days ago</span>
+
+          <ul class="list-none p-0 m-0" *ngFor="let rating of productRatingsDto">
+
+            <li class="pb-5 border-bottom-1 surface-border">
+              <span>
+               <p-rating class="bg-yellow-900" [ngModel]="rating.stars" [readonly]="true" [cancel]="false"></p-rating>
+              </span>
+              <div class="text-900 font-medium text-xl my-3">{{rating.title}}</div>
+              <p class="mx-0 mt-0 mb-3 text-700 line-height-3">{{rating.message}}</p>
+              <span
+                class="text-600 font-medium">{{rating.firstName + " " + rating.lastName + ", " + rating.date}}</span>
             </li>
-            <li class="py-5 border-bottom-1 surface-border"><span><i class="pi pi-star-fill text-yellow-500 mr-1"></i><i
-              class="pi pi-star-fill text-yellow-500 mr-1"></i><i class="pi pi-star-fill text-yellow-500 mr-1"></i><i
-              class="pi pi-star-fill text-yellow-500 mr-1"></i><i class="pi pi-star-fill text-yellow-500"></i></span>
-              <div class="text-900 font-medium text-xl my-3">Classy</div>
-              <p class="mx-0 mt-0 mb-3 text-700 line-height-3">Venenatis cras sed felis eget. Proin nibh nisl
-                condimentum id venenatis a condimentum.</p><span
-                class="text-600 font-medium">Kristin Watson, 2 days ago</span></li>
-          </ul><!---->
+          </ul>
         </div>
 
 

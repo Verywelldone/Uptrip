@@ -14,8 +14,11 @@ import { OrderProductRes } from './orderProductRes';
 export interface OrderRes { 
     dateCreated?: string;
     id?: number;
+    lastStatusUpdate?: string;
     orderProducts?: Array<OrderProductRes>;
     orderStatus?: OrderRes.OrderStatusEnum;
+    totalPrice?: string;
+    uuid?: string;
 }
 export namespace OrderRes {
     export type OrderStatusEnum = 'APPROVED' | 'CANCELED' | 'DELIVERED' | 'PENDING' | 'REFUNDED';

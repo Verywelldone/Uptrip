@@ -1,0 +1,12 @@
+.p-rating-icon .pi .pi-star .ng-star-inserted {
+  color: #f5c518 !important;
+}
+
+body .ui-rating .ui-rating-star-on a {
+  color: yellow !important;
+}
+
+
+.ui-rating a {
+  color: #f5c518 !important;
+}

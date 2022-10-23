@@ -69,18 +69,6 @@ public class UserService {
         }
     }
 
-    private Optional<User> getOptionalUser() {
-        String username;
-
-        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        if (principal instanceof UserDetails) {
-            username = ((UserDetails) principal).getUsername();
-        } else {
-            username = principal.toString();
-        }
-
-        return userRepository.findByUsername(username);
-    }
 
     public ResponseEntity<UserProfileInfoDto> getUserProfileInfo() {
         Optional<User> userOptional = getOptionalUser();
@@ -191,5 +179,18 @@ public class UserService {
                 }
             }
         }, () -> log.info("User not found"));
+    }
+
+    private Optional<User> getOptionalUser() {
+        String username;
+
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (principal instanceof UserDetails) {
+            username = ((UserDetails) principal).getUsername();
+        } else {
+            username = principal.toString();
+        }
+
+        return userRepository.findByUsername(username);
     }
 }

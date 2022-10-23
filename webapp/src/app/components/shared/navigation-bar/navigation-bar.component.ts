@@ -33,8 +33,37 @@ export class NavigationBarComponent implements OnInit {
     }
 
     this.items = [
-      {label: 'My Account', icon: 'pi pi-fw pi-user', routerLink: '/user/profile'},
-      {label: 'Logout', icon: 'pi pi-sign-out', command: () => this.logout()},
+      {
+        label: 'My Account', icon: 'pi pi-fw pi-user', items: [{
+          label: 'Profile',
+          icon: 'pi pi-fw pi-user',
+          routerLink: ['/user/profile']
+        },
+          {
+            label: 'Orders',
+            icon: 'pi pi-fw pi-shopping-cart',
+            routerLink: ['/user/orders']
+          },
+          {
+            label: 'Favorites',
+            icon: 'pi pi-fw pi-heart',
+          },
+          {
+            label: 'Reviews',
+            icon: 'pi pi-fw pi-star',
+          },
+          {
+            label: 'Addresses',
+            icon: 'pi pi-fw pi-map-marker',
+          }, {
+            label: ' Logout',
+            icon: 'pi pi-fw pi-sign-out',
+            command: () => {
+              this.logout();
+            }
+          }
+        ]
+      }
     ]
   }
 

@@ -1,0 +1,44 @@
+<div *ngIf="orderStatus === 'CANCELED' " class="  p-2 flex align-items-center"
+     style="border-radius: 2.5rem;">
+        <span class="bg-red-300 text-white flex align-items-center justify-content-center border-circle mr-2"
+              style="min-width: 3rem; min-height: 3rem;">
+          <i class="pi pi-times"></i>
+        </span>
+  <span class="text-red-500">Canceled on {{lastStatusUpdate}}</span>
+</div>
+
+<div *ngIf="orderStatus === 'REFUNDED' " class="  p-2 flex align-items-center"
+     style="border-radius: 2.5rem;">
+        <span class="bg-red-300 text-white flex align-items-center justify-content-center border-circle mr-2"
+              style="min-width: 3rem; min-height: 3rem;">
+          <i class="pi pi-money-bill"></i>
+        </span>
+  <span class="text-red-500">Refunded on {{lastStatusUpdate}}</span>
+</div>
+
+<div *ngIf="orderStatus === 'PENDING' " class="   p-2 flex align-items-center"
+     style="border-radius: 2.5rem;">
+        <span class="bg-yellow-300 text-white flex align-items-center justify-content-center border-circle mr-2"
+              style="min-width: 3rem; min-height: 3rem;">
+          <i class="pi pi-stopwatch"></i>
+        </span>
+  <span class="text-red-500">Created on {{lastStatusUpdate}}</span>
+</div>
+
+<div *ngIf="orderStatus === 'APPROVED' " class="    p-2 flex align-items-center"
+     style="border-radius: 2.5rem;">
+        <span class="bg-green-300 text-white flex align-items-center justify-content-center border-circle mr-2"
+              style="min-width: 3rem; min-height: 3rem ;">
+          <i class="pi pi-check"></i>
+        </span>
+  <span class="text-red-500">Approved on {{lastStatusUpdate}}</span>
+</div>
+
+<div *ngIf="orderStatus === 'DELIVERED' " class="  p-2 flex align-items-center"
+     style="border-radius: 2.5rem;">
+        <span class="bg-blue-300 text-white flex align-items-center justify-content-center border-circle mr-2"
+              style="min-width: 3rem; min-height: 3rem;">
+          <i class="pi pi-truck"></i>
+        </span>
+  <span class="text-red-500">Delivered on {{lastStatusUpdate}}</span>
+</div>
