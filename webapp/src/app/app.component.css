@@ -1,1 +1,31 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+mat-sidenav {
+  background: #0f172a;
+  width: 300px;
+  height: 100%;
+}
+mat-sidenav-content {
+  height: 100vh;
+}
+mat-sidenav-content .main {
+  margin-left: 30px;
+}
+mat-toolbar {
+  justify-content: space-between;
+}
+mat-toolbar mat-icon {
+  margin-left: 15px;
+  color: #6d8299;
+}
+mat-toolbar .box {
+  margin-top: 15px;
+}
+
+
+@media (max-width: 799px) {
+  mat-sidenav {
+    background: #0f172a;
+    width: 100vw;
+    height: 100%;
+  }
+}

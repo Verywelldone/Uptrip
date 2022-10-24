@@ -1,0 +1,134 @@
+<!--
+<mat-nav-list>
+  <div *ngIf="userIsLoggedIn">
+    <a routerLink="/user/profile"
+       class="p-ripple p-element h-full flex px-6 py-3 lg:px-3 lg:py-0 align-items-center font-normal cursor-pointer transition-colors transition-duration-150 hover:text-color">
+      <p-avatar icon="pi pi-user" styleClass="mr-2" size="large" shape="circle"></p-avatar>
+      <div class="block">
+        <div class="font-semibold bg-transparent">Profile</div>
+      </div>
+    </a>
+
+    <a routerLink="/shopping-cart"
+       class="p-ripple p-element h-full flex px-6 py-3 lg:px-3 lg:py-0 align-items-center font-normal cursor-pointer transition-colors transition-duration-150 hover:text-color">
+      <p-avatar icon="pi pi-shopping-cart" styleClass="mr-2" size="large" shape="circle"></p-avatar>
+      <em class="mr-5 p-text-secondary" pBadge style="font-size: 2rem" [value]="'10+'" severity="danger"></em>
+      <div class="block">
+        <div class="font-semibold bg-transparent">Cart</div>
+      </div>
+    </a>
+
+    <a routerLink="/wishlist"
+       class="p-ripple p-element h-full flex px-6 py-3 lg:px-3 lg:py-0 align-items-center font-normal cursor-pointer transition-colors transition-duration-150 hover:text-color">
+      <p-avatar icon="pi pi-heart" styleClass="mr-2" size="large" shape="circle"></p-avatar>
+      <div class="block">
+        <div class="font-semibold bg-transparent">Wishlist</div>
+      </div>
+    </a>
+
+    <a routerLink="/user/orders"
+       class="p-ripple p-element h-full flex px-6 py-3 lg:px-3 lg:py-0 align-items-center font-normal cursor-pointer transition-colors transition-duration-150 hover:text-color">
+      <p-avatar icon="pi pi-list" styleClass="mr-2" size="large" shape="circle"></p-avatar>
+      <div class="block">
+        <div class="font-semibold bg-transparent">Orders</div>
+      </div>
+    </a>
+
+
+    <a routerLink="/logout"
+       class="p-ripple p-element h-full flex px-6 py-3 lg:px-3 lg:py-0 align-items-center font-normal cursor-pointer transition-colors transition-duration-150 hover:text-color">
+      <p-avatar icon="pi pi-sign-out" styleClass="mr-2" size="large" shape="circle"></p-avatar>
+      <div class="block">
+        <div class="font-semibold bg-transparent">Logout</div>
+      </div>
+    </a>
+
+  </div>
+
+  <div *ngIf="!userIsLoggedIn">
+    <a routerLink="/login"
+       class="p-ripple p-element h-full flex px-6 py-3 lg:px-3 lg:py-0 align-items-center font-normal cursor-pointer transition-colors transition-duration-150 hover:text-color">
+      <p-avatar icon="pi pi-sign-in" styleClass="mr-2" size="large" shape="circle"></p-avatar>
+      <div class="block">
+        <div class="font-semibold bg-transparent">Login</div>
+      </div>
+    </a>
+
+  </div>
+
+</mat-nav-list>
+-->
+
+<div class="navbar">
+  <div *ngIf="userIsLoggedIn">
+    <div class="user flex-grow-1 w-100  text-center justify-content-center ml-5">
+      <img src="assets/img/icons8-admin-settings-male-100.png" alt="">
+      <h4 class="name">{{user.username}}</h4>
+      <p class="mail">{{user.email}}</p>
+    </div>
+    <div class="menu">
+      <div class="menu-head text-center">
+        <span>dashboard</span>
+      </div>
+      <div class="menu-item">
+        <button mat-button class="menu-button" [routerLink]="['/home']">
+          <mat-icon>dashboard</mat-icon>
+          <span class="text-xl">Home</span>
+        </button>
+        <button mat-button class="menu-button" [routerLink]="['/user']">
+          <mat-icon>account_circle</mat-icon>
+          <span class="text-xl">Profile</span>
+        </button>
+        <button mat-button class="menu-button" [routerLink]="['/products']">
+          <mat-icon>loyalty</mat-icon>
+          <span class="text-xl">Browse Products</span>
+        </button>
+        <button mat-button class="menu-button" [routerLink]="['/shopping-cart']">
+          <mat-icon>add_shopping_cart</mat-icon>
+          <span class="text-xl">My Cart</span>
+        </button>
+        <button mat-button class="menu-button" [routerLink]="['user/wishlist']">
+          <mat-icon>favorite</mat-icon>
+          <span class="text-xl">My Favorites</span>
+        </button>
+        <button mat-button class="menu-button" [routerLink]="['user/orders']">
+          <mat-icon>history</mat-icon>
+          <span class="text-xl">My Orders</span>
+        </button>
+        <button mat-button class="menu-button" [routerLink]="['user/reviews']">
+          <mat-icon>star</mat-icon>
+          <span class="text-xl">My Reviews</span>
+        </button>
+        <button mat-button class="menu-button" (click)="this.logout()">
+          <mat-icon>exit_to_app</mat-icon>
+          <span class="text-xl">Log Out</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="!userIsLoggedIn">
+    <div class="user text-center">
+      <img src="assets/img/icons8-admin-settings-male-100.png" alt="">
+      <h4 class="name">Who are you?</h4>
+      <p class="mail">Please log in!</p>
+    </div>
+    <div class="menu">
+      <div class="menu-head text-center">
+        <span>dashboard</span>
+      </div>
+      <div class="menu-item">
+        <button mat-button class="menu-button" [routerLink]="['/login']">
+          <mat-icon>dashboard</mat-icon>
+          <span class="text-xl">Login</span>
+        </button>
+
+        <button mat-button class="menu-button" [routerLink]="['/register']">
+          <mat-icon>dashboard</mat-icon>
+          <span class="text-xl">Register</span>
+        </button>
+
+      </div>
+    </div>
+  </div>
+</div>

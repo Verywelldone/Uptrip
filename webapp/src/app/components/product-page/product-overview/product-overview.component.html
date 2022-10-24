@@ -78,15 +78,17 @@
           <span>{{productItem!.stock}} items in stock!</span>
         </div>
 
-        <button icon="pi pi-shopping-cart" label="Add to Cart" (click)="addProductToUserCart(this.productItem)"
+        <button icon="pi pi-shopping-cart" style="background-color: #3f51b5" label="Add to Cart" (click)="addProductToUserCart(this.productItem)"
                 class="p-element p-ripple w-full mb-5 p-button p-component">
+
           <span class="p-button-icon p-button-icon-left pi pi-shopping-cart" aria-hidden="true"> </span>
           <span class="p-button-label">Add to Cart</span>
           <span class="p-ink"></span>
         </button>
         <ul class="list-none
          p-0 m-0 text-sm text-600">
-          <li class="flex align-items-center mb-3"><i class="pi pi-credit-card mr-2"></i><span>Pay in 21 days</span>
+          <li class="flex align-items-center mb-3">
+            <i class="pi pi-credit-card mr-2"></i><span>Pay in 21 days</span>
           </li>
           <li class="flex align-items-center mb-3"><i class="pi pi-send mr-2"></i><span>Free Shipping</span></li>
           <li class="flex align-items-center"><i class="pi pi-refresh mr-2"></i><span>30 Days Return Policy</span></li>

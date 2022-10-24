@@ -39,7 +39,6 @@ import static uptrip.exception.AuthorizationException.*;
 @AllArgsConstructor
 public class AuthService {
 
-
     AuthenticationManager authenticationManager;
     UserRepository userRepository;
     RoleRepository roleRepository;

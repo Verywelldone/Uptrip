@@ -169,16 +169,21 @@ public class UserService {
 
     public void removeUserProductFromCart(final ProductItem productItem) {
         Optional<User> userOptional = getOptionalUser();
-        (userOptional).ifPresentOrElse(user -> {
-            for (Iterator<ProductItem> iterator = user.getCartProducts().iterator(); iterator.hasNext(); ) {
-                ProductItem productItem1 = iterator.next();
-                if (productItem1.getId().equals(productItem.getId())) {
-                    log.info("Found user with id {} and username {} and removing productItem with id {} and name {} from cart", user.getId(), user.getUsername(), productItem.getId(), productItem.getName());
-                    iterator.remove();
-                    userRepository.save(user);
+        ProductItem productItemToRemove = null;
+        if (userOptional.isPresent()) {
+            User user = userOptional.get();
+            for (ProductItem productItemFromCart : user.getCartProducts()) {
+                if (productItemFromCart.getId().equals(productItem.getId())) {
+                    productItemToRemove = productItemFromCart;
+                    break;
                 }
             }
-        }, () -> log.info("User not found"));
+            if (productItemToRemove != null) {
+                log.info("Found user with id {} and username {} and removing productItem with id {} and name {} from cart", user.getId(), user.getUsername(), productItem.getId(), productItem.getName());
+                user.getCartProducts().remove(productItemToRemove);
+                userRepository.save(user);
+            }
+        }
     }
 
     private Optional<User> getOptionalUser() {

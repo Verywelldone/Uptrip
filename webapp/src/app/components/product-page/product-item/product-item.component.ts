@@ -1,5 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {ProductItem, UserControllerService} from "../../../api";
+import {UserControllerService} from "../../../api";
+import {MessageService} from "primeng/api";
 
 @Component({
   selector: 'app-product-item',
@@ -10,7 +11,8 @@ export class ProductItemComponent implements OnInit {
 
   @Input() productItem: any;
 
-  constructor(private userService: UserControllerService) {
+  constructor(private userService: UserControllerService, private messageService: MessageService) {
+
 
   }
 
@@ -19,13 +21,14 @@ export class ProductItemComponent implements OnInit {
 
   addProductToUserCart() {
     this.userService.addProductToUserCartUsingPOST(this.productItem).subscribe(res => {
-      console.log(res);
+      this.messageService.add({severity: 'success', summary: 'Success', detail: 'Product added to cart'});
     });
   }
 
   addProductToUserFavorite() {
+    console.log(this.productItem);
     this.userService.addUserFavoriteProductUsingPOST(this.productItem).subscribe(res => {
-      console.log(res);
+      this.messageService.add({severity: 'success', summary: 'Success', detail: 'Product added to favorites'});
     });
   }
 

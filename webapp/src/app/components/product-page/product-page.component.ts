@@ -16,28 +16,41 @@ export class ProductPageComponent implements OnInit {
   sortOrder: number = 1;
 
   sortField: string = '';
-  sortCategoryOptions: SelectItem[]=[];
+  sortCategoryOptions: SelectItem[] = [];
 
   constructor(private productService: ProductControllerService) {
   }
 
   ngOnInit(): void {
-    this.productService.getAllProductsUsingGET().subscribe(res => {
-      this.productItems = res;
-    });
+    this.productService.getAllProductsUsingGET().subscribe(response => {
+      this.productItems = response;
 
+
+      let someValue = 'someValue';
+      let someNumber: number = 20;
+      let someOtherNumber: number = 10;
+
+        // Operatia de adunare
+        console.log(someNumber + someOtherNumber);
+
+        // Operatia de concatenare
+        console.log("" + someNumber + someOtherNumber);
+
+        console.log(typeof  someNumber)
+
+
+
+    });
 
     this.sortOptions = [
       {label: 'Price High to Low', value: '!price'},
       {label: 'Price Low to High', value: 'price'}
     ];
 
-    this.sortCategoryOptions=[
+    this.sortCategoryOptions = [
       {label: 'Jackets', value: 'JACKETS'},
       {label: 'Pants', value: 'PANTS'},
-      {label: 'Shirts', value: 'SHIRTS'},
-
-
+      {label: 'Shirts', value: 'SHIRTS'}
     ]
 
   }

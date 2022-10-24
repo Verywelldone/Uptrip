@@ -4,7 +4,7 @@
                   style="border-radius: 1.5rem; left: 0rem; top: 0rem;">
               {{productItem?.productCategory?.name}}
             </span>
-    <img src="{{productItem?.image}}" class="img-fluid card-img" alt="...">
+    <img src="{{productItem?.image}}" class=" card-img w-75" alt="...">
   </div>
   <div class="flex justify-content-between align-items-center mb-3">
     <span class="text-900 font-medium text-xl">{{productItem?.name}}</span>
@@ -17,18 +17,19 @@
   <span class="text-primary text-xl font-medium">{{productItem?.price | currency:'RON'}}</span>
   <div class="flex justify-content-between align-items-center mt-3">
     <div class="flex align-items-center">
-      <button class="btn btn-primary btn-icon btn-round ml-2" pTooltip="Save for later!" (click)="addProductToUserFavorite()">
+      <button class="btn btn-primary btn-icon btn-round ml-2" pTooltip="Save for later!"
+              (click)="addProductToUserFavorite()">
         <i class="pi pi-heart-fill pt-1" ></i>
       </button>
-      <button class="btn btn-primary btn-icon btn-round ml-2" pTooltip="Add product to cart!" (click)="addProductToUserCart()">
+      <button class="btn btn-primary btn-icon btn-round ml-2" pTooltip="Add product to cart!"
+              (click)="addProductToUserCart()">
         <i class="pi pi-shopping-cart pt-1" ></i>
       </button>
     </div>
-    <a routerLink="/{{productItem.id}}" class="btn btn-primary btn-icon btn-round" pTooltip="Find more about this product!">
+    <a routerLink="./{{productItem.id}}" class="btn btn-primary btn-icon btn-round" pTooltip="Find more about this product!">
       <i class="pi pi-info-circle pt-1"></i>
     </a>
   </div>
 </div>
 
-
-
+<p-toast position="bottom-center" key="tc"></p-toast>

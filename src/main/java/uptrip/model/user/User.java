@@ -71,7 +71,7 @@ public class User {
             inverseJoinColumns = @JoinColumn(name = "product_id"))
     private Set<ProductItem> favoriteProducts = new HashSet<>();
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.LAZY, targetEntity = ProductItem.class, cascade = CascadeType.ALL)
     @JoinTable(name = "user_cart_products",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "cart_id"))
@@ -82,6 +82,14 @@ public class User {
         this.email = email;
         this.password = password;
         userMetadata = new UserMetadata();
+    }
+
+    public void addToCart(ProductItem productItem) {
+        cartProducts.add(productItem);
+    }
+
+    public void removeFromCart(ProductItem productItem) {
+        cartProducts.remove(productItem);
     }
 
 }

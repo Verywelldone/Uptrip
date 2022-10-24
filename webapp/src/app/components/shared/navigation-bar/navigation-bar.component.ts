@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {TokenStorageService} from "../../../services/auth/token-storage.service";
 import {MenuItem, MessageService} from "primeng/api";
 
@@ -8,6 +8,8 @@ import {MenuItem, MessageService} from "primeng/api";
   styleUrls: ['./navigation-bar.component.css']
 })
 export class NavigationBarComponent implements OnInit {
+  @Output() sidenavToggle = new EventEmitter<void>();
+
   userIsLoggedIn: any = false;
   user: any;
   items: MenuItem[] = [];
@@ -73,4 +75,7 @@ export class NavigationBarComponent implements OnInit {
     window.location.href = "/";
   }
 
+  onToggleSidenav = () => {
+    this.sidenavToggle.emit();
+  }
 }

@@ -10,6 +10,8 @@ import {UserProfileComponent} from "./components/user/user-profile/user-profile.
 import {ProductOverviewComponent} from "./components/product-page/product-overview/product-overview.component";
 import {ShoppingCartComponent} from "./components/user/shopping-cart/shopping-cart.component";
 import {MyOrdersComponent} from "./components/user/user-profile/my-orders/my-orders.component";
+import {WishlistComponent} from "./components/user/user-profile/wishlist/wishlist.component";
+import {MyReviewsComponent} from "./components/user/user-profile/my-reviews/my-reviews.component";
 
 const routes: Routes = [
 
@@ -20,6 +22,8 @@ const routes: Routes = [
   {path: 'user', component: UserComponent},
   {path: 'user/profile', component: UserProfileComponent},
   {path: 'user/orders', component: MyOrdersComponent},
+  {path: 'user/wishlist', component: WishlistComponent},
+  {path: 'user/reviews', component: MyReviewsComponent},
 
   {path: 'admin', component: AdminComponent},
 
