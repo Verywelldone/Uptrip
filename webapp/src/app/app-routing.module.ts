@@ -12,6 +12,7 @@ import {ShoppingCartComponent} from "./components/user/shopping-cart/shopping-ca
 import {MyOrdersComponent} from "./components/user/user-profile/my-orders/my-orders.component";
 import {WishlistComponent} from "./components/user/user-profile/wishlist/wishlist.component";
 import {MyReviewsComponent} from "./components/user/user-profile/my-reviews/my-reviews.component";
+import {OrderSummaryComponent} from "./components/user/user-profile/my-orders/order-summary/order-summary.component";
 
 const routes: Routes = [
 
@@ -22,6 +23,7 @@ const routes: Routes = [
   {path: 'user', component: UserComponent},
   {path: 'user/profile', component: UserProfileComponent},
   {path: 'user/orders', component: MyOrdersComponent},
+  {path: 'user/orders/:orderUUID', component: OrderSummaryComponent},
   {path: 'user/wishlist', component: WishlistComponent},
   {path: 'user/reviews', component: MyReviewsComponent},
 

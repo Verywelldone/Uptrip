@@ -24,22 +24,6 @@ export class ProductPageComponent implements OnInit {
   ngOnInit(): void {
     this.productService.getAllProductsUsingGET().subscribe(response => {
       this.productItems = response;
-
-
-      let someValue = 'someValue';
-      let someNumber: number = 20;
-      let someOtherNumber: number = 10;
-
-        // Operatia de adunare
-        console.log(someNumber + someOtherNumber);
-
-        // Operatia de concatenare
-        console.log("" + someNumber + someOtherNumber);
-
-        console.log(typeof  someNumber)
-
-
-
     });
 
     this.sortOptions = [

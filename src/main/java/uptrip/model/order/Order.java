@@ -27,8 +27,7 @@ public class Order {
     private Long id;
 
     @Column
-    @Transient
-    private UUID uuid = UUID.randomUUID();
+    private String uuid = String.valueOf(UUID.randomUUID());
 
     @Column
     private String dateCreated;

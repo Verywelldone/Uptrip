@@ -9,6 +9,5 @@ import java.util.List;
 @Setter
 public class OrderForm {
     private List<OrderProductDto> orderProducts;
-
     private String totalPrice;
 }

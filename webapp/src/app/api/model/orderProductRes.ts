@@ -11,7 +11,7 @@
  */
 import { ProductItemRes } from './productItemRes';
 
-export interface OrderProductRes { 
-    product?: ProductItemRes;
+export interface OrderProductRes {
+    product: ProductItemRes;
     quantity?: number;
 }

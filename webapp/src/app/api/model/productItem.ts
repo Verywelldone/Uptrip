@@ -11,13 +11,13 @@
  */
 import { ProductCategory } from './productCategory';
 
-export interface ProductItem {
-    description: string;
-    id: number;
-    image: string;
-    name: string;
-    price: number;
-    productCategory: ProductCategory;
-    quantity: number;
-    stock: number;
+export interface ProductItem { 
+    description?: string;
+    id?: number;
+    image?: string;
+    name?: string;
+    price?: number;
+    productCategory?: ProductCategory;
+    quantity?: number;
+    stock?: number;
 }

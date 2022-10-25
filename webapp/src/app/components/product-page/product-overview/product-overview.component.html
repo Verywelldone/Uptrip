@@ -3,7 +3,7 @@
     <div class="grid">
       <div class="col-12 lg:col-6">
         <div class="flex">
-          <div><img src="{{productItem.image}}" class="w-75"></div>
+          <div><img src="{{productItem?.image}}" class="w-75"></div>
         </div>
       </div>
       <div class="col-12 lg:col-6 py-5 lg:py-3 lg:pl-5">
@@ -18,7 +18,7 @@
          </ol>-->
         <div class="flex align-items-center justify-content-between mb-4">
           <span class="text-xl font-medium text-900">{{productItem.name}}</span>
-          <span class="text-xl font-medium text-900">{{productItem.price | currency:'RON' }}</span>
+          <span class="text-xl font-medium text-900">{{productItem.price | currency:'RON ' }}</span>
         </div>
 
         <div class="flex align-items-center justify-content-between lg:justify-content-start mb-5">
@@ -46,26 +46,10 @@
           </a>
         </div>
         <div class="flex align-items-center mb-5">
-          <div
-            class="h-2rem w-2rem sm:h-3rem sm:w-3rem border-1 border-300 text-900 inline-flex justify-content-center align-items-center flex-shrink-0 border-round mr-3 cursor-pointer hover:surface-100 transition-duration-150 transition-colors">
-            XS
-          </div>
-          <div
-            class="h-2rem w-2rem sm:h-3rem sm:w-3rem border-1 border-300 text-900 inline-flex justify-content-center align-items-center flex-shrink-0 border-round mr-3 cursor-pointer hover:surface-100 transition-duration-150 transition-colors">
-            S
-          </div>
-          <div
-            class="h-2rem w-2rem sm:h-3rem sm:w-3rem border-1 border-300 text-900 inline-flex justify-content-center align-items-center flex-shrink-0 border-round mr-3 cursor-pointer hover:surface-100 transition-duration-150 transition-colors border-blue-500 border-2 text-blue-500">
-            M
-          </div>
-          <div
-            class="h-2rem w-2rem sm:h-3rem sm:w-3rem border-1 border-300 text-900 inline-flex justify-content-center align-items-center flex-shrink-0 border-round mr-3 cursor-pointer hover:surface-100 transition-duration-150 transition-colors">
-            L
-          </div>
-          <div
-            class="h-2rem w-2rem sm:h-3rem sm:w-3rem border-1 border-300 text-900 inline-flex justify-content-center align-items-center flex-shrink-0 border-round mr-3 cursor-pointer hover:surface-100 transition-duration-150 transition-colors">
-            XL
-          </div>
+          <p-selectButton [options]="sizeList" (onOptionClick)="showSelected($event)">
+
+          </p-selectButton>
+
         </div>
         <div *ngIf="productItem!.stock! < 5"
              class="bg-yellow-200 text-yellow-900 text-0 inline-flex align-items-center px-2 py-1 font-medium mb-5">
@@ -78,7 +62,8 @@
           <span>{{productItem!.stock}} items in stock!</span>
         </div>
 
-        <button icon="pi pi-shopping-cart" style="background-color: #3f51b5" label="Add to Cart" (click)="addProductToUserCart(this.productItem)"
+        <button icon="pi pi-shopping-cart" style="background-color: #3f51b5" label="Add to Cart"
+                (click)="addProductToUserCart(this.productItem)"
                 class="p-element p-ripple w-full mb-5 p-button p-component">
 
           <span class="p-button-icon p-button-icon-left pi pi-shopping-cart" aria-hidden="true"> </span>

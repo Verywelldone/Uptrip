@@ -10,11 +10,11 @@
  * Do not edit the class manually.
  */
 
-export interface ProductRatingDto {
-    date: string;
-    firstName: string;
-    lastName: string;
-    message: string;
-    stars: number;
-    title: string;
+export interface ProductRatingDto { 
+    date?: string;
+    firstName?: string;
+    lastName?: string;
+    message?: string;
+    stars?: number;
+    title?: string;
 }

@@ -25,8 +25,13 @@ public class OrderController {
     }
 
     @GetMapping("/get/{id}")
-    public ResponseEntity<Order> getOne(@PathVariable Long id) {
+    public ResponseEntity<Order> getOrderById(@PathVariable Long id) {
         return orderService.getOneOrder(id);
+    }
+
+    @GetMapping("/get-by-uuid/{uuid}")
+    public ResponseEntity<Order> getOrderByUUID(@PathVariable String uuid) {
+        return orderService.getOrderByUUID(uuid);
     }
 
     @GetMapping("/get")
@@ -45,11 +50,11 @@ public class OrderController {
         return orderService.getAllOrdersByCustomerAndStatus(id, status);
     }
 
-   /* @PutMapping("/update")
-    public ResponseEntity<Order> update(@RequestBody Order form) {
-        return orderService.update(form);
-    }
-*/
+    /* @PutMapping("/update")
+     public ResponseEntity<Order> update(@RequestBody Order form) {
+         return orderService.update(form);
+     }
+ */
     @PutMapping("/update/{id}")
     public ResponseEntity<?> update(@PathVariable Long id, @RequestBody Order order) {
         return orderService.updateOrder(id, order);

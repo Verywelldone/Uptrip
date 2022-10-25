@@ -6,6 +6,7 @@ import uptrip.model.order.EOrderStatus;
 import uptrip.model.order.Order;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface OrderRepository extends JpaRepository<Order, Long> {
@@ -16,5 +17,5 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
 
     List<Order> findAllByUserIdAndOrderStatus(Long id, EOrderStatus valueOf);
 
-
+    Optional<Order> findByUuid(String uuid);
 }

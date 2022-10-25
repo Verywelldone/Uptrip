@@ -69,6 +69,8 @@ import {DataViewModule} from "primeng/dataview";
 import { SpinnerLoadingAnimationComponent } from './components/shared/spinner-loading-animation/spinner-loading-animation.component';
 import { SidenavListComponent } from './components/shared/sidenav-list/sidenav-list.component';
 import {FlexLayoutModule} from "@angular/flex-layout";
+import {SelectButtonModule} from "primeng/selectbutton";
+import { OrderSummaryComponent } from './components/user/user-profile/my-orders/order-summary/order-summary.component';
 
 
 @NgModule({
@@ -98,7 +100,8 @@ import {FlexLayoutModule} from "@angular/flex-layout";
     ShoppingCartComponent,
     OrderStatusMessageComponent,
     SpinnerLoadingAnimationComponent,
-    SidenavListComponent
+    SidenavListComponent,
+    OrderSummaryComponent
   ],
 
     imports: [
@@ -132,7 +135,8 @@ import {FlexLayoutModule} from "@angular/flex-layout";
         DividerModule,
         RatingModule,
         DataViewModule,
-        FlexLayoutModule
+        FlexLayoutModule,
+        SelectButtonModule
     ],
   exports: [],
   providers: [

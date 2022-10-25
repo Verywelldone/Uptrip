@@ -10,10 +10,11 @@ import {ToastModule} from "primeng/toast";
 import {MessageModule} from "primeng/message";
 import {MessagesModule} from "primeng/messages";
 
+import {SelectButtonModule} from 'primeng/selectbutton';
 
 @NgModule({
   declarations: [],
-  imports: [ToastModule, CommonModule, ButtonModule, RippleModule, InputTextModule, CheckboxModule, SharedModule],
+  imports: [ToastModule, CommonModule, ButtonModule, RippleModule, InputTextModule, CheckboxModule, SharedModule,SelectButtonModule],
   exports: [
     SharedModule,
     CommonModule,
@@ -23,7 +24,8 @@ import {MessagesModule} from "primeng/messages";
     CheckboxModule,
     ToastModule,
     MessagesModule,
-    MessageModule
+    MessageModule,
+    SelectButtonModule
   ]
 })
 export class PrimengModule {

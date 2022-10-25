@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.Random;
+import java.util.stream.Collectors;
 
 import static uptrip.exception.OrderCreationException.PRODUCT_NOT_FOUND_MESSAGE;
 
@@ -101,7 +102,7 @@ public class ProductService {
 
     public ResponseEntity<List<ProductItem>> getAllProducts() {
         log.info("Getting all products");
-        return new ResponseEntity<>(productRepository.findAll(), HttpStatus.OK);
+        return new ResponseEntity<>(productRepository.findAll().stream().filter(productItem -> productItem.getStock() > 0).collect(Collectors.toList()), HttpStatus.OK);
     }
 
     public ResponseEntity<ProductItem> getOneProduct(final long id) {

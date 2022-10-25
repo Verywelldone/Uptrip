@@ -22,13 +22,15 @@ export class ProductOverviewComponent implements OnInit {
   private productId: number = -1;
   ratingAverage: any = 0;
 
+  sizeList: string[] = ['S', 'M', 'L', 'XL', 'XXL'];
+
   constructor(private route: ActivatedRoute,
               private productService: ProductControllerService,
               private ratingService: RatingSystemControllerService,
               private userService: UserControllerService) {
     this.sub = this.route.paramMap.subscribe((params: any) => {
       this.productId = params.get('productId');
-      this.productService.getOneUsingGET1(this.productId).subscribe(res => {
+      this.productService.getOneUsingGET(this.productId).subscribe(res => {
         console.log(res);
         this.productItem = res;
       });
@@ -53,11 +55,14 @@ export class ProductOverviewComponent implements OnInit {
 
       let sum = 0;
       res.forEach(rating => {
-        sum += rating.stars;
+        sum += rating.stars!;
       });
 
       this.ratingAverage = Math.ceil(sum / res.length);
     });
   }
 
+  showSelected($event: any) {
+    console.log("Selected: ", $event.option);
+  }
 }

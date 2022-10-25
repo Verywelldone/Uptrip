@@ -11,13 +11,13 @@
  */
 import { ProductCategoryRes } from './productCategoryRes';
 
-export interface ProductItemRes { 
-    description?: string;
-    id?: number;
-    image?: string;
-    name?: string;
-    price?: number;
-    productCategory?: ProductCategoryRes;
-    quantity?: number;
-    stock?: number;
+export interface ProductItemRes {
+    description: string;
+    id: number;
+    image: string;
+    name: string;
+    price: number;
+    productCategory: ProductCategoryRes;
+    quantity: number;
+    stock: number;
 }

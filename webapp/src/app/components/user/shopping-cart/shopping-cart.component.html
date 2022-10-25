@@ -3,7 +3,7 @@
 
     <div class="flex flex-column align-items-center mb-6">
       <div *ngIf="getTotalPrice() > 0" class="text-900 text-4xl mb-4 font-medium text-center">Your cart total
-        is {{getTotalPrice() | currency:"RON"}}
+        is {{getTotalPrice() | currency:"RON "}}
       </div>
       <div *ngIf="getTotalPrice() == 0" class="text-900 text-4xl mb-4 font-medium text-center">
         <img src="/assets/img/empty_cart-512.webp" alt="empty-cart" class="figure-img img-fluid align-self-center">
@@ -38,7 +38,7 @@
                    </p-inputNumber>
                  </div>-->
                 <div class="flex flex-column sm:align-items-end">
-                  <span class="text-900 text-xl font-medium mb-2 sm:mb-3">{{productItem.price | currency:"RON"}}</span>
+                  <span class="text-900 text-xl font-medium mb-2 sm:mb-3">{{productItem.price | currency:"RON "}}</span>
                   <button pButton pRipple type="button" label="Remove" icon="pi pi-times"
                           class="p-button-rounded p-button-danger p-button-text"
                           (click)="removeItemFromCart(productItem)"></button>
@@ -69,14 +69,14 @@
       <div class="w-12rem hidden md:block"></div>
       <ul class="list-none py-0 pr-0 pl-0 md:pl-5 mt-6 mx-0 mb-0 flex-auto">
         <li class="flex justify-content-between mb-4"><span class="text-xl text-900">Subtotal</span><span
-          class="text-xl text-900">{{getTotalPrice() | currency:"RON"}}</span></li>
+          class="text-xl text-900">{{getTotalPrice() | currency:"RON "}}</span></li>
         <li class="flex justify-content-between mb-4"><span class="text-xl text-900">Shipping</span><span
           class="text-xl text-900">Free</span></li>
         <li class="flex justify-content-between mb-4"><span class="text-xl text-900">VAT</span><span
-          class="text-xl text-900">{{(19 / 100 * getTotalPrice()) | currency:"RON"}} </span></li>
+          class="text-xl text-900">{{(19 / 100 * getTotalPrice()) | currency:"RON "}} </span></li>
         <li class="flex justify-content-between border-top-1 surface-border mb-4 pt-4"><span
           class="text-xl text-900 font-bold text-3xl">Total</span><span
-          class="text-xl text-900 font-bold text-3xl">{{getTotalPrice() + (19 / 100 * getTotalPrice()) | currency:"RON"}}</span>
+          class="text-xl text-900 font-bold text-3xl">{{getTotalPrice() + (19 / 100 * getTotalPrice()) | currency:"RON "}}</span>
         </li>
         <li class="flex justify-content-end">
           <button pbutton="" pripple="" label="Check Out" class="p-element p-ripple p-button p-component"><span

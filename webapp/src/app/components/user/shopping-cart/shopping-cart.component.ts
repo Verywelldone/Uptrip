@@ -59,6 +59,6 @@ export class ShoppingCartComponent implements OnInit {
       this.messageService.add({key: 'tc', severity: 'success', summary: 'Success!', detail: res.message});
     });
 
-    window.location.reload();
+    // window.location.reload();
   }
 }

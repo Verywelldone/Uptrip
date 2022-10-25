@@ -56,12 +56,11 @@ public class OrderService {
         order.setOrderStatus(EOrderStatus.PENDING);
         order.setTotalPrice(orderForm.getTotalPrice());
         order.setLastStatusUpdate(getFormattedCurrentDate());
-        order = create(order);
+        order = createOrder(order);
 
         List<OrderProduct> orderProductList = new ArrayList<>();
         for (OrderProductDto dto : formOrderProducts)
             orderProductList.add(orderProductService.create(new OrderProduct(order, dto.getProductItem(), dto.getQuantity())));
-
         try {
             updateProductItemStockAfterOrder(orderProductList);
         } catch (OrderCreationException e) {
@@ -122,6 +121,10 @@ public class OrderService {
         return orderRepository.findById(orderId).map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.noContent().build());
     }
 
+    public ResponseEntity<Order> getOrderByUUID(String uuid) {
+        return orderRepository.findByUuid(uuid).map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.noContent().build());
+    }
+
     public ResponseEntity<List<Order>> getAllOrders() {
         orderRepository.findAll().forEach(order -> log.info("Order: {}", order));
         log.info("Getting all orders");
@@ -144,7 +147,7 @@ public class OrderService {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Order not found");
     }
 
-    public Order create(Order order) {
+    public Order createOrder(Order order) {
         order.setDateCreated(getFormattedCurrentDate());
         log.info("Creating order");
         return orderRepository.save(order);
@@ -174,7 +177,7 @@ public class OrderService {
         } else {
             username = principal.toString();
         }
-
         return userRepository.findByUsername(username);
     }
+
 }

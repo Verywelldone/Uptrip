@@ -245,13 +245,13 @@ export class ProductControllerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getOneUsingGET1(id: number, observe?: 'body', reportProgress?: boolean): Observable<ProductItem>;
-    public getOneUsingGET1(id: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<ProductItem>>;
-    public getOneUsingGET1(id: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<ProductItem>>;
-    public getOneUsingGET1(id: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public getOneUsingGET(id: number, observe?: 'body', reportProgress?: boolean): Observable<ProductItem>;
+    public getOneUsingGET(id: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<ProductItem>>;
+    public getOneUsingGET(id: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<ProductItem>>;
+    public getOneUsingGET(id: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         if (id === null || id === undefined) {
-            throw new Error('Required parameter id was null or undefined when calling getOneUsingGET1.');
+            throw new Error('Required parameter id was null or undefined when calling getOneUsingGET.');
         }
 
         let headers = this.defaultHeaders;
