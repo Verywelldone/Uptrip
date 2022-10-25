@@ -9,6 +9,7 @@ import { OrderControllerService } from './api/orderController.service';
 import { ProductControllerService } from './api/productController.service';
 import { RatingSystemControllerService } from './api/ratingSystemController.service';
 import { ResourceControllerService } from './api/resourceController.service';
+import { ServertestService } from './api/servertest.service';
 import { UserControllerService } from './api/userController.service';
 
 @NgModule({
@@ -22,6 +23,7 @@ import { UserControllerService } from './api/userController.service';
     ProductControllerService,
     RatingSystemControllerService,
     ResourceControllerService,
+    ServertestService,
     UserControllerService ]
 })
 export class ApiModule {

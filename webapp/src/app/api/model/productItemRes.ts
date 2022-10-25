@@ -9,15 +9,15 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
-import { ProductCategoryRes } from './productCategoryRes';
+import {ProductCategoryRes} from './productCategoryRes';
 
 export interface ProductItemRes {
-    description: string;
-    id: number;
-    image: string;
-    name: string;
-    price: number;
-    productCategory: ProductCategoryRes;
-    quantity: number;
-    stock: number;
+  description: string;
+  id: number;
+  image: string;
+  name: string;
+  price: number;
+  productCategory: ProductCategoryRes;
+  quantity: number;
+  stock: number;
 }

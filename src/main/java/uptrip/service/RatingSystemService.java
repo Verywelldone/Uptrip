@@ -52,7 +52,6 @@ public class RatingSystemService {
     }
 
 
-
     public ResponseEntity<String> saveRating(ProductRating productRating) {
         if (productRatingRepository.existsByUserIdAndProductId(productRating.getUserId(), productRating.getProductId()))
             return ResponseEntity.badRequest().body("You have already rated this product");
@@ -70,6 +69,7 @@ public class RatingSystemService {
         if (!productRepository.existsById(productId))
             throw new OrderCreationException(PRODUCT_NOT_FOUND_MESSAGE);
     }
+
     private User getUser(ProductRating productRating) {
         Optional<User> userOpt = userRepository.findById(productRating.getUserId());
         return userOpt.orElse(null);

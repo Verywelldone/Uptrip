@@ -71,6 +71,7 @@ import { SidenavListComponent } from './components/shared/sidenav-list/sidenav-l
 import {FlexLayoutModule} from "@angular/flex-layout";
 import {SelectButtonModule} from "primeng/selectbutton";
 import { OrderSummaryComponent } from './components/user/user-profile/my-orders/order-summary/order-summary.component';
+import { CheckoutComponent } from './components/checkout/checkout.component';
 
 
 @NgModule({
@@ -101,7 +102,8 @@ import { OrderSummaryComponent } from './components/user/user-profile/my-orders/
     OrderStatusMessageComponent,
     SpinnerLoadingAnimationComponent,
     SidenavListComponent,
-    OrderSummaryComponent
+    OrderSummaryComponent,
+    CheckoutComponent
   ],
 
     imports: [

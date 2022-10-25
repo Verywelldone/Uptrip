@@ -44,21 +44,6 @@ export class ShoppingCartComponent implements OnInit {
     return this.cartItems.reduce((acc, item) => acc + item.price!, 0);
   }
 
-  checkOut() {
-    let orderProductItems: Array<OrderProductDto> = new Array<OrderProductDto>();
-    this.cartItems.forEach(item => {
-      orderProductItems.push({productItem: item, quantity: 1});
-    });
 
-    let order: OrderForm = {
-      orderProducts: orderProductItems,
-      totalPrice: (this.getTotalPrice() + (19 / 100 * this.getTotalPrice())).toFixed(2)
-    }
-    console.log(order);
-    this.orderService.createUsingPOST(order).subscribe(res => {
-      this.messageService.add({key: 'tc', severity: 'success', summary: 'Success!', detail: res.message});
-    });
 
-    // window.location.reload();
-  }
 }

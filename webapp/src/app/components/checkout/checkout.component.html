@@ -1,0 +1,114 @@
+<div class="container">
+
+  <div class=" grid grid-nogutter ">
+    <div class="col-12 lg:col-6 h-full px-4 py-8 md:px-6 lg:px-8 ">
+      <div [formGroup]="orderFormGroup" class="grid formgrid ">
+        <div class="col-12 field mb-6 ">
+          <span class="text-900 text-2xl block font-medium mb-">Contact Information</span>
+          <input pInputText id="email" formControlName="email" placeholder="Email" type="text"
+                 class="p-inputtext w-full mb-4 ">
+          <div class="col-12 ">
+            <p-checkbox [binary]="true" inputId="email"></p-checkbox>
+            <label for="email" class="ng-star-inserted p-checkbox-label p-checkbox-label-active">Email me with
+              news and
+              offers</label>
+          </div>
+        </div>
+        <div class="col-12 field ">
+          <span class="text-900 text-2xl block font-medium  ng-tns-c47-2">Shipping</span>
+        </div>
+        <div class="col-12 lg:col-6 field mb-4 ">
+          <input pInputText id="name" placeholder="Name" formControlName="firstName" type="text"
+                 class=" w-full "></div>
+        <div class="col-12 lg:col-6 field mb-4 ">
+          <input pInputText id="lastname" placeholder="Last Name" formControlName="lastName" type="text"
+                 class="w-full"></div>
+
+        <div class="col-12 field mb-4 ">
+          <p-inputMask styleClass="w-full" mask="(999) 999-9999" placeholder="(999) 999-9999"
+                       formControlName="phoneNo"></p-inputMask>
+        </div>
+
+        <div class="col-12 field mb-4 ">
+          <input pInputText id="address" placeholder="Address" type="text" formControlName="address"
+                 class=" w-full ">
+        </div>
+        <div class="col-12 field mb-4 ng-tns-c47-2">
+          <input pInputText id="address2" placeholder="Apartment, suite, etc" type="text" formControlName="address2"
+                 class=" w-full ">
+        </div>
+        <div class="col-12 lg:col-6 field mb-4 ng-tns-c47-2">
+          <input pInputText id="pc" placeholder="Postal Code" type="text" formControlName="postalCode"
+                 class="w-full">
+        </div>
+        <div class="col-12 lg:col-6 field mb-4 ng-tns-c47-2">
+          <input pInputText id="city" placeholder="City" type="text" class=" w-full "
+                 formControlName="city">
+        </div>
+        <div class="col-12 lg:col-6">
+          <p-checkbox formControlName="saveAddress" [binary]="true" inputId="saveAddress"></p-checkbox>
+          <label class="ng-star-inserted p-checkbox-label p-checkbox-label-active mt-2 pt-2">
+            Save for next purchase</label>
+        </div>
+        <div
+          class="col-12 flex flex-column lg:flex-row justify-content-center align-items-center lg:justify-content-end mt-6 ng-tns-c47-2">
+          <button pbutton="" pripple="" label="Return to Cart" [routerLink]="['/shopping-cart']"
+                  class="p-element p-ripple p-button-text mt-3 lg:mt-0 w-full lg:w-auto lg:px-6 flex-order-2 lg:flex-order-1 lg:mr-4 ng-tns-c47-2 p-button p-component">
+            <span class="p-button-label">Return to Cart</span>
+          </button>
+          <button pbutton="" pripple="" label="Continue to Shipping" (click)="checkOut()"
+                  [disabled]="!orderFormGroup.valid"
+                  class="p-element p-ripple p-button-primary w-full lg:w-auto lg:px-6 flex-order-1 lg:flex-order-2 ng-tns-c47-2 p-button p-component">
+            <span class="p-button-label">Check out</span>
+            <span class="p-ink"></span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-12 lg:col-6 px-4 py-8 md:px-6 lg:px-8 surface-50 ">
+      <div class="border-bottom-1 pb-3 surface-border "><span
+        class="text-900 font-medium text-xl ">Your Cart</span></div>
+      <div
+        class="flex flex-column lg:flex-row flex-wrap lg:align-items-center py-2 mt-3 border-bottom-1 surface-border "
+        *ngFor="let product of cartItems">
+        <img src="{{product.image}}" alt="" class="w-8rem h-8rem flex-shrink-0 mb-3 ">
+        <div class="flex-auto lg:ml-3 ">
+          <div class="flex align-items-center justify-content-between mb-3 "><span
+            class="text-900 font-medium ">{{product.name}}</span><span
+            class="text-900 font-bold ">{{product.price | currency}}</span>
+          </div>
+          <div class="text-600 text-sm mb-3 ">Black | Large</div>
+          <div class="flex flex-auto justify-content-between align-items-center ">
+            <button pbutton="" pripple="" icon="pi pi-trash" (click)="removeItemFromCart(product)"
+                    class="p-element p-ripple p-button-text p-button-rounded ng-tns-c47-2 p-button p-component p-button-icon-only">
+              <span class="p-button-icon pi pi-trash" aria-hidden="true"></span>
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="py-2 mt-3 ">
+        <div class="flex justify-content-between align-items-center mb-3 "><span
+          class="text-900 font-medium ">Subtotal</span>
+          <span class="text-900 ">{{getTotalPrice() | currency:"RON "}}</span>
+        </div>
+        <div class="flex justify-content-between align-items-center mb-3 "><span
+          class="text-900 font-medium ">Shipping</span>
+          <span class="text-primary font-bold ">Free</span>
+        </div>
+        <div class="flex justify-content-between align-items-center mb-3 "><span
+          class="text-900 font-medium ">VAT - 19%</span>
+          <span class="text-primary font-bold ">{{(19 / 100 * getTotalPrice()) | currency:"RON "}}</span>
+        </div>
+
+        <div class="flex justify-content-between align-items-center mb-3 "><span
+          class="text-900 font-bold ">Total</span><span
+          class="text-900 font-medium text-xl ">{{getTotalPrice() + (19 / 100 * getTotalPrice()) | currency:"RON "}}</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+
+</div>

@@ -8,14 +8,14 @@
         <span class="text-900 font-medium block mt-2">{{order?.uuid}}</span>
       </div>
 
-      <p-divider align="center" layout="vertical" styleclass="h-full  mx-0 lg:mx-3" class="p-element"></p-divider>
+      <p-divider align="center" layout="vertical" styleClass="h-full  mx-0 lg:mx-3" class="p-element"></p-divider>
 
       <div class="p-2 flex-auto text-center md:text-left">
         <span class="text-600 block">Order Date</span>
         <span class="text-900 font-medium block mt-2">{{order?.dateCreated}}</span>
       </div>
 
-      <p-divider align="center" layout="vertical" styleclass="h-full  mx-0 lg:mx-3" class="p-element"></p-divider>
+      <p-divider align="center" layout="vertical" styleClass="h-full  mx-0 lg:mx-3" class="p-element"></p-divider>
 
       <div class="p-2 flex-auto text-center md:text-left">
         <span class="text-600 block">Total Amount</span>
@@ -24,8 +24,6 @@
     </div>
 
     <div class="col-12" *ngFor="let orderProds of order.orderProducts">
-
-      <!--    p1 -->
       <div class="p-2 my-4 flex flex-column lg:flex-row justify-content-between align-items-center">
         <div class="flex flex-column lg:flex-row justify-content-center align-items-center px-2">
           <img
@@ -35,8 +33,9 @@
             <span class="text-900 font-medium mb-3 mt-3 lg:mt-0">{{orderProds.product?.name}}</span>
             <span class="text-600 text-sm mb-3">White | Small</span>
             <a pripple="" tabindex="0"
-               class="p-ripple p-element p-2 cursor-pointer w-9rem mx-auto lg:mx-0 border-round font-medium text-center border-1 border-primary text-primary transition-duration-150">Buy
-              Again <span class="font-light">| $12</span>
+               class="p-ripple p-element p-2 cursor-pointer w-9rem mx-auto lg:mx-0 border-round font-medium text-center
+                border-1 border-primary text-primary transition-duration-150">Buy Again <span
+              class="font-light">| $12</span>
               <span class="p-ink"></span>
             </a>
           </div>
@@ -44,42 +43,40 @@
       </div>
 
     </div>
-    <!--    <div class="col-4">
-          <div class="p-2 my-4 flex flex-column lg:flex-row justify-content-between align-items-center">
-
-            <app-order-status-message [orderStatus]="order.orderStatus"
-                                      [lastStatusUpdate]="order.lastStatusUpdate"></app-order-status-message>
-          </div>
-
-        </div>-->
-    <!--    <p-divider class=" w-full  surface-border">-->
-    <!--      <div role="separator" class="p-divider-solid p-divider-left">-->
-    <!--        <div class=""></div>-->
-    <!--      </div>-->
-    <!--    </p-divider>-->
 
     <p-divider class="w-full"></p-divider>
 
     <app-order-status-message [orderStatus]="order.orderStatus"
                               [lastStatusUpdate]="order.lastStatusUpdate"></app-order-status-message>
 
-
     <div class="col-12 p-0 flex border-top-1 surface-border">
       <a tabindex="0" routerLink="./{{order?.uuid}}"
-         class="cursor-pointer py-4 flex flex-column md:flex-row text-center justify-content-center align-items-center text-primary hover:bg-primary hover:text-0 transition-duration-150 w-full"
+         class="cursor-pointer py-4 flex flex-column md:flex-row text-center justify-content-center align-items-center
+         text-primary hover:bg-primary hover:text-0 transition-duration-150 w-full"
          style="border-bottom-left-radius: 6px;">
-        <i
-          class="pi pi-folder mr-2 mb-2 md:mb-0"></i>View Order Summary </a>
+        <em class="pi pi-folder mr-2 mb-2 md:mb-0"></em>
+        View Order Summary
+      </a>
       <a tabindex="0"
-         class="cursor-pointer py-4 flex flex-column md:flex-row text-center justify-content-center align-items-center text-primary hover:bg-primary hover:text-0 transition-duration-150 w-full"><i
-        class="pi pi-refresh mr-2 mb-2 md:mb-0"></i>Return</a>
+         class="cursor-pointer py-4 flex flex-column md:flex-row text-center justify-content-center align-items-center
+          text-primary hover:bg-primary hover:text-0 transition-duration-150 w-full">
+        <em class="pi pi-refresh mr-2 mb-2 md:mb-0"></em>
+        Return
+      </a>
       <a tabindex="0"
-         class="cursor-pointer py-4 flex flex-column md:flex-row text-center justify-content-center align-items-center text-primary hover:bg-primary hover:text-0 transition-duration-150 w-full"><i
-        class="pi pi-file mr-2 mb-2 md:mb-0"></i>View Invoice</a>
+         class="cursor-pointer py-4 flex flex-column md:flex-row text-center justify-content-center align-items-center
+          text-primary hover:bg-primary hover:text-0 transition-duration-150 w-full">
+        <em class="pi pi-file mr-2 mb-2 md:mb-0"></em>
+        View Invoice
+      </a>
       <a tabindex="0"
-         class="cursor-pointer py-4 flex flex-column md:flex-row text-center justify-content-center align-items-center text-primary hover:bg-primary hover:text-0 transition-duration-150 w-full"
-         style="border-bottom-right-radius: 6px;"><i
-        class="pi pi-comment mr-2 mb-2 md:mb-0"></i>Write a Review</a>
+         class="cursor-pointer py-4 flex flex-column md:flex-row text-center justify-content-center align-items-center
+         text-primary hover:bg-primary hover:text-0 transition-duration-150 w-full"
+         style="border-bottom-right-radius: 6px;">
+        <em class="pi pi-comment mr-2 mb-2 md:mb-0"></em>
+        Write a Review
+      </a>
     </div>
+
   </div>
 </div>

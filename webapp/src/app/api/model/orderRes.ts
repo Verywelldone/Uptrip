@@ -9,28 +9,24 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
-import {OrderProductRes} from './orderProductRes';
+import { OrderProductRes } from './orderProductRes';
 
-export interface OrderRes {
-  dateCreated?: string;
-  id?: number;
-  lastStatusUpdate?: string;
-  orderProducts?: Array<OrderProductRes>;
-  orderStatus?: OrderRes.OrderStatusEnum;
-  totalPrice?: string;
-  uuid?: string;
-
+export interface OrderRes { 
+    dateCreated?: string;
+    id?: number;
+    lastStatusUpdate?: string;
+    orderProducts?: Array<OrderProductRes>;
+    orderStatus?: OrderRes.OrderStatusEnum;
+    totalPrice?: string;
+    uuid?: string;
 }
-
 export namespace OrderRes {
-  export type OrderStatusEnum = 'APPROVED' | 'CANCELED' | 'DELIVERED' | 'PENDING' | 'REFUNDED';
-  export const OrderStatusEnum = {
-    APPROVED: 'APPROVED' as OrderStatusEnum,
-    CANCELED: 'CANCELED' as OrderStatusEnum,
-    DELIVERED: 'DELIVERED' as OrderStatusEnum,
-    PENDING: 'PENDING' as OrderStatusEnum,
-    REFUNDED: 'REFUNDED' as OrderStatusEnum
-  };
-
-
+    export type OrderStatusEnum = 'APPROVED' | 'CANCELED' | 'DELIVERED' | 'PENDING' | 'REFUNDED';
+    export const OrderStatusEnum = {
+        APPROVED: 'APPROVED' as OrderStatusEnum,
+        CANCELED: 'CANCELED' as OrderStatusEnum,
+        DELIVERED: 'DELIVERED' as OrderStatusEnum,
+        PENDING: 'PENDING' as OrderStatusEnum,
+        REFUNDED: 'REFUNDED' as OrderStatusEnum
+    };
 }

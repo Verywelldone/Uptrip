@@ -13,5 +13,5 @@ import { ProductItemRes } from './productItemRes';
 
 export interface OrderProductRes {
     product: ProductItemRes;
-    quantity?: number;
+    quantity: number;
 }

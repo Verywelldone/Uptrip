@@ -11,7 +11,16 @@
  */
 import { OrderProductDto } from './orderProductDto';
 
-export interface OrderForm { 
-    orderProducts?: Array<OrderProductDto>;
-    totalPrice?: string;
+export interface OrderForm {
+    address: string;
+    address2: string;
+    city: string;
+    email: string;
+    firstName: string;
+    lastName: string;
+    orderProducts: Array<OrderProductDto>;
+    phoneNo: string;
+    postalCode: string;
+    saveAddress: boolean;
+    totalPrice: string;
 }

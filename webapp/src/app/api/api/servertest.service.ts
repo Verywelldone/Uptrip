@@ -23,7 +23,7 @@ import { Configuration }                                     from '../configurat
 
 
 @Injectable()
-export class BasicErrorControllerService {
+export class ServertestService {
 
     protected basePath = 'http://localhost:8080';
     public defaultHeaders = new HttpHeaders();
@@ -55,15 +55,15 @@ export class BasicErrorControllerService {
 
 
     /**
-     * error
+     * test
      * 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public errorUsingDELETE(observe?: 'body', reportProgress?: boolean): Observable<{ [key: string]: any; }>;
-    public errorUsingDELETE(observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<{ [key: string]: any; }>>;
-    public errorUsingDELETE(observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<{ [key: string]: any; }>>;
-    public errorUsingDELETE(observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public testUsingDELETE(observe?: 'body', reportProgress?: boolean): Observable<string>;
+    public testUsingDELETE(observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<string>>;
+    public testUsingDELETE(observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<string>>;
+    public testUsingDELETE(observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         let headers = this.defaultHeaders;
 
@@ -85,7 +85,7 @@ export class BasicErrorControllerService {
         const consumes: string[] = [
         ];
 
-        return this.httpClient.request<{ [key: string]: any; }>('delete',`${this.basePath}/error`,
+        return this.httpClient.request<string>('delete',`${this.basePath}/servertest`,
             {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
@@ -96,15 +96,15 @@ export class BasicErrorControllerService {
     }
 
     /**
-     * error
+     * test
      * 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public errorUsingGET(observe?: 'body', reportProgress?: boolean): Observable<{ [key: string]: any; }>;
-    public errorUsingGET(observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<{ [key: string]: any; }>>;
-    public errorUsingGET(observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<{ [key: string]: any; }>>;
-    public errorUsingGET(observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public testUsingGET(observe?: 'body', reportProgress?: boolean): Observable<string>;
+    public testUsingGET(observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<string>>;
+    public testUsingGET(observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<string>>;
+    public testUsingGET(observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         let headers = this.defaultHeaders;
 
@@ -126,7 +126,7 @@ export class BasicErrorControllerService {
         const consumes: string[] = [
         ];
 
-        return this.httpClient.request<{ [key: string]: any; }>('get',`${this.basePath}/error`,
+        return this.httpClient.request<string>('get',`${this.basePath}/servertest`,
             {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
@@ -137,15 +137,15 @@ export class BasicErrorControllerService {
     }
 
     /**
-     * error
+     * test
      * 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public errorUsingHEAD(observe?: 'body', reportProgress?: boolean): Observable<{ [key: string]: any; }>;
-    public errorUsingHEAD(observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<{ [key: string]: any; }>>;
-    public errorUsingHEAD(observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<{ [key: string]: any; }>>;
-    public errorUsingHEAD(observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public testUsingHEAD(observe?: 'body', reportProgress?: boolean): Observable<string>;
+    public testUsingHEAD(observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<string>>;
+    public testUsingHEAD(observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<string>>;
+    public testUsingHEAD(observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         let headers = this.defaultHeaders;
 
@@ -167,7 +167,7 @@ export class BasicErrorControllerService {
         const consumes: string[] = [
         ];
 
-        return this.httpClient.request<{ [key: string]: any; }>('head',`${this.basePath}/error`,
+        return this.httpClient.request<string>('head',`${this.basePath}/servertest`,
             {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
@@ -178,15 +178,15 @@ export class BasicErrorControllerService {
     }
 
     /**
-     * error
+     * test
      * 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public errorUsingOPTIONS(observe?: 'body', reportProgress?: boolean): Observable<{ [key: string]: any; }>;
-    public errorUsingOPTIONS(observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<{ [key: string]: any; }>>;
-    public errorUsingOPTIONS(observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<{ [key: string]: any; }>>;
-    public errorUsingOPTIONS(observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public testUsingOPTIONS(observe?: 'body', reportProgress?: boolean): Observable<string>;
+    public testUsingOPTIONS(observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<string>>;
+    public testUsingOPTIONS(observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<string>>;
+    public testUsingOPTIONS(observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         let headers = this.defaultHeaders;
 
@@ -208,7 +208,7 @@ export class BasicErrorControllerService {
         const consumes: string[] = [
         ];
 
-        return this.httpClient.request<{ [key: string]: any; }>('options',`${this.basePath}/error`,
+        return this.httpClient.request<string>('options',`${this.basePath}/servertest`,
             {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
@@ -219,15 +219,15 @@ export class BasicErrorControllerService {
     }
 
     /**
-     * error
+     * test
      * 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public errorUsingPATCH(observe?: 'body', reportProgress?: boolean): Observable<{ [key: string]: any; }>;
-    public errorUsingPATCH(observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<{ [key: string]: any; }>>;
-    public errorUsingPATCH(observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<{ [key: string]: any; }>>;
-    public errorUsingPATCH(observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public testUsingPATCH(observe?: 'body', reportProgress?: boolean): Observable<string>;
+    public testUsingPATCH(observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<string>>;
+    public testUsingPATCH(observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<string>>;
+    public testUsingPATCH(observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         let headers = this.defaultHeaders;
 
@@ -249,7 +249,7 @@ export class BasicErrorControllerService {
         const consumes: string[] = [
         ];
 
-        return this.httpClient.request<{ [key: string]: any; }>('patch',`${this.basePath}/error`,
+        return this.httpClient.request<string>('patch',`${this.basePath}/servertest`,
             {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
@@ -260,15 +260,15 @@ export class BasicErrorControllerService {
     }
 
     /**
-     * error
+     * test
      * 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public errorUsingPOST(observe?: 'body', reportProgress?: boolean): Observable<{ [key: string]: any; }>;
-    public errorUsingPOST(observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<{ [key: string]: any; }>>;
-    public errorUsingPOST(observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<{ [key: string]: any; }>>;
-    public errorUsingPOST(observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public testUsingPOST(observe?: 'body', reportProgress?: boolean): Observable<string>;
+    public testUsingPOST(observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<string>>;
+    public testUsingPOST(observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<string>>;
+    public testUsingPOST(observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         let headers = this.defaultHeaders;
 
@@ -290,7 +290,7 @@ export class BasicErrorControllerService {
         const consumes: string[] = [
         ];
 
-        return this.httpClient.request<{ [key: string]: any; }>('post',`${this.basePath}/error`,
+        return this.httpClient.request<string>('post',`${this.basePath}/servertest`,
             {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
@@ -301,15 +301,15 @@ export class BasicErrorControllerService {
     }
 
     /**
-     * error
+     * test
      * 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public errorUsingPUT(observe?: 'body', reportProgress?: boolean): Observable<{ [key: string]: any; }>;
-    public errorUsingPUT(observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<{ [key: string]: any; }>>;
-    public errorUsingPUT(observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<{ [key: string]: any; }>>;
-    public errorUsingPUT(observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public testUsingPUT(observe?: 'body', reportProgress?: boolean): Observable<string>;
+    public testUsingPUT(observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<string>>;
+    public testUsingPUT(observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<string>>;
+    public testUsingPUT(observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         let headers = this.defaultHeaders;
 
@@ -331,7 +331,7 @@ export class BasicErrorControllerService {
         const consumes: string[] = [
         ];
 
-        return this.httpClient.request<{ [key: string]: any; }>('put',`${this.basePath}/error`,
+        return this.httpClient.request<string>('put',`${this.basePath}/servertest`,
             {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,

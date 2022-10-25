@@ -13,6 +13,7 @@ import {MyOrdersComponent} from "./components/user/user-profile/my-orders/my-ord
 import {WishlistComponent} from "./components/user/user-profile/wishlist/wishlist.component";
 import {MyReviewsComponent} from "./components/user/user-profile/my-reviews/my-reviews.component";
 import {OrderSummaryComponent} from "./components/user/user-profile/my-orders/order-summary/order-summary.component";
+import {CheckoutComponent} from "./components/checkout/checkout.component";
 
 const routes: Routes = [
 
@@ -26,6 +27,7 @@ const routes: Routes = [
   {path: 'user/orders/:orderUUID', component: OrderSummaryComponent},
   {path: 'user/wishlist', component: WishlistComponent},
   {path: 'user/reviews', component: MyReviewsComponent},
+  {path: 'user/checkout', component: CheckoutComponent},
 
   {path: 'admin', component: AdminComponent},
 
