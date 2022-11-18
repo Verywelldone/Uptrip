@@ -10,10 +10,10 @@
  * Do not edit the class manually.
  */
 
-export interface UserProfileInfoDto { 
-    email?: string;
-    firstName?: string;
-    lastName?: string;
-    phoneNumber?: string;
-    username?: string;
+export interface UserProfileInfoDto {
+    email: string;
+    firstName: string;
+    lastName: string;
+    phoneNumber: string;
+    username: string;
 }

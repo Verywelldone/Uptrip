@@ -1,112 +1,75 @@
-import {Component, OnInit} from '@angular/core';
-import {UpdatePasswordDto, UserControllerService, UserProfileInfoDto} from "../../../../api";
+import {ChangeDetectionStrategy, ChangeDetectorRef, Component} from '@angular/core';
+import {UserControllerService} from "../../../../api";
 import {FormBuilder, FormControl, Validators} from "@angular/forms";
 import {MessageService} from "primeng/api";
-import {Router} from "@angular/router";
+import {catchError, map, throwError} from "rxjs";
 
 @Component({
   selector: 'app-personal-information',
   templateUrl: './personal-information.component.html',
-  styleUrls: ['./personal-information.component.css']
+  styleUrls: ['./personal-information.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class PersonalInformationComponent implements OnInit {
-
-  userProfileInfo: UserProfileInfoDto = {};
+export class PersonalInformationComponent {
 
   userPasswordForm = this.fb.group({
-    oldPassword: new FormControl('', [Validators.required]),
-    newPassword: new FormControl('', [Validators.required]),
-    confirmPassword: new FormControl('', [Validators.required])
+    oldPassword: new FormControl('', {validators: [Validators.required], nonNullable: true}),
+    newPassword: new FormControl('', {validators: [Validators.required], nonNullable: true}),
+    confirmPassword: new FormControl('', {validators: [Validators.required], nonNullable: true})
   });
 
   userInfoForm = this.fb.group({
-    username: new FormControl(this.userProfileInfo.username, Validators.required),
-    email: new FormControl(this.userProfileInfo.email, Validators.compose([Validators.required, Validators.email])),
-    firstname: new FormControl(this.userProfileInfo.firstName, Validators.required),
-    lastname: new FormControl(this.userProfileInfo.lastName, Validators.required),
-    phonenumber: new FormControl(this.userProfileInfo.phoneNumber, Validators.required)
+    username: new FormControl<string>('', {validators: [Validators.required], nonNullable: true}),
+    email: new FormControl<string>('', {validators: [Validators.required], nonNullable: true}),
+    firstName: new FormControl<string>('', {validators: [Validators.required], nonNullable: true}),
+    lastName: new FormControl<string>('', {validators: [Validators.required], nonNullable: true}),
+    phoneNumber: new FormControl<string>('', {validators: [Validators.required], nonNullable: true})
   });
 
   constructor(private userService: UserControllerService,
               private messageService: MessageService,
-              private fb: FormBuilder,
-              private router: Router) {
-
-  }
-
-
-  ngOnInit(): void {
+              private cdr: ChangeDetectorRef,
+              private fb: FormBuilder) {
     this.userService.getUserProfileInfoUsingGET().subscribe(response => {
-      this.userProfileInfo = response
-      // @ts-ignore
-      this.userInfoForm.get('username').setValue(this.userProfileInfo.username);
-      // @ts-ignore
-      this.userInfoForm.get('email').setValue(this.userProfileInfo.email);
-      // @ts-ignore
-      this.userInfoForm.get('firstname').setValue(this.userProfileInfo.firstName);
-      // @ts-ignore
-      this.userInfoForm.get('lastname').setValue(this.userProfileInfo.lastName);
-      // @ts-ignore
-      this.userInfoForm.get('phonenumber').setValue(this.userProfileInfo.phoneNumber);
+      this.userInfoForm.setValue(response);
+      this.cdr.detectChanges()
     });
-
   }
 
 
   updateUserInfo() {
-    // @ts-ignore
-    this.userProfileInfo.username = this.userInfoForm.value.username;
-    // @ts-ignore
-    this.userProfileInfo.email = this.userInfoForm.value.email;
-    // @ts-ignore
-    this.userProfileInfo.firstName = this.userInfoForm.value.firstname;
-    // @ts-ignore
-    this.userProfileInfo.lastName = this.userInfoForm.value.lastname;
-    // @ts-ignore
-    this.userProfileInfo.phoneNumber = this.userInfoForm.value.phonenumber;
 
-    this.userService.updateUserProfileInfoUsingPUT(this.userProfileInfo).subscribe(response => {
-      console.log(response);
-      this.reloadPage();
+    this.userService.updateUserProfileInfoUsingPUT(this.userInfoForm.getRawValue()).subscribe(() => {
+      console.log("User info updated successfully");
+      this.messageService.add({
+        severity: 'success',
+        summary: 'Success',
+        detail: 'User info updated successfully'
+      });
     });
   }
 
   updatePassword() {
-    // @ts-ignore
-    let updatePasswordDto: UpdatePasswordDto = {
-      oldPassword: this.userPasswordForm.value.oldPassword!,
-      newPassword: this.userPasswordForm.value.newPassword!,
-      confirmPassword: this.userPasswordForm.value.confirmPassword!
-    }
+    const {oldPassword, newPassword, confirmPassword} = this.userPasswordForm.getRawValue();
 
-    this.userService.updateUserPasswordUsingPOST(updatePasswordDto).subscribe(
-      data => {
-        this.messageService.add({
-          key: 'tc',
-          severity: 'success',
-          summary: 'Success!',
-          detail: data
-        });
-
-        setTimeout(() => {
-          this.reloadPage();
-        }, 2000);
-      },
-      error => {
-        console.log(error);
-        this.messageService.add({
-          key: 'tc',
-          severity: 'warn',
-          summary: 'Something went wrong!',
-          detail: error.error
-        });
-      }
-    );
-  }
-
-
-  reloadPage() {
-    window.location.href = '/user/profile';
+    this.userService.updateUserPasswordUsingPOST({oldPassword, newPassword, confirmPassword})
+      .pipe(map(data => {
+          this.messageService.add({
+            severity: 'success',
+            summary: 'Success',
+            detail: 'Password updated successfully'
+          });
+          return data;
+        }),
+        catchError(err => {
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Error',
+            detail: 'Password update failed'
+          });
+          return throwError(err);
+        }))
+      .subscribe();
   }
 
   formHasChanges() {

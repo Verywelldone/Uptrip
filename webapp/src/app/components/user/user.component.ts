@@ -1,20 +1,21 @@
-import {Component, OnInit} from '@angular/core';
+import {Component} from '@angular/core';
 import {UserService} from "../../services/auth/user.service";
+import {catchError, Observable, throwError} from "rxjs";
 
 @Component({
   selector: 'app-user',
   templateUrl: './user.component.html',
   styleUrls: ['./user.component.css']
 })
-export class UserComponent implements OnInit {
+export class UserComponent {
 
-  message: string = '';
+  message$: Observable<string>;
 
   constructor(private userService: UserService) {
-  }
-
-  ngOnInit(): void {
-    this.userService.getUserBoard().subscribe(response => this.message = response, error => this.message = JSON.parse(error.error).message);
+    this.message$ = this.userService.getUserBoard().pipe(catchError(err => {
+      console.log(err);
+      return throwError(err);
+    }));
   }
 
 }

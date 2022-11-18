@@ -17,7 +17,6 @@ export class MyOrdersComponent implements OnInit {
     this.orderService.getAllByCustomerUsingGET(7).subscribe(res => {
       console.log(res);
       this.orderResponse = res
-
     });
   }
 

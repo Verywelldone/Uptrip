@@ -1,24 +1,24 @@
 <div class="container">
 
   <div class="surface-card grid grid-nogutter border-round shadow-2 m-8" *ngFor="let order of orderResponse">
-    <div class="col-12 flex p-2 surface-100 border-round-top">
+    <div class="col-12 flex p-2 bg-primary-300 border-round-top">
 
       <div class="p-2 flex-auto text-center md:text-left">
-        <span class="text-600 block">Order Number</span>
-        <span class="text-900 font-medium block mt-2">{{order?.uuid}}</span>
+        <span class="text-900 text-white block font-bold">Order Number</span>
+        <span class="text-900 font-medium block mt-2 font-bold">{{order?.uuid}}</span>
       </div>
 
       <p-divider align="center" layout="vertical" styleClass="h-full  mx-0 lg:mx-3" class="p-element"></p-divider>
 
       <div class="p-2 flex-auto text-center md:text-left">
-        <span class="text-600 block">Order Date</span>
+        <span class="text-600 block text-white font-bold">Order Date</span>
         <span class="text-900 font-medium block mt-2">{{order?.dateCreated}}</span>
       </div>
 
       <p-divider align="center" layout="vertical" styleClass="h-full  mx-0 lg:mx-3" class="p-element"></p-divider>
 
       <div class="p-2 flex-auto text-center md:text-left">
-        <span class="text-600 block">Total Amount</span>
+        <span class="text-600 block text-white font-bold">Total Amount</span>
         <span class="text-900 font-medium block mt-2">${{order?.totalPrice}}</span>
       </div>
     </div>
@@ -27,10 +27,10 @@
       <div class="p-2 my-4 flex flex-column lg:flex-row justify-content-between align-items-center">
         <div class="flex flex-column lg:flex-row justify-content-center align-items-center px-2">
           <img
-            src="{{orderProds.product?.image}}" alt="product"
+            src="{{orderProds.product.image}}" alt="product"
             class="w-8rem h-8rem mr-3 flex-shrink-0">
           <div class="flex flex-column my-auto text-center md:text-left">
-            <span class="text-900 font-medium mb-3 mt-3 lg:mt-0">{{orderProds.product?.name}}</span>
+            <span class="text-900 font-medium mb-3 mt-3 lg:mt-0">{{orderProds.product.name}}</span>
             <span class="text-600 text-sm mb-3">White | Small</span>
             <a pripple="" tabindex="0"
                class="p-ripple p-element p-2 cursor-pointer w-9rem mx-auto lg:mx-0 border-round font-medium text-center
